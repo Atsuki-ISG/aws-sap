@@ -1,0 +1,6 @@
+# Source markdown files (not needed for deployment)
+*.md
+parse_md_to_json.py
+.claude/
+app/data/questions_*.json
+!app/data/questions.json

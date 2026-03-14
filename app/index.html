@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>AWS SAP 問題集</title>
+<style>
+:root {
+  --bg: #f8fafc; --bg2: #ffffff; --bg3: #f1f5f9;
+  --text: #0f172a; --text2: #475569; --text3: #94a3b8;
+  --border: #e2e8f0;
+  --green: #16a34a; --green-bg: #dcfce7;
+  --red: #dc2626; --red-bg: #fee2e2;
+  --blue: #2563eb; --blue-bg: #dbeafe;
+  --yellow: #eab308; --yellow-bg: #fef9c3;
+  --accent: #f97316;
+  --radius: 12px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media(prefers-color-scheme:dark) {
+  :root {
+    --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+    --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+    --border: #334155;
+    --green-bg: #052e16; --red-bg: #450a0a;
+    --blue-bg: #172554; --yellow-bg: #422006;
+  }
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-text-size-adjust: 100%;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  overscroll-behavior: none;
+}
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+/* ===== Header ===== */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.header h1 { font-size: 17px; font-weight: 700; flex: 1; }
+.header-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: background .15s;
+}
+.header-btn:active { background: var(--bg3); }
+
+/* ===== Home Screen ===== */
+.home { padding: 16px; }
+.stats-bar {
+  display: flex; gap: 8px; margin-bottom: 16px;
+}
+.stat {
+  flex: 1; background: var(--bg2); border-radius: var(--radius);
+  padding: 12px; text-align: center; border: 1px solid var(--border);
+}
+.stat-num { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.stat.green .stat-num { color: var(--green); }
+.stat.red .stat-num { color: var(--red); }
+
+.filter-tabs {
+  display: flex; gap: 6px; margin-bottom: 16px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filter-tabs::-webkit-scrollbar { display: none; }
+.filter-tab {
+  padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+  white-space: nowrap; background: var(--bg2); border: 1px solid var(--border);
+  transition: all .15s;
+}
+.filter-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+.grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+}
+.grid-item {
+  aspect-ratio: 1; border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600;
+  background: var(--bg2); border: 1px solid var(--border);
+  transition: all .15s; position: relative;
+}
+.grid-item:active { transform: scale(0.95); }
+.grid-item.correct { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.grid-item.wrong { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+.grid-item.bookmarked {
+  border: 2px solid var(--yellow); box-shadow: 0 0 6px rgba(234,179,8,0.4);
+}
+.grid-item.bookmarked::after {
+  content: '★'; position: absolute; top: 2px; right: 4px;
+  font-size: 8px; color: var(--yellow);
+}
+
+/* ===== Question Screen ===== */
+.question-screen { min-height: 100dvh; }
+.question-screen.hidden { display: none; }
+.q-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.q-header .q-title { flex: 1; font-size: 16px; font-weight: 700; text-align: center; }
+.q-nav { font-size: 22px; padding: 4px 8px; color: var(--text2); }
+.q-nav:active { color: var(--accent); }
+.bookmark-btn { font-size: 20px; padding: 4px; }
+.bookmark-btn.active { color: var(--yellow); }
+
+.q-body { padding: 16px; padding-bottom: calc(32px + var(--safe-bottom)); }
+.q-text {
+  background: var(--bg2); border-radius: var(--radius);
+  padding: 16px; margin-bottom: 16px;
+  font-size: 14px; line-height: 1.75;
+  border: 1px solid var(--border);
+}
+
+.choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.choice {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px; border-radius: var(--radius);
+  background: var(--bg2); border: 2px solid var(--border);
+  font-size: 14px; line-height: 1.6; text-align: left;
+  transition: all .2s; width: 100%;
+}
+.choice:active:not(.disabled) { transform: scale(0.98); }
+.choice .choice-label {
+  min-width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  background: var(--bg3); flex-shrink: 0; margin-top: 1px;
+}
+.choice.selected { border-color: var(--blue); background: var(--blue-bg); }
+.choice.selected .choice-label { background: var(--blue); color: white; }
+.choice.correct-answer { border-color: var(--green); background: var(--green-bg); }
+.choice.correct-answer .choice-label { background: var(--green); color: white; }
+.choice.wrong-answer { border-color: var(--red); background: var(--red-bg); }
+.choice.wrong-answer .choice-label { background: var(--red); color: white; }
+.choice.disabled { pointer-events: none; }
+.choice.dimmed { opacity: 0.5; }
+
+.result-banner {
+  display: none; padding: 12px 16px; border-radius: var(--radius);
+  text-align: center; font-size: 15px; font-weight: 700; margin-bottom: 16px;
+}
+.result-banner.show { display: block; }
+.result-banner.correct { background: var(--green-bg); color: var(--green); }
+.result-banner.wrong { background: var(--red-bg); color: var(--red); }
+
+.multi-hint {
+  font-size: 12px; color: var(--accent); font-weight: 600;
+  margin-bottom: 8px; padding: 0 4px;
+}
+
+.submit-btn {
+  display: none; width: 100%; padding: 14px;
+  background: var(--accent); color: white;
+  border-radius: var(--radius); font-size: 15px; font-weight: 700;
+  margin-bottom: 16px; transition: opacity .15s;
+}
+.submit-btn:active { opacity: 0.8; }
+.submit-btn.show { display: block; }
+
+/* ===== Explanation ===== */
+.explanation {
+  display: none; background: var(--bg2); border-radius: var(--radius);
+  border: 1px solid var(--border); overflow: hidden;
+}
+.explanation.show { display: block; }
+.exp-header {
+  padding: 14px 16px; background: var(--bg3);
+  font-size: 14px; font-weight: 700; color: var(--text2);
+  display: flex; align-items: center; gap: 8px;
+}
+.exp-perspective {
+  padding: 14px 16px; font-size: 14px; font-weight: 600;
+  color: var(--accent); border-bottom: 1px solid var(--border);
+}
+.exp-detail {
+  padding: 14px 16px; font-size: 13px; line-height: 1.8;
+}
+.exp-detail table {
+  width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px;
+}
+.exp-detail th, .exp-detail td {
+  padding: 8px; border: 1px solid var(--border); text-align: left;
+}
+.exp-detail th { background: var(--bg3); font-weight: 600; }
+.exp-tips {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+}
+.exp-tips-title { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 6px; }
+.exp-tip {
+  font-size: 13px; padding: 4px 0; color: var(--blue);
+  line-height: 1.5;
+}
+
+.reset-btn {
+  display: none; width: 100%; padding: 12px; margin-top: 12px;
+  background: var(--bg3); border-radius: var(--radius);
+  font-size: 13px; color: var(--text2); font-weight: 600;
+}
+.reset-btn.show { display: block; }
+
+.clear-all-btn {
+  width: 100%; padding: 14px; margin-top: 24px;
+  background: transparent; border: 1px solid var(--red);
+  border-radius: var(--radius); font-size: 13px; font-weight: 600;
+  color: var(--red); transition: all .15s;
+}
+.clear-all-btn:active { background: var(--red-bg); }
+
+/* ===== Screen transitions ===== */
+.hidden { display: none !important; }
+
+/* ===== Loading ===== */
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  height: 60vh; color: var(--text3); font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="homeScreen" class="screen">
+  <div class="header">
+    <h1>AWS SAP 問題集</h1>
+  </div>
+  <div class="home">
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">全問</div></div>
+      <div class="stat green"><div class="stat-num" id="statCorrect">0</div><div class="stat-label">正解</div></div>
+      <div class="stat red"><div class="stat-num" id="statWrong">0</div><div class="stat-label">不正解</div></div>
+      <div class="stat"><div class="stat-num" id="statRate">-%</div><div class="stat-label">正答率</div></div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">全問</button>
+      <button class="filter-tab" data-filter="unanswered">未回答</button>
+      <button class="filter-tab" data-filter="wrong">不正解</button>
+      <button class="filter-tab" data-filter="bookmarked">ブックマーク</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <button class="clear-all-btn" id="btnClearAll">全解答をクリア</button>
+  </div>
+</div>
+
+<!-- QUESTION SCREEN -->
+<div id="questionScreen" class="question-screen hidden">
+  <div class="q-header">
+    <button class="q-nav" id="btnBack" aria-label="戻る">←</button>
+    <button class="q-nav" id="btnPrev" aria-label="前へ">‹</button>
+    <span class="q-title" id="qTitle">SAP-1</span>
+    <button class="q-nav" id="btnNext" aria-label="次へ">›</button>
+    <button class="bookmark-btn" id="btnBookmark" aria-label="ブックマーク">☆</button>
+  </div>
+  <div class="q-body">
+    <div class="q-text" id="qText"></div>
+    <div class="multi-hint" id="multiHint" style="display:none"></div>
+    <div class="choices" id="choices"></div>
+    <button class="submit-btn" id="btnSubmit">回答を確定する</button>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explanation" id="explanation">
+      <div class="exp-header">📝 解説</div>
+      <div class="exp-perspective" id="expPerspective"></div>
+      <div class="exp-detail" id="expDetail"></div>
+      <div class="exp-tips" id="expTips"></div>
+    </div>
+    <button class="reset-btn" id="btnReset">この問題をリセット</button>
+  </div>
+</div>
+
+<div class="loading" id="loading">読み込み中...</div>
+
+<script>
+(function() {
+  'use strict';
+
+  let questions = [];
+  let state = { answers: {}, bookmarks: {} };
+  let currentQ = null;
+  let currentFilter = 'all';
+  let filteredIds = [];
+  let multiSelected = new Set();
+
+  // ===== Storage =====
+  function loadState() {
+    try {
+      const s = localStorage.getItem('sap-quiz-state');
+      if (s) state = JSON.parse(s);
+    } catch(e) {}
+  }
+  function saveState() {
+    localStorage.setItem('sap-quiz-state', JSON.stringify(state));
+  }
+
+  // ===== Init =====
+  async function init() {
+    loadState();
+    const res = await fetch('./data/questions.json');
+    questions = await res.json();
+    document.getElementById('loading').style.display = 'none';
+    renderHome();
+  }
+
+  // ===== Home =====
+  function renderHome() {
+    document.getElementById('homeScreen').classList.remove('hidden');
+    document.getElementById('questionScreen').classList.add('hidden');
+
+    // Stats
+    const total = questions.length;
+    let correct = 0, wrong = 0;
+    for (const id in state.answers) {
+      if (state.answers[id].correct) correct++;
+      else wrong++;
+    }
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statCorrect').textContent = correct;
+    document.getElementById('statWrong').textContent = wrong;
+    const answered = correct + wrong;
+    document.getElementById('statRate').textContent = answered ? Math.round(correct/answered*100)+'%' : '-%';
+
+    // Filter
+    applyFilter();
+  }
+
+  function applyFilter() {
+    filteredIds = questions.filter(q => {
+      const a = state.answers[q.id];
+      const b = state.bookmarks[q.id];
+      switch(currentFilter) {
+        case 'unanswered': return !a;
+        case 'wrong': return a && !a.correct;
+        case 'bookmarked': return b;
+        default: return true;
+      }
+    }).map(q => q.id);
+
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    filteredIds.forEach(id => {
+      const q = questions.find(x => x.id === id);
+      const a = state.answers[id];
+      const b = state.bookmarks[id];
+      const el = document.createElement('button');
+      el.className = 'grid-item';
+      if (a) el.classList.add(a.correct ? 'correct' : 'wrong');
+      if (b) el.classList.add('bookmarked');
+      el.textContent = q.num;
+      el.onclick = () => showQuestion(id);
+      grid.appendChild(el);
+    });
+  }
+
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
+      applyFilter();
+    };
+  });
+
+  // ===== Question Screen =====
+  function showQuestion(id) {
+    const q = questions.find(x => x.id === id);
+    if (!q) return;
+    currentQ = q;
+    multiSelected.clear();
+
+    document.getElementById('homeScreen').classList.add('hidden');
+    document.getElementById('questionScreen').classList.remove('hidden');
+
+    document.getElementById('qTitle').textContent = q.id;
+    document.getElementById('qText').textContent = q.question;
+
+    // Bookmark
+    updateBookmarkBtn();
+
+    // Multi-select hint
+    const numAnswers = q.answer ? q.answer.length : 0;
+    const multiHint = document.getElementById('multiHint');
+    if (numAnswers > 1) {
+      multiHint.textContent = `${numAnswers}つ選択してください`;
+      multiHint.style.display = 'block';
+    } else {
+      // Check question text for selection hints
+      const match = q.question.match(/(\d)つ選/);
+      if (match) {
+        multiHint.textContent = `${match[1]}つ選択してください`;
+        multiHint.style.display = 'block';
+      } else {
+        multiHint.style.display = 'none';
+      }
+    }
+
+    // Choices
+    const choicesEl = document.getElementById('choices');
+    choicesEl.innerHTML = '';
+    const answered = state.answers[q.id];
+
+    q.choices.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'choice';
+      if (answered) btn.classList.add('disabled');
+
+      const label = document.createElement('span');
+      label.className = 'choice-label';
+      label.textContent = c.label;
+
+      const text = document.createElement('span');
+      text.textContent = c.text;
+
+      btn.appendChild(label);
+      btn.appendChild(text);
+
+      if (answered) {
+        const isCorrect = q.answer && q.answer.includes(c.label);
+        const wasSelected = answered.selected.includes(c.label);
+        if (isCorrect) btn.classList.add('correct-answer');
+        if (wasSelected && !isCorrect) btn.classList.add('wrong-answer');
+        if (!isCorrect && !wasSelected) btn.classList.add('dimmed');
+      } else {
+        btn.onclick = () => handleChoice(btn, c.label, q);
+      }
+
+      choicesEl.appendChild(btn);
+    });
+
+    // Submit button
+    const submitBtn = document.getElementById('btnSubmit');
+    submitBtn.classList.remove('show');
+
+    // Result & explanation
+    const resultBanner = document.getElementById('resultBanner');
+    resultBanner.classList.remove('show', 'correct', 'wrong');
+
+    if (answered) {
+      showResult(q, answered.selected, answered.correct);
+    } else {
+      document.getElementById('explanation').classList.remove('show');
+      document.getElementById('btnReset').classList.remove('show');
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+  }
+
+  function getRequiredSelections(q) {
+    if (q.answer && q.answer.length > 1) return q.answer.length;
+    const match = q.question.match(/(\d)つ選/);
+    return match ? parseInt(match[1]) : 1;
+  }
+
+  function handleChoice(btn, label, q) {
+    const required = getRequiredSelections(q);
+
+    if (required === 1) {
+      // Single select - immediate submit
+      submitAnswer(q, [label]);
+    } else {
+      // Multi-select
+      if (multiSelected.has(label)) {
+        multiSelected.delete(label);
+        btn.classList.remove('selected');
+      } else {
+        multiSelected.add(label);
+        btn.classList.add('selected');
+      }
+
+      const submitBtn = document.getElementById('btnSubmit');
+      if (multiSelected.size === required) {
+        submitBtn.classList.add('show');
+        submitBtn.textContent = `回答を確定する (${multiSelected.size}/${required})`;
+      } else {
+        submitBtn.classList.remove('show');
+      }
+    }
+  }
+
+  function submitAnswer(q, selected) {
+    const correct = q.answer && q.answer.length > 0
+      ? q.answer.length === selected.length && q.answer.every(a => selected.includes(a))
+      : false;
+
+    state.answers[q.id] = { selected, correct };
+    saveState();
+
+    // Disable all choices and show correct/wrong
+    document.querySelectorAll('.choice').forEach(btn => {
+      btn.classList.add('disabled');
+      btn.onclick = null;
+      const lbl = btn.querySelector('.choice-label').textContent;
+      const isCorrect = q.answer && q.answer.includes(lbl);
+      const wasSelected = selected.includes(lbl);
+      btn.classList.remove('selected');
+      if (isCorrect) btn.classList.add('correct-answer');
+      if (wasSelected && !isCorrect) btn.classList.add('wrong-answer');
+      if (!isCorrect && !wasSelected) btn.classList.add('dimmed');
+    });
+
+    document.getElementById('btnSubmit').classList.remove('show');
+    showResult(q, selected, correct);
+  }
+
+  // Submit button handler
+  document.getElementById('btnSubmit').onclick = () => {
+    if (currentQ && multiSelected.size > 0) {
+      submitAnswer(currentQ, Array.from(multiSelected));
+    }
+  };
+
+  function showResult(q, selected, correct) {
+    const banner = document.getElementById('resultBanner');
+    banner.classList.add('show', correct ? 'correct' : 'wrong');
+    banner.textContent = correct ? '✓ 正解！' : '✗ 不正解';
+
+    // Explanation
+    const expEl = document.getElementById('explanation');
+    const resetBtn = document.getElementById('btnReset');
+
+    if (q.explanation) {
+      document.getElementById('expPerspective').textContent = '💡 ' + q.explanation.perspective;
+      document.getElementById('expDetail').innerHTML = q.explanation.detail;
+      const tipsEl = document.getElementById('expTips');
+      if (q.explanation.tips && q.explanation.tips.length) {
+        tipsEl.style.display = '';
+        tipsEl.innerHTML = '<div class="exp-tips-title">🎯 試験Tips</div>' +
+          q.explanation.tips.map(t => '<div class="exp-tip">• ' + t + '</div>').join('');
+      } else {
+        tipsEl.style.display = 'none';
+      }
+      expEl.classList.add('show');
+    } else {
+      expEl.classList.remove('show');
+    }
+
+    resetBtn.classList.add('show');
+  }
+
+  // ===== Navigation =====
+  document.getElementById('btnBack').onclick = () => renderHome();
+
+  document.getElementById('btnPrev').onclick = () => {
+    if (!currentQ) return;
+    const idx = filteredIds.indexOf(currentQ.id);
+    if (idx > 0) showQuestion(filteredIds[idx - 1]);
+  };
+
+  document.getElementById('btnNext').onclick = () => {
+    if (!currentQ) return;
+    const idx = filteredIds.indexOf(currentQ.id);
+    if (idx < filteredIds.length - 1) showQuestion(filteredIds[idx + 1]);
+  };
+
+  // Swipe navigation
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.getElementById('questionScreen').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.getElementById('questionScreen').addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0) document.getElementById('btnPrev').click();
+      else document.getElementById('btnNext').click();
+    }
+  }, { passive: true });
+
+  // Bookmark
+  document.getElementById('btnBookmark').onclick = () => {
+    if (!currentQ) return;
+    if (state.bookmarks[currentQ.id]) delete state.bookmarks[currentQ.id];
+    else state.bookmarks[currentQ.id] = true;
+    saveState();
+    updateBookmarkBtn();
+  };
+
+  function updateBookmarkBtn() {
+    const btn = document.getElementById('btnBookmark');
+    const isBookmarked = currentQ && state.bookmarks[currentQ.id];
+    btn.textContent = isBookmarked ? '★' : '☆';
+    btn.classList.toggle('active', !!isBookmarked);
+  }
+
+  // Reset
+  document.getElementById('btnReset').onclick = () => {
+    if (!currentQ) return;
+    delete state.answers[currentQ.id];
+    saveState();
+    showQuestion(currentQ.id);
+  };
+
+  // Clear all answers
+  document.getElementById('btnClearAll').onclick = () => {
+    if (confirm('全ての解答履歴をクリアしますか？\nブックマークは残ります。')) {
+      state.answers = {};
+      saveState();
+      renderHome();
+    }
+  };
+
+  // Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
