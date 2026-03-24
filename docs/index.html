@@ -85,6 +85,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .filter-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
+.range-tabs {
+  display: flex; gap: 6px; margin-bottom: 16px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.range-tabs::-webkit-scrollbar { display: none; }
+.range-tab {
+  padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  white-space: nowrap; background: var(--bg3); border: 1px solid var(--border);
+  transition: all .15s; color: var(--text2);
+}
+.range-tab.active { background: var(--blue); color: white; border-color: var(--blue); }
+.range-tab .range-progress {
+  font-size: 10px; font-weight: 400; opacity: 0.7; margin-left: 2px;
+}
+
 .grid {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
 }
@@ -254,6 +270,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <button class="filter-tab" data-filter="wrong">不正解</button>
       <button class="filter-tab" data-filter="bookmarked">ブックマーク</button>
     </div>
+    <div class="range-tabs" id="rangeTabs"></div>
     <div class="grid" id="grid"></div>
     <button class="clear-all-btn" id="btnClearAll">全解答をクリア</button>
   </div>
@@ -272,7 +289,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     <div class="q-text" id="qText"></div>
     <div class="multi-hint" id="multiHint" style="display:none"></div>
     <div class="choices" id="choices"></div>
-    <button class="submit-btn" id="btnSubmit">回答を確定する</button>
+    <button class="submit-btn" id="btnSubmit">回答する</button>
     <div class="result-banner" id="resultBanner"></div>
     <div class="explanation" id="explanation">
       <div class="exp-header">📝 解説</div>
@@ -294,6 +311,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   let state = { answers: {}, bookmarks: {} };
   let currentQ = null;
   let currentFilter = 'all';
+  let currentRange = 0;
+  const RANGE_SIZE = 50;
   let filteredIds = [];
   let multiSelected = new Set();
 
@@ -351,9 +370,49 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       }
     }).map(q => q.id);
 
+    renderRangeTabs();
+    renderGrid();
+  }
+
+  function renderRangeTabs() {
+    const container = document.getElementById('rangeTabs');
+    container.innerHTML = '';
+    const totalFiltered = filteredIds.length;
+    if (totalFiltered === 0) return;
+
+    const numRanges = Math.ceil(totalFiltered / RANGE_SIZE);
+    // Clamp currentRange
+    if (currentRange >= numRanges) currentRange = 0;
+
+    for (let i = 0; i < numRanges; i++) {
+      const start = i * RANGE_SIZE;
+      const end = Math.min(start + RANGE_SIZE, totalFiltered);
+      const btn = document.createElement('button');
+      btn.className = 'range-tab' + (i === currentRange ? ' active' : '');
+
+      // Show progress for this range
+      const rangeIds = filteredIds.slice(start, end);
+      const answered = rangeIds.filter(id => state.answers[id]).length;
+      btn.innerHTML = `${start + 1}-${end}<span class="range-progress">(${answered}/${rangeIds.length})</span>`;
+
+      btn.onclick = () => {
+        currentRange = i;
+        document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        renderGrid();
+      };
+      container.appendChild(btn);
+    }
+  }
+
+  function renderGrid() {
     const grid = document.getElementById('grid');
     grid.innerHTML = '';
-    filteredIds.forEach(id => {
+    const start = currentRange * RANGE_SIZE;
+    const end = Math.min(start + RANGE_SIZE, filteredIds.length);
+    const pageIds = filteredIds.slice(start, end);
+
+    pageIds.forEach(id => {
       const q = questions.find(x => x.id === id);
       const a = state.answers[id];
       const b = state.bookmarks[id];
@@ -373,6 +432,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentFilter = tab.dataset.filter;
+      currentRange = 0;
       applyFilter();
     };
   });
@@ -472,8 +532,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     const required = getRequiredSelections(q);
 
     if (required === 1) {
-      // Single select - immediate submit
-      submitAnswer(q, [label]);
+      // Single select - toggle
+      if (multiSelected.has(label)) {
+        multiSelected.delete(label);
+        btn.classList.remove('selected');
+      } else {
+        // Deselect any previous selection
+        multiSelected.clear();
+        document.querySelectorAll('.choice.selected').forEach(b => b.classList.remove('selected'));
+        multiSelected.add(label);
+        btn.classList.add('selected');
+      }
     } else {
       // Multi-select
       if (multiSelected.has(label)) {
@@ -483,14 +552,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
         multiSelected.add(label);
         btn.classList.add('selected');
       }
+    }
 
-      const submitBtn = document.getElementById('btnSubmit');
-      if (multiSelected.size === required) {
-        submitBtn.classList.add('show');
-        submitBtn.textContent = `回答を確定する (${multiSelected.size}/${required})`;
-      } else {
-        submitBtn.classList.remove('show');
-      }
+    // Show/hide submit button
+    const submitBtn = document.getElementById('btnSubmit');
+    if (multiSelected.size > 0 && (required === 1 ? multiSelected.size === 1 : multiSelected.size === required)) {
+      submitBtn.classList.add('show');
+      submitBtn.textContent = required > 1 ? `回答する (${multiSelected.size}/${required})` : '回答する';
+    } else {
+      submitBtn.classList.remove('show');
     }
   }
 
