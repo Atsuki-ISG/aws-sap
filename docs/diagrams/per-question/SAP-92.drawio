@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="lambda-ecr-fargate-runtask" name="SAP-92">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-92 / 長時間画像処理: Lambda(タイムアウト) → ECR + Fargate RunTask" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="Lambda 15 分制限を超える処理は Fargate タスクへオフロード" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="s3a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="30" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3a_l" value="S3 バケット A
+(原画像)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="0" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="180" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam_l" value="Lambda
+(軽量判定)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="150" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ecr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" vertex="1" parent="1">
+  <mxGeometry x="340" y="80" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ecr_l" value="ECR
+(画像変換
+コンテナ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="310" y="138" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="fg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="340" y="220" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg_l" value="Fargate タスク
+(変換実行)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="305" y="278" width="120" height="34" as="geometry" />
+</mxCell>
+<mxCell id="s3b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="520" y="80" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3b_l" value="S3 バケット B
+(リサイズ済み)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="490" y="138" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="520" y="220" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ddb_l" value="DynamoDB
+メタデータ" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="490" y="278" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="Event" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="s3a" target="lam">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="RunTask" style="endArrow=classic;html=1;strokeColor=#ED7100;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="235" y="160" as="sourcePoint" />
+    <mxPoint x="340" y="240" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a3" value="pull image" style="endArrow=classic;html=1;strokeColor=#666;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="380" y="140" as="sourcePoint" />
+    <mxPoint x="380" y="200" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="書込" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="395" y="240" as="sourcePoint" />
+    <mxPoint x="520" y="105" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a5" value="書込" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="395" y="260" as="sourcePoint" />
+    <mxPoint x="520" y="235" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 正解 A+B: コンテナ化→ECR 保存、Lambda から RunTask で Fargate を起動。Lambda の 15 分制限・メモリ制限を回避" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="310" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="bad1" value="❌ Lambda の memory/timeout 増加のみ: 最大 15 分・10GB 制限。ヘビーな画像処理は超過しやすい" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="370" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad2" value="❌ EC2 Auto Scaling: 常時稼働コストと AMI 管理。イベント駆動型には重量級すぎる" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="510" y="370" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 Lambda から RunTask: boto3/SDK で ecs.run_task() → Fargate は数秒で起動・完了後自動終了" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="435" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip2" value="💡 Lambda vs Fargate: 15 分・10GB 以内なら Lambda、それ以上または長時間・大容量は Fargate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="485" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

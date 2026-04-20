@@ -1,0 +1,122 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="eks-5xx-troubleshoot" name="SAP-56">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-56 / EKS 5xx トラブルシュート: Pod 遅延 / CrashLoopBackOff" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="CloudFront 502/504 の原因切り分け: Pod レベルか ALB ターゲットか" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="u" value="グローバル
+ユーザー" style="sketch=0;points=[[0.5,0,0],[1,1,0],[0,1,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#232F3E;html=1;verticalLabelPosition=bottom;labelPosition=center;verticalAlign=top;align=center;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+  <mxGeometry x="30" y="150" width="40" height="45" as="geometry" />
+</mxCell>
+<mxCell id="cf" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+  <mxGeometry x="130" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="cf_l" value="CloudFront
++ WAF" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="100" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+  <mxGeometry x="280" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="alb_l" value="ALB
+(Health Check)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="250" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="eks" value="Amazon EKS Cluster" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ED7100;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#ED7100;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="410" y="80" width="530" height="250" as="geometry" />
+</mxCell>
+<mxCell id="pod1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="440" y="120" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod1_l" value="Pod OK
+(<1s)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="425" y="178" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="560" y="120" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod2_l" value="Pod 遅延
+30秒超" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="540" y="178" width="90" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="680" y="120" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod3_l" value="Pod OK" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="665" y="178" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="810" y="120" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod4_l" value="Pod
+CrashLoop
+BackOff" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="785" y="178" width="100" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="440" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod5_l" value="Pod OK" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="425" y="298" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod6" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="560" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod6_l" value="Pod OK" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="545" y="298" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="680" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod7_l" value="Pod OK" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="665" y="298" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pod8" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="810" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="pod8_l" value="Pod OK" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="795" y="298" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="u" target="cf">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="cf" target="alb">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="335" y="175" as="sourcePoint" />
+    <mxPoint x="440" y="140" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="335" y="175" as="sourcePoint" />
+    <mxPoint x="560" y="140" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a5" value="" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="335" y="175" as="sourcePoint" />
+    <mxPoint x="810" y="140" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 原因候補 A+B: ①一部 Pod レスポンス 30秒 →CF Origin Timeout(504)、②Pod CrashLoopBackOff →ALB ヘルスチェック失敗(502)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="340" width="960" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ CloudFront 自体の障害 / WAF ルール誤検知 は 403/503 の形で出やすく、502/504 の主要原因ではない" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="400" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 5xx 切り分け: 502=Bad Gateway(Origin 応答異常)、504=Gateway Timeout(Origin 応答遅延)。CloudFront ログと ALB TargetResponseTime を突き合わせる" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="455" width="960" height="50" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

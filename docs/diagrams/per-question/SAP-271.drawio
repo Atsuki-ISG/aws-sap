@@ -1,0 +1,98 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="apigw-iam-auth-xray" name="SAP-271">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-271 / API Gateway AWS_IAM 認可 + X-Ray 分散トレース" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="IAM 署名付きリクエストのみ許可、API→バックエンド間を可視化" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="u" value="IAM User/Role
+(SigV4)" style="sketch=0;points=[[0.5,0,0],[1,1,0],[0,1,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#232F3E;html=1;verticalLabelPosition=bottom;labelPosition=center;verticalAlign=top;align=center;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+  <mxGeometry x="30" y="150" width="40" height="45" as="geometry" />
+</mxCell>
+<mxCell id="apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="160" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apigw_l" value="API Gateway
+(Auth: AWS_IAM)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="130" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="330" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam_l" value="Lambda
+(X-Ray SDK)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="300" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="svc1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="500" y="90" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="svc1_l" value="DynamoDB" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="480" y="148" width="90" height="34" as="geometry" />
+</mxCell>
+<mxCell id="svc2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+  <mxGeometry x="500" y="210" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="svc2_l" value="RDS" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="495" y="268" width="60" height="34" as="geometry" />
+</mxCell>
+<mxCell id="xray" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.x_ray;" vertex="1" parent="1">
+  <mxGeometry x="720" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="xray_l" value="X-Ray
+(サービスマップ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="680" y="208" width="130" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="SigV4 Signed" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="u" target="apigw">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw" target="lam">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="trace" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="385" y="150" as="sourcePoint" />
+    <mxPoint x="500" y="115" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="trace" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="385" y="170" as="sourcePoint" />
+    <mxPoint x="500" y="225" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a5" value="segments" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="215" y="210" as="sourcePoint" />
+    <mxPoint x="720" y="210" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a6" value="segments" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="385" y="210" as="sourcePoint" />
+    <mxPoint x="720" y="210" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 正解 A: execute-api 権限持つ IAM のみ許可(SigV4)、X-Ray で API GW〜バックエンドのトレース取得" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="290" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="bad1" value="❌ Cognito オーソライザー: エンドユーザー向け JWT 認証。AWS アカウント内部の IAM 認可要件に不適" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="350" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad2" value="❌ API キーのみ: 使用量制御用途。認証/認可の強度が低く、署名なしでリプレイ可能" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="510" y="350" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 API Gateway 認可タイプ: NONE / AWS_IAM / COGNITO_USER_POOLS / CUSTOM(Lambda Authorizer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="415" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip2" value="💡 X-Ray はステージで有効化 → Lambda SDK を入れれば API→Lambda→DDB の E2E レイテンシが見える" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="465" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

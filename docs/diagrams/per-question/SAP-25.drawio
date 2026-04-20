@@ -1,0 +1,139 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="lambda-rds-proxy-aurora" name="SAP-25">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-25 / Lambda コネクション枯渇問題: RDS Proxy による接続プール" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="API Gateway + Lambda + Aurora でピーク時 DB 接続数超過 → RDS Proxy で共有" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="before" value="BEFORE: Lambda が直接 Aurora 接続" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#DD344C;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#DD344C;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="20" y="80" width="440" height="230" as="geometry" />
+</mxCell>
+<mxCell id="apigw1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="50" y="140" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apigw1_l" value="API Gateway" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="198" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam1a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="190" y="110" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam1a_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="180" y="168" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam1b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="190" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam1b_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="180" y="238" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam1c" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="190" y="250" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam1c_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="180" y="308" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="aur1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+  <mxGeometry x="360" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="aur1_l" value="Aurora
+接続枯渇!" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="330" y="238" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="b1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw1" target="lam1a">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="b2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw1" target="lam1b">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="b3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw1" target="lam1c">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="b4" value="" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam1a" target="aur1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="b5" value="" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam1b" target="aur1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="b6" value="" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam1c" target="aur1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="after" value="AFTER: RDS Proxy 経由で接続プール共有" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#7AA116;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="490" y="80" width="490" height="230" as="geometry" />
+</mxCell>
+<mxCell id="apigw2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="510" y="140" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apigw2_l" value="API Gateway" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="480" y="198" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam2a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="640" y="110" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam2a_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="630" y="168" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam2b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="640" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam2b_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="630" y="238" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lam2c" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="640" y="250" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lam2c_l" value="Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="630" y="308" width="70" height="34" as="geometry" />
+</mxCell>
+<mxCell id="proxy" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+  <mxGeometry x="790" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="proxy_l" value="RDS Proxy
+(接続プール)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="760" y="238" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="aur2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+  <mxGeometry x="910" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="aur2_l" value="Aurora
+(リーダー)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="895" y="238" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="c1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw2" target="lam2a">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw2" target="lam2b">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw2" target="lam2c">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c4" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam2a" target="proxy">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c5" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam2b" target="proxy">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c6" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lam2c" target="proxy">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="c7" value="プール済み" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="proxy" target="aur2">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ 正解 B+D: RDS Proxy で接続多重化、Provisioned Concurrency でコールドスタート削減" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="360" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 RDS Proxy の効果: Lambda の数百〜数千同時実行でも DB 接続を数十で共有 → max_connections 回避" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="420" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip2" value="💡 Provisioned Concurrency: 初期化済み実行環境を常備。料金と引き換えに p99 レイテンシを安定化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="470" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

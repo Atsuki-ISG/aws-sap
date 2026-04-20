@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="apigw-lambda-ddb-global-r53" name="SAP-91">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-91 / マルチリージョン DR: APIGW + Lambda + DynamoDB Global Table + R53 Failover" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="Route 53 ヘルスチェックで自動切替。コード変更なしで 99.9% SLA" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="u" value="モバイル
+クライアント" style="sketch=0;points=[[0.5,0,0],[1,1,0],[0,1,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#232F3E;html=1;verticalLabelPosition=bottom;labelPosition=center;verticalAlign=top;align=center;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+  <mxGeometry x="30" y="170" width="40" height="45" as="geometry" />
+</mxCell>
+<mxCell id="r53" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+  <mxGeometry x="140" y="170" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="r53_l" value="Route 53
+Failover + HC
+weather.example.com" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="90" y="228" width="150" height="34" as="geometry" />
+</mxCell>
+<mxCell id="pri" value="Primary Region (ap-northeast-1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#7AA116;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="320" y="70" width="320" height="150" as="geometry" />
+</mxCell>
+<mxCell id="apip" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="345" y="110" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apip_l" value="API GW
+(Primary)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="330" y="168" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lamp" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="470" y="110" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lamp_l" value="Lambda
+(Primary)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="455" y="168" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ddbp" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="570" y="110" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ddbp_l" value="DDB
+Global Table" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="540" y="168" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="sec" value="Secondary Region (us-west-2)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="320" y="250" width="320" height="150" as="geometry" />
+</mxCell>
+<mxCell id="apis" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="345" y="290" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apis_l" value="API GW
+(Secondary)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="320" y="348" width="100" height="34" as="geometry" />
+</mxCell>
+<mxCell id="lams" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="470" y="290" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lams_l" value="Lambda
+(Secondary)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="450" y="348" width="90" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ddbs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="570" y="290" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ddbs_l" value="DDB
+Global Table" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="540" y="348" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="repl" value="グローバル
+レプリ" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="595" y="170" as="sourcePoint" />
+    <mxPoint x="595" y="290" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="u" target="r53">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="Primary (Healthy)" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="230" y="180" as="sourcePoint" />
+    <mxPoint x="345" y="140" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a3" value="Secondary (FO)" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="230" y="200" as="sourcePoint" />
+    <mxPoint x="345" y="310" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apip" target="lamp">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a5" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lamp" target="ddbp">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a6" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apis" target="lams">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a7" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lams" target="ddbs">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ 正解 A: APIGW+Lambda をセカンダリにも複製、DDB Global Table で双方向レプリ、R53 Failover+HC で自動切替" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="415" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 DDB Global Table は最終整合性。短時間の書込み競合は Last Writer Wins で解決" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="475" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

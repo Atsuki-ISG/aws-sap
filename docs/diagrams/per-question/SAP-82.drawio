@@ -1,0 +1,121 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="fargate-secrets-rds-multiaz" name="SAP-82">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-82 / ECS Fargate + Secrets Manager + RDS SQL Server Multi-AZ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="シークレットを定義から直接注入、ALB + サービスオートスケールで弾力運用" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="u" value="受講者" style="sketch=0;points=[[0.5,0,0],[1,1,0],[0,1,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#232F3E;html=1;verticalLabelPosition=bottom;labelPosition=center;verticalAlign=top;align=center;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+  <mxGeometry x="30" y="150" width="40" height="45" as="geometry" />
+</mxCell>
+<mxCell id="alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+  <mxGeometry x="130" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="alb_l" value="ALB" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="100" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="svc" value="ECS Service on Fargate (Auto Scaling)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ED7100;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#ED7100;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="260" y="90" width="310" height="220" as="geometry" />
+</mxCell>
+<mxCell id="fg1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="290" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg1_l" value="Fargate
+Task 1" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="275" y="188" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="fg2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="290" y="230" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg2_l" value="Fargate
+Task 2" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="275" y="288" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="fg3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="440" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg3_l" value="Fargate
+Task 3" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="425" y="188" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="fg4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="440" y="230" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg4_l" value="Fargate
+Task N" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="425" y="288" width="80" height="34" as="geometry" />
+</mxCell>
+<mxCell id="sec" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.secrets_manager;" vertex="1" parent="1">
+  <mxGeometry x="620" y="90" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sec_l" value="Secrets Manager
+DB資格情報" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="590" y="148" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="rds" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+  <mxGeometry x="780" y="180" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="rds_l" value="RDS SQL Server
+Multi-AZ" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="750" y="238" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="u" target="alb">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="185" y="170" as="sourcePoint" />
+    <mxPoint x="290" y="155" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="185" y="175" as="sourcePoint" />
+    <mxPoint x="290" y="250" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="secrets 注入" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="625" y="125" as="sourcePoint" />
+    <mxPoint x="545" y="155" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a5" value="secrets 注入" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="625" y="135" as="sourcePoint" />
+    <mxPoint x="545" y="250" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a6" value="SQL 接続" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="550" y="175" as="sourcePoint" />
+    <mxPoint x="780" y="195" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a7" value="SQL 接続" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="550" y="265" as="sourcePoint" />
+    <mxPoint x="780" y="210" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 正解 B: タスク定義の secrets フィールドが Secrets Manager ARN を環境変数に自動展開。コード側で変更不要" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="340" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="bad1" value="❌ イメージに資格情報を埋め込む: Git に漏れる、ローテーション不可。重大な PCI DSS 違反" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="400" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad2" value="❌ 環境変数に平文: タスク定義 JSON や ECR メタデータから漏洩リスク" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="510" y="400" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 Secrets Manager は Lambda による自動ローテーション対応。RDS は最初から統合あり" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="465" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

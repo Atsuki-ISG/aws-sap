@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="eventbridge-fargate-etl" name="SAP-107">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-107 / 定期 ETL: ECR + Fargate + EventBridge Schedule" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="4 時間ごとに Fargate 起動 → 20 分で完了 → 自動終了。EC2 常駐ゼロ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="eb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+  <mxGeometry x="100" y="160" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="eb_l" value="EventBridge
+Schedule
+(4 時間毎)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="65" y="218" width="120" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ecr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" vertex="1" parent="1">
+  <mxGeometry x="290" y="80" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ecr_l" value="ECR
+(ETL コンテナ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="260" y="138" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="fg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="290" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="fg_l" value="Fargate タスク
+(20 分で完了)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="245" y="298" width="140" height="34" as="geometry" />
+</mxCell>
+<mxCell id="s3i" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="490" y="80" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3i_l" value="S3 入力
+(広告ログ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="460" y="138" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="s3o" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="490" y="240" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3o_l" value="S3 出力
+(変換済み)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="460" y="298" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="dash" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="720" y="160" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="dash_l" value="ダッシュボード
+(BI ツール)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="680" y="218" width="130" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="RunTask" style="endArrow=classic;html=1;strokeColor=#ED7100;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="160" y="185" as="sourcePoint" />
+    <mxPoint x="290" y="265" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a2" value="pull" style="endArrow=classic;html=1;strokeColor=#666;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="330" y="140" as="sourcePoint" />
+    <mxPoint x="330" y="230" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a3" value="read" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="345" y="260" as="sourcePoint" />
+    <mxPoint x="490" y="110" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="write" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="345" y="275" as="sourcePoint" />
+    <mxPoint x="490" y="270" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a5" value="load" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="545" y="270" as="sourcePoint" />
+    <mxPoint x="720" y="185" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 正解 A: コンテナ化して Fargate 実行、EventBridge cron で起動。バイナリ改修不要、アイドルコストゼロ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="340" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="bad1" value="❌ Batch: ジョブキュー・コンピュート環境など追加コンポーネントが必要。今回は Fargate 単発で十分" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="400" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad2" value="❌ Lambda: シングルスレッド・2GB RAM・CPU 集中型・20 分必要 → Lambda 制限に抵触しやすい" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="510" y="400" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 EventBridge Scheduler (2022 新): cron/rate 式で Fargate RunTask を直接起動。Lambda 介在不要" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="465" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

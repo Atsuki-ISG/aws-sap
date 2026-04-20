@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="sap-268" name="sap268-eventbridge-stepfunctions-iam">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-268 / IAM 作成時の自動権限剥奪: CloudTrail → EventBridge → Step Functions + SNS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="20" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_52" value="新規 IAM ユーザー作成を検知し、承認前に権限を剥奪 + 即時レビュー通知" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="52" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.iam;" vertex="1" parent="1">
+  <mxGeometry x="40" y="135" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="iam_l" value="IAM CreateUser" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="15" y="193" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="ct" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="1">
+  <mxGeometry x="180" y="135" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ct_l" value="CloudTrail" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="155" y="193" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="eb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+  <mxGeometry x="320" y="135" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="eb_l" value="EventBridge Rule
+(CreateUser)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="295" y="193" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sfn" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;" vertex="1" parent="1">
+  <mxGeometry x="480" y="135" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sfn_l" value="Step Functions
+(権限剥奪 WF)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="455" y="193" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="iam2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.iam;" vertex="1" parent="1">
+  <mxGeometry x="640" y="135" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="iam2_l" value="Detach/Delete
+Policy & Group" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="615" y="193" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sns" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" vertex="1" parent="1">
+  <mxGeometry x="480" y="290" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sns_l" value="SNS Topic" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="455" y="348" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sec" value="Security Ops
+(即時レビュー)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="640" y="300" width="100" height="46" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="API ログ" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="iam" target="ct">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ct" target="eb">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="StartExecution" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="eb" target="sfn">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a4" value="Detach/Delete" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="sfn" target="iam2">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a5" value="SNS ターゲット" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="eb" target="sns">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a6" value="Email" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="sns" target="sec">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ 正解 A+E+F: (E) EventBridge で CreateUser 検知 / (A) Step Functions で権限剥奪 WF / (F) SNS で即時通知" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="380" width="960" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ Config ルールのみ: 検知は可能だが自動権限剥奪が弱い / ❌ Lambda 単発: 複数ステップ・リトライ・監査が弱い" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="440" width="960" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 EventBridge はイベント発生から数秒で発火 → Step Functions の Error Retry/Catch で堅牢な剥奪ワークフローを構築" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="500" width="960" height="50" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

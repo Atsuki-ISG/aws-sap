@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="SAP-296 / 正解C: Route 53 Failover + 両リージョン ALB+ASG (Active-Passive DR)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="6" width="1000" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="r53" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r53_l" value="Route 53&#10;フェイルオーバー + ヘルスチェック" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="108" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rp" value="us-east-1 (Active)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="140" width="460" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_p_l" value="ALB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="15" y="268" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="asg_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="170" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="asg_p_l" value="ASG (マルチAZ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="268" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="320" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p_l" value="RDS Multi-AZ&#10;(書込)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="268" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pn" value="平常時:&#10;・ALB + ASG で本番トラフィック処理&#10;・Auto Scaling が需要に応じて自動増減&#10;・RDS Multi-AZ で AZ 障害対応" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="310" width="420" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="rd" value="us-west-1 (Passive)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#7AA116;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="460" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="560" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_d_l" value="ALB (構築済)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="515" y="268" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="asg_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="670" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="asg_d_l" value="ASG (待機)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="268" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="810" y="210" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_d_l" value="RDS Cross-Region&#10;RR" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="755" y="268" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dn" value="DR発動:&#10;・Route 53 ヘルスチェック異常 → DNS 切替&#10;・RR を Promote → 書込可&#10;・ASG 容量を拡張&#10;・RTO 1時間以内達成" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="540" y="310" width="430" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="rep" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="rds_p" target="rds_d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_l" value="Cross-Region RR" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rep">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="r_p" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;" edge="1" parent="1" source="r53" target="alb_p">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_p_l" value="Primary (Active)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="r_p">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="r_d" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;" edge="1" parent="1" source="r53" target="alb_d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r_d_l" value="Failover (Passive)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="r_d">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="✅ C=Route 53 Failover + 両リージョン ALB+ASG: 「Active-Passive 構成 × RTO 1h」の王道解&#10;   プライマリ異常時にDNSレベルで自動切替、セカンダリは最小容量で常時起動 (Warm Standby寄り)&#10;&#10;❌ A: Multi-AZ 内のみ = リージョン障害非対応 (SLA 違反)&#10;❌ B: us-west-1 に空 VPC のみ = インフラがないため RTO 1h 達成困難 (Backup&amp;Restore 相当で時間超過リスク)&#10;❌ D: Active-Active (両リージョン常時書込) = RTO 秒だが本問の要件 (SLA 1h) に対し過剰コスト" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="440" width="960" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,115 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="ec2-mq-eks-migration" name="SAP-175">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="SAP-175 / ハイブリッド移行: Web=EC2/ALB, MQ=Amazon MQ, K8s=EKS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="14" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_44" value="既存プロトコル/コードを維持しつつ基盤だけマネージド化" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="44" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="u" value="EC/モバイル
+ユーザー" style="sketch=0;points=[[0.5,0,0],[1,1,0],[0,1,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#232F3E;html=1;verticalLabelPosition=bottom;labelPosition=center;verticalAlign=top;align=center;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+  <mxGeometry x="30" y="150" width="40" height="45" as="geometry" />
+</mxCell>
+<mxCell id="alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+  <mxGeometry x="140" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="alb_l" value="ALB" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="110" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="web" value="Web Tier (EC2 ASG from AMI)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ED7100;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#ED7100;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="240" y="100" width="180" height="140" as="geometry" />
+</mxCell>
+<mxCell id="ec2a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="270" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ec2a_l" value="EC2" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="270" y="188" width="50" height="34" as="geometry" />
+</mxCell>
+<mxCell id="ec2b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="350" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ec2b_l" value="EC2" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="350" y="188" width="50" height="34" as="geometry" />
+</mxCell>
+<mxCell id="mq" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.mq;" vertex="1" parent="1">
+  <mxGeometry x="470" y="150" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="mq_l" value="Amazon MQ
+(RabbitMQ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="440" y="208" width="110" height="34" as="geometry" />
+</mxCell>
+<mxCell id="eks" value="Amazon EKS (K8s)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ED7100;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#ED7100;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="600" y="100" width="360" height="170" as="geometry" />
+</mxCell>
+<mxCell id="p1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="630" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="p1_l" value="Pod
+注文" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="625" y="188" width="60" height="34" as="geometry" />
+</mxCell>
+<mxCell id="p2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="720" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="p2_l" value="Pod
+決済" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="715" y="188" width="60" height="34" as="geometry" />
+</mxCell>
+<mxCell id="p3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="810" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="p3_l" value="Pod
+在庫" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="805" y="188" width="60" height="34" as="geometry" />
+</mxCell>
+<mxCell id="p4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+  <mxGeometry x="870" y="210" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="p4_l" value="Pod
+発送" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="865" y="268" width="60" height="34" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="u" target="alb">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="195" y="170" as="sourcePoint" />
+    <mxPoint x="270" y="150" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="410" y="170" as="sourcePoint" />
+    <mxPoint x="470" y="170" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="a4" value="AMQP" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="520" y="170" as="sourcePoint" />
+    <mxPoint x="630" y="150" as="targetPoint" />
+  </mxGeometry>
+</mxCell>
+<mxCell id="good" value="✅ 正解 D: AMQP プロトコル維持(RabbitMQ→MQ)、K8s コード維持(EKS)、Web は AMI→ASG でインフラのみマネージド化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="290" width="960" height="46" as="geometry" />
+</mxCell>
+<mxCell id="bad1" value="❌ SQS/SNS 置換: アプリ側で AMQP → AWS API 書換えが発生。コード改修最小化の要件違反" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="350" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="bad2" value="❌ ECS へ K8s 移行: マニフェスト → タスク定義書換えで工数発生" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="510" y="350" width="470" height="50" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="📌 Amazon MQ は Apache ActiveMQ / RabbitMQ をマネージド提供。既存メッセージング互換で「持ち込み」可能" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="415" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip2" value="💡 EKS は Kubernetes 互換、ECS は AWS ネイティブ。既存 K8s 資産があるなら EKS、新規なら ECS がシンプル" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="465" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

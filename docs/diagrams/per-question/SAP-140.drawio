@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="SAP-140">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="SAP-140: SCP 階層 — ルートで Deny + 特定 OU/アカウントで許可 (買収アカウント例外)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="root" value="Root OU (組織全体)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFEF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="940" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="root_d" value="ルート SCP (すべて継承):&#xa;  Deny config:* (AWS Config 変更を禁止)&#xa;  ← Config を勝手に無効化できないセキュリティ統制" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="50" y="95" width="900" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="prodou" value="Production OU (標準運用)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="180" width="450" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_d" value="・ルート SCP を継承 → Config 変更不可&#xa;・本番アカウントはセキュリティ統制順守&#xa;・FullAWSAccess + ルート Deny が基本" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="215" width="410" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="60" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="160" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="260" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="360" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="acqou" value="Acquired OU (買収アカウント — Config 設定作業中)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="180" width="470" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="acq_d" value="・OU 専用 SCP で Config 許可を上書き&#xa;  (Allow config:*)&#xa;・ただし SCP は IAM &quot;Deny + Allow の AND&quot;&#xa;  → ルート Deny を OU で「上書き許可」&#xa;  するには適切な Allow SCP のみでは不可&#xa;  → Deny 条件に Account の NotIn を使う" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="520" y="215" width="430" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="q0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="530" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="q1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="630" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="q2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="730" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="detail" value="ルート SCP 実装パターン (買収アカウント除外)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="360" width="940" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="detail_d" value="ルート SCP:&#xa;{&#xa;  &quot;Effect&quot;: &quot;Deny&quot;,&#xa;  &quot;Action&quot;: [&quot;config:*&quot;],&#xa;  &quot;Resource&quot;: &quot;*&quot;,&#xa;  &quot;Condition&quot;: {&#xa;    &quot;StringNotEquals&quot;: {&#xa;      &quot;aws:PrincipalAccount&quot;: [&quot;買収アカウントID1&quot;, &quot;買収アカウントID2&quot;]&#xa;    }&#xa;  }&#xa;}&#xa;× OU 専用 Allow SCP だけ足しても Deny が勝つ → Deny 側の例外条件で除外が正解" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="900" height="170" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

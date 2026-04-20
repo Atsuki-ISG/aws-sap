@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="SAP-251 / 正解A: RDS MySQL Multi-AZ + Cross-Region Read Replica (改修なしで高可用)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="6" width="1000" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="rp" value="Primary: 北米リージョン" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="elb_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="elb_p_l" value="ELB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="15" y="198" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="170" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_p_l" value="EC2 (EC)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="140" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="280" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p_l" value="RDS MySQL&#10;Primary" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="198" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="410" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_s_l" value="Standby&#10;(別AZ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pn" value="【Multi-AZ】&#10;・同期レプリ (別AZ Standby)&#10;・AZ障害時は自動フェイルオーバー&#10;・通常 30-60秒で切替&#10;&#10;【制約】&#10;・アプリ改修不可 (Aurora移行は避ける)&#10;・MySQLのまま運用継続" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="420" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rd" value="Secondary: アジアリージョン" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#7AA116;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="70" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="elb_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="560" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="elb_d_l" value="ELB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="515" y="198" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="670" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_d_l" value="EC2 (EC)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="640" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="800" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rr_l" value="Cross-Region&#10;Read Replica" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="198" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dn" value="【Cross-Region RR】&#10;・非同期レプリ (RPO 数秒〜分)&#10;・リージョン障害時は Promote → 書込可&#10;・アプリは接続先エンドポイント変更のみ&#10;・改修なしで DR 達成" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="540" y="240" width="430" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ma" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=3;" edge="1" parent="1" source="rds_p" target="rds_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma_l" value="同期 (Multi-AZ)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#3B48CC;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ma">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="crr" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="rds_p" target="rr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="crr_l" value="非同期 Cross-Region RR" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="crr">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="rs" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;" edge="1" parent="1" source="rr" target="rds_p">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rs_l" value="Promote (DR時)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rs">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="✅ A=RDS Multi-AZ + Cross-Region RR: AZ障害は Multi-AZ で、リージョン障害は Cross-Region RR で対応。RDS for MySQL のまま、アプリ改修不要&#10;&#10;❌ B: Single-AZ にして複製 = 要件「単一点障害排除」に反する&#10;❌ C: Aurora 移行 = 性能は最高だが「アプリ改修を伴う大規模移行は避けたい」に反する&#10;❌ D: オンプレ DC へのバックアップ = マルチリージョン要件・自動FO要件に合わない&#10;&#10;💡 RDS Multi-AZ = HA (AZ障害対応)、Cross-Region RR = DR (リージョン障害対応)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="440" width="960" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

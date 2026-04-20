@@ -1,0 +1,144 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="SAP-213">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="SAP-213: Security アカウント委任管理 + クロスアカウント ReadOnly ロールで横断監査" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec" value="Security アカウント (委任管理者)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="350" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="sh" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.security_hub;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sh_l" value="Security Hub" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="168" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="gd" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.guardduty;" vertex="1" parent="1">
+          <mxGeometry x="220" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gd_l" value="GuardDuty" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="195" y="168" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="cfg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.config;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cfg_l" value="Config Aggregator" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="298" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ctr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="1">
+          <mxGeometry x="220" y="240" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ctr_l" value="CloudTrail 集約" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="180" y="298" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="role" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="150" y="370" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="role_l" value="SecurityAuditRole (IAM)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="428" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_d" value="・Organizations 信頼アクセスで委任管理者化&#xa;・Config / GuardDuty / Security Hub を&#xa;  組織アカウントとして集約" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="455" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mems" value="メンバーアカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="60" width="570" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="a0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="440" y="110" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="500" y="110" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl0" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="470" y="152" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="620" y="110" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="680" y="110" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl1" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="650" y="152" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="800" y="110" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="860" y="110" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl2" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="152" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="440" y="250" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="500" y="250" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl3" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="470" y="292" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="620" y="250" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="680" y="250" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl4" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="650" y="292" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="800" y="250" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="860" y="250" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl5" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="292" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="440" y="390" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="500" y="390" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl6" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="470" y="432" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="620" y="390" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="680" y="390" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl7" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="650" y="432" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="800" y="390" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r8" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="860" y="390" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rl8" value="AuditRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=8;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="432" width="100" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="AssumeRole (ReadOnly)" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#FF9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="400" as="sourcePoint" />
+            <mxPoint x="440" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note" value="各アカウントに ReadOnly な AuditRole を StackSets で&#xa;自動配布 (信頼 = SecurityAuditRole)。監査員は Security&#xa;から AssumeRole で一時クレデンシャルを取得。" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="460" y="460" width="490" height="70" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

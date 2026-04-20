@@ -1,0 +1,57 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="SAP-153">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="SAP-153: AWS アカウントを別 Organization に移管する正しい 3 ステップ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="src" value="移行元 Organization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFEF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="420" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="srcorg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="70" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="src_l" value="移行元 Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="168" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="srcacc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="230" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="srcacc_l" value="移動対象アカウント" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="190" y="168" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" value="① 移行元で RemoveAccountFromOrganization&#xa;  ・前提: 該当アカウントが &quot;招待で参加&quot; した&#xa;    アカウントのみ可能&#xa;  ・Organizations で作成したアカウントは&#xa;    事前に Standalone 化が必要" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="50" y="210" width="390" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="step1b" value="注意事項:&#xa;・支払方法がアカウントに設定されているか確認&#xa;  (なければ一時的に課金が止まる)&#xa;・RemoveAccountFromOrganization は&#xa;  管理アカウントからのみ実行可&#xa;・連結請求アカウントから外れ、&#xa;  ボリューム割引等は受けられなくなる" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="340" width="390" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="dst" value="移行先 Organization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="490" y="60" width="480" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dstorg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="530" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dst_l" value="移行先 Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="500" y="168" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="② 移行先の管理アカウントから Invite 送信&#xa;  ・対象アカウントのメール/アカウントID を指定&#xa;  ・target 側で招待を Accept&#xa;  ・(標準で 15 日間有効)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="510" y="210" width="450" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="③ 受信側で AcceptHandshake を実行&#xa;  ・AWS Organizations コンソールで承認&#xa;  ・Accept すると即座に移行先 Organization へ&#xa;  ・その後 OU 配置 / SCP 付与を行う&#xa;&#xa;順序: ① Remove → ② Invite → ③ Accept&#xa;   (Remove を先にしないと新組織へ入れない)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="510" y="360" width="450" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="移管フロー" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="135" as="sourcePoint" />
+            <mxPoint x="530" y="135" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

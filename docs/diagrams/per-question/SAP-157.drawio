@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="SAP-157">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="610" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="SAP-157: SCP 多層防御 — ルートでリージョン制限 + OU で EC2 InstanceType 制限" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="root" value="Root SCP: aws:RequestedRegion 制限 (全アカウント共通)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="940" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="scpr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="70" y="100" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="scpr_l" value="Root SCP" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="158" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="scpr_d" value="{&#xa;  &quot;Effect&quot;: &quot;Deny&quot;, &quot;Action&quot;: &quot;*&quot;, &quot;Resource&quot;: &quot;*&quot;,&#xa;  &quot;Condition&quot;: { &quot;StringNotEquals&quot;: { &quot;aws:RequestedRegion&quot;: [&quot;ap-northeast-1&quot;,&quot;us-east-1&quot;] } }&#xa;}" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="190" y="100" width="760" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ou_res" value="Research OU (研究開発 — 小型インスタンスのみ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="210" width="450" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="scp_r" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="60" y="245" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="scp_rl" value="OU SCP" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ou_res_d" value="{&#xa;  &quot;Effect&quot;: &quot;Deny&quot;,&#xa;  &quot;Action&quot;: &quot;ec2:RunInstances&quot;,&#xa;  &quot;Condition&quot;: {&#xa;    &quot;StringNotEquals&quot;: {&#xa;      &quot;ec2:InstanceType&quot;:&#xa;        [&quot;t3.*&quot;,&quot;m5.large&quot;]&#xa;    }&#xa;  }&#xa;}" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="170" y="245" width="300" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ra0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="50" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ra1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="170" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ra2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="290" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ra3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="410" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ou_prod" value="Production OU (本番 — 制限なし)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="210" width="470" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="ou_prod_d" value="・本番 OU では EC2 InstanceType 制限を設けない&#xa;  (ルート SCP のリージョン制限のみ適用)&#xa;&#xa;・ルート = 組織全体の「下限」&#xa;・OU SCP = 下位スコープの追加制約&#xa;&#xa;重要: SCP は &quot;Deny のフィルタ&quot;。&#xa;  上位で Deny されたら下位で Allow 不可" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="520" y="245" width="430" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="pa0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="520" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pa1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="650" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pa2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="780" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pa3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="910" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="ベストプラクティス: &quot;大きい制限は上位 OU に / 細かい制限は下位 OU に&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="480" width="940" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="key_d" value="× IAM ポリシーで各アカウント個別設定 → ドリフトと漏れ&#xa;× Config ルール単体 → 違反リソースの検知のみで作成は防げない&#xa;○ SCP は予防的統制 = AWS API レベルで拒否する" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="515" width="900" height="70" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

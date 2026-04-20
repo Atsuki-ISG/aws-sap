@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d_sap112" name="SAP-112 Lambda + NAT GW EIP">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="SAP-112: Lambda 外部 API 呼び出し + 固定 IP → VPC 配置 + NAT GW + EIP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="sched" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1"><mxGeometry x="60" y="110" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="sched_l" value="EventBridge
+(10分間隔)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="30" y="168" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpc" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1"><mxGeometry x="200" y="70" width="540" height="400" as="geometry" /></mxCell>
+        <mxCell id="prv" value="Private Subnet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E9F3E6;strokeColor=#248814;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="230" y="110" width="220" height="330" as="geometry" /></mxCell>
+        <mxCell id="lmb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1"><mxGeometry x="290" y="150" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="lmb_l" value="Lambda
+(VPC 接続)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="260" y="208" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="pub" value="Public Subnet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#ED7100;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1"><mxGeometry x="470" y="110" width="250" height="330" as="geometry" /></mxCell>
+        <mxCell id="ngw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.nat_gateway;" vertex="1" parent="1"><mxGeometry x="520" y="150" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ngw_l" value="NAT GW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="490" y="208" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="ngw_l2" value="+ EIP (固定)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="490" y="226" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="igw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.internet_gateway;" vertex="1" parent="1"><mxGeometry x="630" y="150" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="igw_l" value="IGW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="600" y="208" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="ext" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloud;" vertex="1" parent="1"><mxGeometry x="820" y="200" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="ext_l" value="外部 API
+(許可リスト)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1"><mxGeometry x="790" y="268" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sched" target="lmb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#ED7100;strokeWidth=2;fontSize=10;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="lmb" target="ngw"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="固定 EIP" style="endArrow=classic;startArrow=none;html=1;strokeColor=#ED7100;strokeWidth=2;fontSize=10;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="ngw" target="igw"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="endArrow=classic;startArrow=none;html=1;strokeColor=#666;strokeWidth=2;fontSize=10;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="igw" target="ext"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 A+B:
+1) Lambda を VPC に配置
+2) プライベートサブネットから NAT GW (EIP) 経由で発信
+→ 送信元は常に EIP" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1"><mxGeometry x="30" y="330" width="160" height="140" as="geometry" /></mxCell>
+        <mxCell id="n2" value="誤答: 
+・Lambda をパブリックサブネットに置く — Lambda は ENI 経由、パブリック割当は自動されず接続不可
+・API Gateway を挟む — 呼び出し元は Lambda のまま、IP は固定されない
+・CloudFront — 外向き通信には使わない" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#FFFBE6;strokeColor=#D4AC0D;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1"><mxGeometry x="30" y="490" width="940" height="90" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

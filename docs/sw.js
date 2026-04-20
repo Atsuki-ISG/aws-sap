@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sap-quiz-v17';
+const CACHE_NAME = 'sap-quiz-v18';
 const ASSETS = [
   './',
   './index.html',

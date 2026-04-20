@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="SAP-233 / 正解B: AWS Backup クロスリージョンコピー (RPO 2h / RTO 4h / コスト最小)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="6" width="1000" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="rp" value="Primary Region" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs_l" value="ECS (App)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="30" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aurora" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="180" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aurora_l" value="Aurora" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="300" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb_l" value="DynamoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bk" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="420" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bk_l" value="AWS Backup" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="198" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pn" value="【要件】&#10;・2サービス (Aurora + DynamoDB)&#10;・RPO 2時間 / RTO 4時間&#10;・平常コスト最小 (常時稼働リソース不可)&#10;&#10;【B】AWS Backup で両サービスを&#10;統合バックアップ + 自動クロスRegionコピー" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="420" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="rd" value="Secondary Region" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#7AA116;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="70" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="bk_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="560" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bk_d_l" value="AWS Backup Vault&#10;(コピー先)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="198" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aurora_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="720" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aurora_d_l" value="Aurora Restored&#10;(DR時のみ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="665" y="198" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb_d" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="880" y="140" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb_d_l" value="DDB Restored&#10;(DR時のみ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="840" y="198" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dn" value="【DR発動時】&#10;・Backup Vault からリストア&#10;・RTO 4時間内で両DBを起動&#10;&#10;平常時:&#10;・ECSアプリは停止、バックアップのみ保管&#10;・最小コスト" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="540" y="240" width="430" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="aurora" target="bk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="ddb" target="bk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="bk" target="bk_d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_l" value="クロスRegionコピー (2h毎)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rep">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="rs1" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="bk_d" target="aurora_d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rs1_l" value="Restore" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#7AA116;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rs1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="rs2" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="bk_d" target="ddb_d">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rs2_l" value="Restore" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#7AA116;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rs2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="✅ B=AWS Backup クロスリージョンコピー: 「Aurora + DynamoDB」を単一サービスで統合バックアップ、Vault→Vault コピーで DR 先へ自動転送。平常コスト最小 (リストアは DR 時のみ)&#10;&#10;❌ A: DMS による継続レプリケーション = 常時稼働リソース必要、コスト最小要件に反する&#10;❌ C: Aurora Global DB + DynamoDB GT = RPO/RTO は優秀だがコスト過剰 (本問は RTO 4h でよい)&#10;❌ D: 手動スクリプトでスナップショット → 運用負荷増、2サービス統合管理不可" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="440" width="960" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

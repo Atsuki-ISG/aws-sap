@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="SAP-253 / 正解A+D+E: Aurora MySQL (高速FO) + RDS Proxy + Reader (40秒→20秒未満)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="6" width="1000" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" value="AWS Region (単一)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="960" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="app_l" value="App層&#10;(EC/モバイル)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="188" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="250" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy_l" value="RDS Proxy (D)&#10;接続プール維持" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="185" y="188" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_w" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="460" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_w_l" value="Aurora MySQL (A)&#10;Writer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="188" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="650" y="100" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r1_l" value="Reader 1 (E)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="615" y="158" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="650" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r2_l" value="Reader 2 (E)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="615" y="238" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="820" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aw_r3_l" value="Reader 3 (E)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="785" y="188" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="an" value="【A】RDS for MySQL → Aurora MySQL 移行&#10;   - フェイルオーバー通常30秒以内 (40秒→20秒未満の目標達成)&#10;   - ストレージ自動スケール (要件の自動スケール対応)&#10;&#10;【D】RDS Proxy: 接続プールを Proxy 側で維持 → フェイルオーバー中も接続断なし&#10;   - アプリからは Proxy エンドポイントへ接続するだけで、Writer が切替わっても透過&#10;&#10;【E】Aurora Reader (Read Replica): 読み取りを分散し書込への負荷を軽減" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="940" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=3;" edge="1" parent="1" source="app" target="proxy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=3;" edge="1" parent="1" source="proxy" target="aw_w">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=1;" edge="1" parent="1" source="aw_w" target="aw_r1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=1;" edge="1" parent="1" source="aw_w" target="aw_r2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=1;" edge="1" parent="1" source="aw_w" target="aw_r3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp" value="✅ A+D+E: 「RPO維持 × フェイルオーバー高速化 × 接続断回避 × 読取負荷分散」の要件を3層で実現&#10;&#10;❌ B: Multi-AZ のまま増強 = フェイルオーバー時間は短縮されず40秒のまま&#10;❌ C: 単一AZ化 = HA 後退、要件違反&#10;❌ F: Global Accelerator = ネットワーク層、DB フェイルオーバー時間には関与しない&#10;&#10;💡 Aurora = MySQL互換のまま高速FO、RDS Proxy = アプリ無改修で接続プール継続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="450" width="960" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
