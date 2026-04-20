@@ -265,6 +265,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <div id="homeScreen" class="screen">
   <div class="header">
     <h1>AWS SAP 問題集</h1>
+    <a class="header-btn" href="./learn.html" title="教材・図解" style="text-decoration:none;color:inherit;">📚</a>
   </div>
   <div class="home">
     <div class="stats-bar">
@@ -360,6 +361,26 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     const res = await fetch('./data/questions.json');
     questions = await res.json();
     document.getElementById('loading').style.display = 'none';
+
+    // URL hash からタグ/ソース初期化（例: #tag=multi-account&source=udemy）
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      hash.split('&').forEach(p => {
+        const [k, v] = p.split('=');
+        if (k === 'tag' && v) {
+          currentTag = v;
+          document.querySelectorAll('#tagTabs .filter-tab').forEach(t => {
+            t.classList.toggle('active', t.dataset.tag === v);
+          });
+        } else if (k === 'source' && v) {
+          currentSource = v;
+          document.querySelectorAll('#sourceTabs .filter-tab').forEach(t => {
+            t.classList.toggle('active', t.dataset.source === v);
+          });
+        }
+      });
+    }
+
     renderHome();
   }
 

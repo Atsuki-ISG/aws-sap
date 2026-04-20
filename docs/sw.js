@@ -1,7 +1,8 @@
-const CACHE_NAME = 'sap-quiz-v6';
+const CACHE_NAME = 'sap-quiz-v7';
 const ASSETS = [
   './',
   './index.html',
+  './learn.html',
   './manifest.json',
   './data/questions.json',
   './icon-192.png',

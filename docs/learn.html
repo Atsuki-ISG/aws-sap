@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS SAP 教材 — スライド + 図解</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --orange: #f97316; --orange-bg: #431407;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --green: #22c55e; --green-bg: #052e16;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --red: #ef4444; --red-bg: #450a0a;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+.header {
+  background: var(--bg2); padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.header h1 { font-size: 18px; font-weight: 700; }
+.header a {
+  color: var(--text2); text-decoration: none;
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.header a:hover { background: var(--bg3); color: var(--text); }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+.intro {
+  background: var(--bg2); border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 24px;
+  font-size: 13px; color: var(--text2); line-height: 1.7;
+  border-left: 4px solid var(--orange);
+}
+
+.theme-card {
+  background: var(--bg2); border-radius: var(--radius);
+  margin-bottom: 20px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.theme-header {
+  padding: 16px 20px; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+  background: var(--bg3); cursor: pointer;
+  user-select: none;
+}
+.theme-header h2 { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.theme-header .icon { font-size: 22px; }
+.theme-header .toggle { color: var(--text3); font-size: 14px; }
+
+.theme-body {
+  padding: 16px 20px; display: none;
+}
+.theme-body.open { display: block; }
+
+.actions { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg3); color: var(--text);
+  transition: all 0.15s;
+}
+.btn:hover { background: var(--blue); border-color: var(--blue); }
+.btn.primary { background: var(--orange); border-color: var(--orange); color: white; }
+.btn.primary:hover { background: var(--orange); opacity: 0.9; }
+
+.diagrams-grid {
+  display: grid; gap: 16px;
+  margin-top: 16px;
+}
+.diagram-card {
+  background: var(--bg); border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.diagram-title {
+  padding: 10px 14px; font-size: 13px; font-weight: 600;
+  background: var(--bg3); color: var(--cyan);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.diagram-title .open-link {
+  color: var(--text2); font-size: 11px; text-decoration: none;
+  padding: 4px 8px; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.diagram-title .open-link:hover { color: var(--text); background: var(--bg2); }
+.diagram-frame {
+  width: 100%; height: 480px; border: none;
+  background: white;
+}
+.diagram-empty {
+  padding: 24px; text-align: center;
+  color: var(--text3); font-size: 13px;
+}
+.tag-badges { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+.tag-badge {
+  padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600;
+  background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📚 AWS SAP 教材</h1>
+  <a href="./index.html">📝 問題演習</a>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    各テーマのスライド教材と構成図（draw.io）。<br>
+    🎯 <strong>使い方</strong>: スライドで概念を学ぶ → 図解で構成パターンを視覚的に理解 → 問題演習で実戦
+  </div>
+
+  <!-- マルチアカウント設計 -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🏢</span> マルチアカウント設計</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body open">
+      <div class="actions">
+        <a class="btn primary" href="./slides/multi-account.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=multi-account">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">SCP</span>
+        <span class="tag-badge">Organizations</span>
+        <span class="tag-badge">Control Tower</span>
+        <span class="tag-badge">IAM Identity Center</span>
+        <span class="tag-badge">RAM</span>
+      </div>
+      <div class="diagrams-grid" data-theme="multi-account"></div>
+    </div>
+  </div>
+
+  <!-- ネットワーク設計 -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🔗</span> ネットワーク分離・接続設計</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/network-design.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=network">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">VPC Peering</span>
+        <span class="tag-badge">Transit Gateway</span>
+        <span class="tag-badge">Direct Connect</span>
+        <span class="tag-badge">VPN</span>
+        <span class="tag-badge">Cloud WAN</span>
+      </div>
+      <div class="diagrams-grid" data-theme="network"></div>
+    </div>
+  </div>
+
+  <!-- エンドポイント・DNS -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🌐</span> エンドポイント・DNS・プライベート接続</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/endpoint-dns.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=endpoint-dns">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">VPC Endpoint</span>
+        <span class="tag-badge">PrivateLink</span>
+        <span class="tag-badge">Route 53 Resolver</span>
+        <span class="tag-badge">Private Hosted Zone</span>
+      </div>
+      <div class="diagrams-grid" data-theme="endpoint-dns"></div>
+    </div>
+  </div>
+
+  <!-- マルチリージョン・DR -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🌍</span> マルチリージョン・DR設計</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/multi-region-dr.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=multi-region-dr">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">Aurora Global DB</span>
+        <span class="tag-badge">Route 53</span>
+        <span class="tag-badge">CRR</span>
+        <span class="tag-badge">DRS</span>
+        <span class="tag-badge">RTO/RPO</span>
+      </div>
+      <div class="diagrams-grid" data-theme="multi-region-dr"></div>
+    </div>
+  </div>
+
+  <!-- API設計 -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🔌</span> API設計のサービス選定</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/api-design.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=api-design">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">API Gateway</span>
+        <span class="tag-badge">AppSync</span>
+        <span class="tag-badge">Cognito</span>
+        <span class="tag-badge">Lambda Authorizer</span>
+      </div>
+      <div class="diagrams-grid" data-theme="api-design"></div>
+    </div>
+  </div>
+
+  <!-- サーバーレス -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">⚡</span> サーバーレス移行・モダナイゼーション</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/serverless-modernization.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=serverless">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">Lambda</span>
+        <span class="tag-badge">Step Functions</span>
+        <span class="tag-badge">EventBridge</span>
+        <span class="tag-badge">SQS/SNS</span>
+        <span class="tag-badge">Aurora Serverless</span>
+      </div>
+      <div class="diagrams-grid" data-theme="serverless"></div>
+    </div>
+  </div>
+
+  <!-- コンテナ -->
+  <div class="theme-card">
+    <div class="theme-header" onclick="toggleTheme(this)">
+      <h2><span class="icon">🐳</span> コンテナの起動タイプ・基盤選定</h2>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="theme-body">
+      <div class="actions">
+        <a class="btn primary" href="./slides/container-platform.html">📊 スライドを開く</a>
+        <a class="btn" href="./index.html#tag=container">🎯 関連問題を解く</a>
+      </div>
+      <div class="tag-badges">
+        <span class="tag-badge">ECS</span>
+        <span class="tag-badge">EKS</span>
+        <span class="tag-badge">Fargate</span>
+        <span class="tag-badge">ECR</span>
+        <span class="tag-badge">IRSA</span>
+      </div>
+      <div class="diagrams-grid" data-theme="container"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// テーマ別の図解一覧を定義
+// ファイルを追加したらここに登録するだけ
+const DIAGRAMS = {
+  'multi-account': [
+    { file: 'multi-account.drawio', title: '全体構造（暫定版）' },
+    // 後で追加: multi-account-01-structure.drawio など
+  ],
+  'network': [],
+  'endpoint-dns': [],
+  'multi-region-dr': [],
+  'api-design': [],
+  'serverless': [],
+  'container': [],
+};
+
+// ベースURL（GitHub Pages 公開URL）
+const BASE_URL = window.location.origin + window.location.pathname.replace(/\/learn\.html.*$/, '/');
+
+function renderDiagrams() {
+  document.querySelectorAll('.diagrams-grid').forEach(grid => {
+    const theme = grid.dataset.theme;
+    const items = DIAGRAMS[theme] || [];
+    if (items.length === 0) {
+      grid.innerHTML = '<div class="diagram-empty">📐 図解は準備中です</div>';
+      return;
+    }
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'diagram-card';
+      const drawioUrl = `${BASE_URL}diagrams/${item.file}`;
+      const viewerUrl = `https://viewer.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&url=${encodeURIComponent(drawioUrl)}`;
+      card.innerHTML = `
+        <div class="diagram-title">
+          <span>📐 ${item.title}</span>
+          <a class="open-link" href="${viewerUrl}" target="_blank">🔍 拡大表示</a>
+        </div>
+        <iframe class="diagram-frame" src="${viewerUrl}" loading="lazy"></iframe>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function toggleTheme(headerEl) {
+  const body = headerEl.nextElementSibling;
+  const toggle = headerEl.querySelector('.toggle');
+  body.classList.toggle('open');
+  toggle.textContent = body.classList.contains('open') ? '▲' : '▼';
+}
+
+renderDiagrams();
+</script>
+
+</body>
+</html>
