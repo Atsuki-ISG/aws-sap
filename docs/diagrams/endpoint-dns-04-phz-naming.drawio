@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="phz-naming" name="Private Hosted Zone Design">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Private Hosted Zone + 名前解決設計 — Split-horizon / VPC共有 / RAM" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Network/DNS Owner Account ===== -->
+        <mxCell id="dns_acc" value="Network/DNS 中央アカウント (444455556666)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;strokeColor=#3B48CC;fillColor=#EBF1FF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="500" height="500" as="geometry" />
+        </mxCell>
+
+        <mxCell id="phz_main" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="phz_main_l" value="Private Hosted Zone&#10;internal.example.com&#10;&#10;・db.internal.example.com → RDS&#10;・api.internal.example.com → ALB&#10;・cache.internal.example.com → ElastiCache" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="130" width="350" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="phz_split" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="100" y="240" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="phz_split_l" value="Private Hosted Zone&#10;example.com (内部用)&#10;www → 内部 ALB IP" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="240" width="320" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hz_public" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="100" y="320" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hz_public_l" value="Public Hosted Zone&#10;example.com (外部用)&#10;www → CloudFront 公開IP" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="320" width="320" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="split_note" value="📌 Split-horizon DNS&#10;同じ www.example.com が&#10;・社内VPC からは内部 ALB に解決&#10;・インターネットからは CloudFront に解決&#10;PHZ と Public HZ で同じドメインを別々に管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="395" width="460" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- VPC association -->
+        <mxCell id="resolver_rule" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.resource_access_manager;" vertex="1" parent="1">
+          <mxGeometry x="100" y="490" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="resolver_rule_l" value="AWS RAM 共有&#10;・PHZ Authorization (associate-vpc) → クロスアカウント関連付け&#10;・Resolver Rule を子アカウント VPC へ共有" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="490" width="350" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ===== VPC Settings Box ===== -->
+        <mxCell id="vpc_set_box" value="🔧 VPC DNS 必須設定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="440" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_set_text" value="PHZ を VPC で解決させるには両方 ON が必須：&#10;&#10;✅ enableDnsSupport = true&#10;　→ AmazonProvidedDNS (.2) を有効化&#10;　→ これがないと .2 への DNS クエリ自体が失敗&#10;&#10;✅ enableDnsHostnames = true&#10;　→ EC2 にパブリック DNS 名を割当&#10;　→ PHZ 関連付けの前提条件&#10;&#10;⚠️ どちらか OFF だと PHZ レコードが解決されない&#10;⚠️ Resolver Inbound/Outbound も DNS Support 前提" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="610" y="110" width="420" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- ===== VPC Sharing Box ===== -->
+        <mxCell id="share_box" value="🔄 VPC Sharing 環境での PHZ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="80" width="480" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="share_text" value="VPC を RAM で共有 (Shared VPC) するパターン：&#10;&#10;・PHZ は VPC オーナー アカウントで作成&#10;・参加アカウントの EC2 も自動的に PHZ を解決可&#10;　(VPC ごと共有しているため別途関連付け不要)&#10;&#10;クロスアカウント PHZ 関連付け：&#10;1. PHZ オーナー: create-vpc-association-authorization&#10;2. VPC オーナー: associate-vpc-with-hosted-zone&#10;3. PHZ オーナー: delete-vpc-association-authorization (片付け)&#10;&#10;✅ 中央 PHZ アカウント + 多数ワークロード VPC で標準化" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="110" width="460" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Multi-VPC Association Visualization ===== -->
+        <mxCell id="multi_box" value="複数 VPC への PHZ 関連付け" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="600" y="300" width="940" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- VPC A -->
+        <mxCell id="vpc_a" value="Workload VPC A&#10;(本番 - acc 111111111111)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#FFFFFF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="620" y="340" width="280" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_a_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="660" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc_a_db" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="780" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_a_query" value="db.internal.example.com&#10;→ RDS の私有 IP&#10;(PHZ 関連付け済み)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#248814;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="450" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_a_cidr" value="enableDnsSupport ✅&#10;enableDnsHostnames ✅" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#FF9900;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="630" y="510" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- VPC B -->
+        <mxCell id="vpc_b" value="Workload VPC B&#10;(開発 - acc 222222222222)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#FFFFFF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="920" y="340" width="280" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_b_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="960" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc_b_alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_b_query" value="api.internal.example.com&#10;→ ALB の私有 IP&#10;(同じ PHZ を共有)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#248814;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="450" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_b_cidr" value="enableDnsSupport ✅&#10;enableDnsHostnames ✅" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#FF9900;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="930" y="510" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- VPC C -->
+        <mxCell id="vpc_c" value="Sandbox VPC C&#10;(個人 - acc 333333333333)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#7AA116;fillColor=#FFFFFF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="340" width="300" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_c_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_c_query" value="❌ db.internal.example.com&#10;→ NXDOMAIN (関連付けなし)&#10;セキュリティ境界として有効" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="450" width="280" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vpc_c_cidr" value="PHZ 関連付け なし → 解決不可" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#DD344C;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="510" width="280" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: PHZ → VPC associations -->
+        <mxCell id="arr_phz_a" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="phz_main" target="vpc_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_phz_b" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="phz_main" target="vpc_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Bottom: Naming Design + Decision ===== -->
+        <mxCell id="naming_box" value="📛 名前解決設計のベストプラクティス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="900" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="naming_text" value="✅ ドメイン階層を環境/サービスで切る&#10;　・本番: prod.internal.example.com&#10;　・ステージ: stg.internal.example.com&#10;　・サービス: api.prod.internal.example.com&#10;&#10;✅ AWS 予約名を避ける (amazonaws.com / cloudfront.net など)&#10;✅ Public Hosted Zone と Private Hosted Zone でルートドメインを共有可 (Split-horizon)&#10;✅ ALB/NLB/RDS は CNAME で抽象化 → エンドポイント変更時のクライアント影響なし&#10;&#10;❌ アンチパターン&#10;　・VPC 毎に別 PHZ を作って同じレコードを多重管理 → DRY違反&#10;　・ec2-x-x-x-x.compute.amazonaws.com を直接参照 → IP 変更で破綻&#10;　・DHCP Options Set でオンプレDNSを直接指定 → AmazonProvidedDNS バイパス&#10;　・PHZと同名Public HZ で対応レコードに齟齬 → 経路によって挙動が変わる罠" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="80" y="630" width="860" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Decision Flow -->
+        <mxCell id="dec_box" value="🧭 試験で迷ったときの判断フロー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="980" y="600" width="560" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_text" value="• 「VPC 内部だけで解決したい」&#10;  → Private Hosted Zone を VPC に関連付け&#10;&#10;• 「複数アカウントの VPC で同じ PHZ」&#10;  → create-vpc-association-authorization &#10;  → associate-vpc-with-hosted-zone&#10;&#10;• 「内部と外部で同じドメインで違う応答」&#10;  → Split-horizon DNS (PHZ + Public HZ)&#10;&#10;• 「PHZ レコードが解決できない」&#10;  → enableDnsSupport / enableDnsHostnames を確認&#10;  → DHCP Options Set がカスタムなら戻す&#10;&#10;• 「Resolver Rule を全VPC で共有」&#10;  → AWS RAM 共有 (Rule + Outbound Endpoint)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="990" y="630" width="540" height="190" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

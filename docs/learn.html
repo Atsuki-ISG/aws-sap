@@ -298,12 +298,41 @@ const DIAGRAMS = {
     { file: 'multi-account-03-cross-account.drawio', title: '③ クロスアカウント3パターン（AssumeRole / リソースポリシー / RAM）' },
     { file: 'multi-account-04-control-tower.drawio', title: '④ Control Tower Landing Zone' },
   ],
-  'network': [],
-  'endpoint-dns': [],
-  'multi-region-dr': [],
-  'api-design': [],
-  'serverless': [],
-  'container': [],
+  'network': [
+    { file: 'network-01-tgw-vs-peering.drawio', title: '① TGW vs VPC Peering 判断' },
+    { file: 'network-02-dx-vs-vpn.drawio', title: '② DX vs VPN 接続選定' },
+    { file: 'network-03-hub-spoke.drawio', title: '③ Hub-Spoke + 中央Egress' },
+    { file: 'network-04-cloud-wan.drawio', title: '④ Cloud WAN / マルチリージョン接続' },
+  ],
+  'endpoint-dns': [
+    { file: 'endpoint-dns-01-vpc-endpoints.drawio', title: '① Gateway EP vs Interface EP' },
+    { file: 'endpoint-dns-02-privatelink.drawio', title: '② PrivateLink によるサービス公開' },
+    { file: 'endpoint-dns-03-resolver.drawio', title: '③ Route 53 Resolver 方向（Inbound/Outbound）' },
+    { file: 'endpoint-dns-04-phz-naming.drawio', title: '④ Private Hosted Zone + 名前解決設計' },
+  ],
+  'multi-region-dr': [
+    { file: 'dr-01-strategies.drawio', title: '① 4つのDR戦略比較（Backup&Restore / Pilot Light / Warm Standby / Multi-Site）' },
+    { file: 'dr-02-aurora-global.drawio', title: '② Aurora Global Database / DynamoDB Global Tables' },
+    { file: 'dr-03-route53-failover.drawio', title: '③ Route 53 フェイルオーバー + ヘルスチェック' },
+    { file: 'dr-04-drs.drawio', title: '④ AWS DRS (Elastic Disaster Recovery)' },
+  ],
+  'api-design': [
+    { file: 'api-01-gateway-types.drawio', title: '① API Gateway 3タイプ（REST / HTTP / WebSocket）' },
+    { file: 'api-02-appsync.drawio', title: '② AppSync (GraphQL) のユースケース' },
+    { file: 'api-03-auth.drawio', title: '③ 認証/認可方式（Cognito / IAM / Lambda Authorizer / API Key）' },
+    { file: 'api-04-patterns.drawio', title: '④ 構成パターン（API GW vs AppSync 選定）' },
+  ],
+  'serverless': [
+    { file: 'serverless-01-lambda-limits.drawio', title: '① Lambda 制限と Fargate/EC2 判断' },
+    { file: 'serverless-02-step-functions.drawio', title: '② Step Functions オーケストレーション' },
+    { file: 'serverless-03-eventbridge.drawio', title: '③ EventBridge / SNS / SQS 使い分け' },
+    { file: 'serverless-04-modernization.drawio', title: '④ モノリス→サーバーレス移行戦略' },
+  ],
+  'container': [
+    { file: 'container-01-quadrant.drawio', title: '① ECS/EKS × Fargate/EC2 の4象限選定' },
+    { file: 'container-02-iam-roles.drawio', title: '② IRSA / タスクロール / インスタンスロール' },
+    { file: 'container-03-capacity.drawio', title: '③ Capacity Provider + Spot 活用' },
+    { file: 'container-04-ecr.drawio', title: '④ ECR レプリケーション / クロスアカウント' },
 };
 
 // ベースURL（GitHub Pages 公開URL）

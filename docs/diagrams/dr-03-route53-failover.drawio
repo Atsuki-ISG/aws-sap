@@ -1,0 +1,294 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="route53-failover" name="Route 53 Failover &amp; Health Checks">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Route 53 フェイルオーバー＋ヘルスチェック / マルチリージョン+CloudFront構成" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Client -->
+        <mxCell id="client_box" value="エンドユーザー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="client_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.users;" vertex="1" parent="1">
+          <mxGeometry x="125" y="115" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="client_l" value="DNS lookup&#10;example.com" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="180" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Route 53 Hosted Zone -->
+        <mxCell id="r53_box" value="Route 53 Public Hosted Zone — example.com" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E7157B;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#E7157B;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="290" y="80" width="500" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="r53_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="310" y="110" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r53_l" value="Route 53 (DNS)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="355" y="120" width="180" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Primary Record -->
+        <mxCell id="rec_p" value="Primary レコード&#10;Failover=PRIMARY&#10;Set ID: tokyo-primary&#10;Health Check ID: hc-001&#10;Evaluate Target Health: Yes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#3F8624;strokeWidth=2;fontSize=10;fontStyle=0;fontColor=#232F3E;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="310" y="170" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Secondary Record -->
+        <mxCell id="rec_s" value="Secondary レコード&#10;Failover=SECONDARY&#10;Set ID: oregon-failover&#10;Health Check ID: hc-002&#10;Evaluate Target Health: Yes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4E0;strokeColor=#ED7100;strokeWidth=2;fontSize=10;fontStyle=0;fontColor=#232F3E;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="550" y="170" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- HC Description -->
+        <mxCell id="hc_desc" value="🩺 Route 53 Health Checks&#10;• HTTP / HTTPS / TCP エンドポイント監視（30s or 10s 間隔）&#10;• CloudWatch アラーム連動（カスタムメトリクス）&#10;• Calculated Health Check（複数HCの集約）&#10;• 30秒間隔×3失敗で UNHEALTHY 判定（標準）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="310" y="285" width="460" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- CloudFront -->
+        <mxCell id="cf_box" value="CloudFront (オプション: グローバルキャッシュ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="80" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cf_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+          <mxGeometry x="855" y="115" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cf_l" value="CloudFront Distribution&#10;Origin Failover (Primary→Secondary)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="915" y="115" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Primary Region (Tokyo) ===== -->
+        <mxCell id="rgn_p" value="Primary Region: ap-northeast-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3F8624;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3F8624;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="500" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="80" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_alb_l" value="ALB&#10;(Primary)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="545" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_p_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="200" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_ec2_l" value="EC2 ASG" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="180" y="545" width="90" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_p_db" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="320" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_db_l" value="Aurora&#10;Primary Writer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="290" y="545" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_p_hc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="430" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_hc_l" value="HC Endpoint&#10;/health" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="400" y="545" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_p_a1" style="endArrow=classic;html=1;strokeColor=#3F8624;strokeWidth=2;" edge="1" parent="1" source="rgn_p_alb" target="rgn_p_ec2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_p_a2" style="endArrow=classic;html=1;strokeColor=#3F8624;strokeWidth=2;" edge="1" parent="1" source="rgn_p_ec2" target="rgn_p_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_p_note" value="✅ 通常時: Route 53 は Primary レコードを返却&#10;⚠️ /health が連続失敗 → R53 が UNHEALTHY 判定&#10;⏭ 自動で Secondary レコードへ切り替え" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3F8624;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="595" width="460" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Secondary Region (Oregon) ===== -->
+        <mxCell id="rgn_s" value="Secondary Region: us-west-2 (Failover ターゲット)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#ED7100;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#ED7100;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="570" y="430" width="500" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="610" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_alb_l" value="ALB&#10;(Standby)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="585" y="545" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_s_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="730" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_ec2_l" value="EC2 ASG&#10;(縮小)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="710" y="545" width="90" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_s_db" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="850" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_db_l" value="Aurora&#10;Secondary Reader" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="820" y="545" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_s_hc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="960" y="490" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_hc_l" value="HC Endpoint&#10;/health" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="930" y="545" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_s_a1" style="endArrow=classic;html=1;strokeColor=#ED7100;strokeWidth=2;" edge="1" parent="1" source="rgn_s_alb" target="rgn_s_ec2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rgn_s_a2" style="endArrow=classic;html=1;strokeColor=#ED7100;strokeWidth=2;" edge="1" parent="1" source="rgn_s_ec2" target="rgn_s_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rgn_s_note" value="⏰ Primary 失敗時のみトラフィック流入&#10;💡 Aurora Global → Detach + Promote で書き込み可&#10;⚠️ 縮小版稼働時はスケールアップが別途必要" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#ED7100;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="590" y="595" width="460" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- HC Arrows -->
+        <mxCell id="hc_a1" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;" edge="1" parent="1" source="rec_p" target="rgn_p_hc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="420" />
+              <mxPoint x="455" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hc_a1_l" value="HC hc-001" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#E7157B;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="400" width="80" height="16" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hc_a2" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;" edge="1" parent="1" source="rec_s" target="rgn_s_hc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="660" y="420" />
+              <mxPoint x="985" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hc_a2_l" value="HC hc-002" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#E7157B;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="400" width="80" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Client → R53 -->
+        <mxCell id="cl_to_r53" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="client_box" target="r53_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_to_r53_l" value="①DNS Query" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="263" y="100" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- R53 → CloudFront -->
+        <mxCell id="r53_to_cf" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="r53_box" target="cf_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- CF → ALBs -->
+        <mxCell id="cf_to_alb_p" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=3;" edge="1" parent="1" source="cf_box" target="rgn_p_alb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="350" />
+              <mxPoint x="105" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cf_to_alb_p_l" value="②通常時: Primaryへ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="335" width="180" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cf_to_alb_s" style="endArrow=classic;html=1;strokeColor=#ED7100;strokeWidth=3;dashed=1;" edge="1" parent="1" source="cf_box" target="rgn_s_alb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cf_to_alb_s_l" value="③障害時: Secondaryへ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#ED7100;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="350" width="180" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Routing Policy Comparison ===== -->
+        <mxCell id="rp_title" value="📊 Route 53 ルーティングポリシー比較 — 試験頻出" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="690" width="700" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rp_h0" value="ポリシー" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="160" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_h1" value="挙動" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="720" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_h2" value="代表的な使いどころ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="720" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_h3" value="HC連動" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="900" y="720" width="100" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rp_r1_l" value="Failover" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="752" width="160" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r1_1" value="Primary 失敗時のみ Secondary を返却" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="752" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r1_2" value="DR Active-Passive 構成" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="752" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r1_3" value="必須" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="752" width="100" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rp_r2_l" value="Latency" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF4E0;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="784" width="160" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r2_1" value="ユーザーから最も低レイテンシのRegionへ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="784" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r2_2" value="グローバル展開／パフォーマンス重視" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="784" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r2_3" value="推奨" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF4E0;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="784" width="100" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rp_r3_l" value="Geolocation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="816" width="160" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r3_1" value="ユーザーの地理的位置（国/大陸）で振り分け" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="816" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r3_2" value="法令対応／コンテンツのローカライズ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="816" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r3_3" value="可" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="816" width="100" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rp_r4_l" value="Weighted" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="848" width="160" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r4_1" value="重み付け比率でトラフィック分割（カナリア等）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="848" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r4_2" value="ブルー/グリーン／A/Bテスト／カナリア" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="848" width="350" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="rp_r4_3" value="可" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="848" width="100" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Evaluate Target Health -->
+        <mxCell id="eth_box" value="🎯 Evaluate Target Health の挙動" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#0D47A1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="430" width="450" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="eth_text" value="• ALB / NLB / S3 等の Alias Target に対し&#10;  → AWS マネージドのHC を自動で評価&#10;• Yes にすると ALB の登録ターゲットがすべて&#10;  unhealthy なら DNS 応答から除外&#10;• ALBの場合は ELB自体のHC結果を流用&#10;&#10;⚠️ 自前 HC + Alias の二重設定は避ける（推奨は ETH 単独）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#0D47A1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="460" width="420" height="135" as="geometry" />
+        </mxCell>
+
+        <!-- 📌 RTO/RPO 別 戦略選定表 -->
+        <mxCell id="cheat_box" value="📌 RTO/RPO別 戦略選定表（Route 53 視点）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#F9A825;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="610" width="450" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="cheat_text" value="◆ RTO 数分許容（Active-Passive）&#10;　→ R53 Failover + ELB Health Check + Alias&#10;&#10;◆ RTO ほぼ0（Active-Active）&#10;　→ R53 Latency / Geolocation + 各Region同等構成&#10;&#10;◆ TTL 設計&#10;　→ Failover用は 60秒以下（伝播優先）&#10;　→ ただしDNSキャッシュ依存に注意&#10;&#10;◆ HC 失敗時間 = 30s × 3 = 約90秒&#10;　＋ TTL = フェイルオーバー実所要時間&#10;&#10;💡 暗記: 「DNSフェイルオーバーは数分単位」&#10;　 即時を求めるなら GLB / ALB Cross-Region" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="640" width="420" height="235" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

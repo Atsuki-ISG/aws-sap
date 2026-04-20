@@ -1,0 +1,217 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="container-iam-roles" name="Container IAM Roles">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="コンテナ IAM ロール使い分け — タスク実行ロール / タスクロール / インスタンスロール / IRSA" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ECS Side Container -->
+        <mxCell id="ecs_grp" value="ECS 側 (Fargate / EC2)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#3B48CC;fillColor=#EBF1FF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="740" height="540" as="geometry" />
+        </mxCell>
+
+        <!-- ECS Cluster -->
+        <mxCell id="ecs_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs_lbl" value="ECS Agent / Service" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="173" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Task Execution Role -->
+        <mxCell id="exec_box" value="① タスク実行ロール (ecsTaskExecutionRole)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FF9900;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="100" width="560" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="240" y="135" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_text" value="使う主体: ECS エージェント (コンテナ起動前)&#10;目的: コンテナ起動の準備&#10;&#10;典型ポリシー:&#10;  • ECR から pull (ecr:GetAuthorizationToken, BatchGetImage)&#10;  • CloudWatch Logs 書き込み (logs:CreateLogStream, PutLogEvents)&#10;  • Secrets Manager / SSM Parameter から環境変数注入&#10;&#10;➡ コンテナ内アプリは触れない。基盤専用。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="290" y="130" width="480" height="135" as="geometry" />
+        </mxCell>
+
+        <!-- Task Role -->
+        <mxCell id="task_box" value="② タスクロール (Task Role)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="290" width="560" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="task_iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="240" y="325" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="task_text" value="使う主体: コンテナ内アプリケーション (実行時)&#10;目的: アプリのビジネスロジックが AWS API を叩く&#10;&#10;典型ポリシー:&#10;  • S3 バケットへ Put/Get&#10;  • DynamoDB テーブル CRUD&#10;  • SQS Send/Receive、SNS Publish&#10;&#10;➡ タスク (Pod相当) 単位で最小権限を付与。&#10;➡ Fargate でも EC2 でも同じく Task Metadata 経由で取得。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="290" y="320" width="480" height="135" as="geometry" />
+        </mxCell>
+
+        <!-- EC2 Instance Role -->
+        <mxCell id="inst_box" value="③ EC2 インスタンスロール (ECS on EC2 のみ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#DD344C;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="480" width="680" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="inst_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="515" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="inst_text" value="使う主体: EC2 ホスト (ECS Agent が ECS API へ register)&#10;典型: ecs:RegisterContainerInstance, Submit*, Discover*&#10;&#10;⚠ 注意: 同居する全コンテナがこの権限を共有してしまう (IMDS 経由)。&#10;     → 最小権限違反になりがち。タスクに必要な権限は必ず Task Role 側へ。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="170" y="510" width="600" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- EKS Side Container -->
+        <mxCell id="eks_grp" value="EKS 側 (Fargate / EC2 NodeGroup)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#7AA116;fillColor=#F0F8E8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="820" y="80" width="740" height="540" as="geometry" />
+        </mxCell>
+
+        <!-- EKS icon -->
+        <mxCell id="eks_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;" vertex="1" parent="1">
+          <mxGeometry x="860" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eks_lbl" value="EKS Cluster" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="840" y="173" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- IRSA Box -->
+        <mxCell id="irsa_box" value="④ IRSA — IAM Roles for Service Accounts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="960" y="100" width="580" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="irsa_iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="980" y="135" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="irsa_text" value="使う主体: Pod (ServiceAccount を介して)&#10;目的: Pod 単位で最小権限の AWS 権限を付与&#10;&#10;しくみ:&#10;  1) EKS の OIDC プロバイダ を IAM に登録&#10;  2) IAM ロール の信頼ポリシー で OIDC sub = SA を許可&#10;  3) ServiceAccount に annotation:&#10;     eks.amazonaws.com/role-arn: arn:aws:iam::...&#10;  4) Pod がそのSAを使うと AWS SDK が STS AssumeRoleWithWebIdentity&#10;&#10;➡ Node 全体ではなく Pod 単位で権限境界。&#10;➡ 同じノードに混在する別 Pod に権限が漏れない。&#10;&#10;後継: EKS Pod Identity (2023〜) — エージェント方式で OIDC 連携不要に。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="130" width="500" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- Node IAM Role -->
+        <mxCell id="node_box" value="⑤ EKS ノード IAM ロール (NodeGroup)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FF9900;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="400" width="680" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="node_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="880" y="435" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="node_text" value="使う主体: EKS Worker ノード (kubelet)&#10;典型ポリシー (AWS 管理ポリシー):&#10;  • AmazonEKSWorkerNodePolicy — kubelet が EKS API へ&#10;  • AmazonEKS_CNI_Policy — VPC CNI が ENI を操作 (IRSA 移譲推奨)&#10;  • AmazonEC2ContainerRegistryReadOnly — ECR から pull&#10;&#10;⚠ ECS と同じく 同居 Pod 全体共通。アプリ権限は IRSA / Pod Identity へ。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="930" y="430" width="600" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Comparison table at bottom -->
+        <mxCell id="cmp_box" value="🧭 どのレイヤーで権限を付けるか" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="640" width="1240" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_h1" value="ロール" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;fillColor=#E1E4E8;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="675" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_h2" value="使う主体" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;fillColor=#E1E4E8;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="280" y="675" width="200" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_h3" value="付与する権限" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;fillColor=#E1E4E8;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="480" y="675" width="380" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_h4" value="粒度" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;fillColor=#E1E4E8;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="860" y="675" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_h5" value="使う場面" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;fillColor=#E1E4E8;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="675" width="240" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_r1a" value="ECS タスク実行ロール" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#FF9900;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="703" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r1b" value="ECS Agent (起動前)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="703" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r1c" value="ECR pull / Logs / Secrets 注入" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="703" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r1d" value="タスク定義単位" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="703" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r1e" value="ECS 全般 (Fargate/EC2 共通)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="703" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_r2a" value="ECS タスクロール" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#3B48CC;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="729" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r2b" value="アプリコード (実行中)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="729" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r2c" value="アプリが叩く AWS API (S3/DDB/SQS)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="729" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r2d" value="タスク (=Pod相当) 単位" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="729" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r2e" value="ECS でアプリが S3 等を使うとき必須" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="729" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_r3a" value="EC2 インスタンスロール" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#DD344C;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="755" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r3b" value="EC2 ホスト全体" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="755" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r3c" value="ECS Agent 登録 / SSM Session" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="755" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r3d" value="ホスト単位 (粒度粗)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="755" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r3e" value="ECS on EC2 のみ。最小限に絞る" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="755" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_r4a" value="EKS ノード IAM ロール" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#FF9900;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="781" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r4b" value="EC2 Worker ノード" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="781" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r4c" value="EKS WorkerNode + CNI + ECR Read" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="781" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r4d" value="ノード単位" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="781" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r4e" value="EKS on EC2/Karpenter で必須" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="781" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_r5a" value="IRSA / Pod Identity" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#7AA116;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="807" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r5b" value="Pod (SA 経由)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="280" y="807" width="200" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r5c" value="Pod 内アプリが叩く AWS API" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="807" width="380" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r5d" value="ServiceAccount 単位 (Pod相当)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#7AA116;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="807" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_r5e" value="EKS で AWS 権限が必要なPod" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="807" width="240" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cmp_note" value="📌 鉄則: アプリの権限は必ず Task Role / IRSA で、Node/Instance Role は最小限。&#10;     Node Role に S3 PutObject などを足してはいけない (同居 Pod に漏れる)。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontStyle=2;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="80" y="838" width="1200" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right note -->
+        <mxCell id="note_box" value="📌 4象限選定マトリクス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="640" width="240" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="note_text" value="権限は「最小の境界」へ&#10;&#10;ECS:&#10;  Task Role (Pod相当)&#10;EKS:&#10;  IRSA / Pod Identity&#10;&#10;ホスト/Node ロールは&#10;基盤動作に必要な最小限のみ" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1335" y="675" width="220" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="arr_ecs_exec" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="ecs_icon" target="exec_iam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_eks_irsa" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="eks_icon" target="irsa_iam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

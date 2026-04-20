@@ -1,0 +1,295 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="api-gateway-types" name="API Gateway Types">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="API Gateway 3タイプ — REST / HTTP / WebSocket の使い分け" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="目的・コスト・機能の違いから選定する。サービス統合の幅と双方向通信の有無が判断軸。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="1520" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- ===== REST API Box ===== -->
+        <mxCell id="rest_box" value="REST API — 機能リッチ / 既存資産 / 細かな制御" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="490" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rest_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="100" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_icon_l" value="API Gateway&#10;REST API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="205" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rest_features" value="主要機能 / 強み" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#FF9900;" vertex="1" parent="1">
+          <mxGeometry x="200" y="140" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_text" value="• Usage Plan + API Key (B2B レート制限)&#10;• リクエスト/レスポンスマッピング (VTL)&#10;• AWSサービス直接統合 (DynamoDB / S3 等)&#10;• WAF統合 / リソースポリシー&#10;• Edge / Regional / Private エンドポイント&#10;• キャッシング (TTL指定可)&#10;• X-Ray / CloudWatch 詳細メトリクス&#10;• Canary deployment / Stage variables" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="200" y="160" width="330" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rest_target_label" value="統合先 (例)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="335" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="90" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t1_l" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="170" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t2_l" value="DynamoDB&#10;(直接統合)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="155" y="402" width="70" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="250" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t3_l" value="S3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="240" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;" vertex="1" parent="1">
+          <mxGeometry x="330" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t4_l" value="Step Functions" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="310" y="402" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#D9A741;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+          <mxGeometry x="410" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rest_t5_l" value="SQS" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="400" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rest_use" value="📌 ユースケース: B2B API公開 / 既存REST資産 / 細かい認可とキャッシュ / Usage Plan必須" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#FF9900;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="445" width="450" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ===== HTTP API Box ===== -->
+        <mxCell id="http_box" value="HTTP API — 軽量 / 低コスト / 低レイテンシ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="565" y="100" width="490" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="http_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="605" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="http_icon_l" value="API Gateway&#10;HTTP API (v2)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="585" y="205" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="http_features" value="主要機能 / 強み" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="705" y="140" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="http_text" value="• REST比 約70%安い / 約60%低レイテンシ&#10;• JWT Authorizer 標準サポート (Cognito/Auth0)&#10;• OIDC / OAuth2 ネイティブ&#10;• CORS 簡易設定&#10;• 自動デプロイ ($default stage)&#10;• Lambda / HTTP / Private (VPC Link) 統合&#10;• Usage Plan / API Key なし&#10;• リクエスト変換 (VTL) なし → シンプル" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="705" y="160" width="330" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="http_target_label" value="統合先 (限定的)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="585" y="335" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="595" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t1_l" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="585" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.virtual_private_cloud;" vertex="1" parent="1">
+          <mxGeometry x="675" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t2_l" value="VPC Link&#10;(ALB/NLB)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="660" y="402" width="70" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="1">
+          <mxGeometry x="755" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="http_t3_l" value="HTTP&#10;backend" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="740" y="402" width="70" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="http_no" value="✗ DynamoDB 等への直接統合は不可&#10;✗ API Key / Usage Plan は不可&#10;✗ Edge optimized は不可" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="830" y="350" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="http_use" value="📌 ユースケース: 内部マイクロサービス / SPA向けAPI / コスト/レイテンシ最優先" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="585" y="445" width="450" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ===== WebSocket API Box ===== -->
+        <mxCell id="ws_box" value="WebSocket API — 双方向 / リアルタイム / Pub/Sub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="100" width="470" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ws_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_icon_l" value="API Gateway&#10;WebSocket" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="205" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ws_features" value="主要機能 / 強み" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="140" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_text" value="• 双方向: Server → Client への push 可能&#10;• Connection ID 管理 (DynamoDBに保存が定石)&#10;• ルート: $connect / $disconnect / $default&#10;• @connections API で個別/全員に送信&#10;• IAM / Lambda Authorizer 認証&#10;• 接続料金 + メッセージ転送料金&#10;• 最大接続2時間 (アイドル10分)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="160" width="320" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ws_target_label" value="典型構成" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="335" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_t1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_t1_l" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_arr1" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="ws_t1" target="ws_t2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_t2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ws_t2_l" value="ConnID表" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="402" width="60" height="15" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ws_use_examples" value="チャット / 株価ティッカー&#10;ゲームの状態同期&#10;IoT デバイス制御&#10;通知 push" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="350" width="270" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ws_use" value="📌 ユースケース: チャット / 通知 / リアルタイムダッシュボード / IoT制御" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="445" width="430" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Comparison Table ===== -->
+        <mxCell id="cmp_box" value="比較表 — 機能 / コスト / レイテンシ / 認証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="980" height="270" as="geometry" />
+        </mxCell>
+
+        <!-- Header row -->
+        <mxCell id="th_item" value="項目" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;fontColor=#ffffff;strokeColor=#232F3E;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="540" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="th_rest" value="REST API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF9900;fontColor=#ffffff;strokeColor=#FF9900;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="540" width="240" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="th_http" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B48CC;fontColor=#ffffff;strokeColor=#3B48CC;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="540" width="240" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="th_ws" value="WebSocket" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7AA116;fontColor=#ffffff;strokeColor=#7AA116;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="540" width="280" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 -->
+        <mxCell id="r1_l" value="価格 (per million)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="572" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r1_rest" value="$3.50 / 100万 (高い)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="260" y="572" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r1_http" value="$1.00 / 100万 (約 1/3)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="572" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r1_ws" value="$1.00 + 接続時間 + メッセージ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="572" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2 -->
+        <mxCell id="r2_l" value="レイテンシ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="600" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_rest" value="標準" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="260" y="600" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_http" value="REST比 約60%低い" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="600" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_ws" value="低 (持続接続)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="600" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 3 -->
+        <mxCell id="r3_l" value="認証/認可" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="628" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r3_rest" value="IAM / Cognito / Lambda Auth / API Key" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="260" y="628" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r3_http" value="JWT / IAM / Lambda Auth (API Keyなし)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="628" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r3_ws" value="IAM / Lambda Auth ($connectのみ)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="628" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 4 -->
+        <mxCell id="r4_l" value="サービス直接統合" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="656" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r4_rest" value="○ DynamoDB/S3/SQS等" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontColor=#1B660F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="656" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r4_http" value="✗ Lambda / HTTP / VPC Link のみ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="500" y="656" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r4_ws" value="Lambda経由が一般的" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="656" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 5 -->
+        <mxCell id="r5_l" value="リクエスト変換 (VTL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="684" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r5_rest" value="○" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontColor=#1B660F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="684" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r5_http" value="✗" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="500" y="684" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r5_ws" value="✗" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="740" y="684" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 6 -->
+        <mxCell id="r6_l" value="API Key + Usage Plan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="712" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_rest" value="○ B2Bレート制限" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontColor=#1B660F;" vertex="1" parent="1">
+          <mxGeometry x="260" y="712" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_http" value="✗ → REST必須" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="500" y="712" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_ws" value="✗" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#666666;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="740" y="712" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Row 7 -->
+        <mxCell id="r7_l" value="エンドポイント" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="740" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r7_rest" value="Edge / Regional / Private" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="260" y="740" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r7_http" value="Regional のみ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="740" width="240" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r7_ws" value="Regional のみ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="740" width="280" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Selection Matrix (right) ===== -->
+        <mxCell id="mat_box" value="📌 サービス選定マトリクス — 試験で迷ったとき" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="500" width="480" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mat_text" value="• 「B2B公開で従量課金/レート制限が必要」&#10;  → REST API + Usage Plan + API Key&#10;&#10;• 「DynamoDBに直接書き込みLambdaを節約」&#10;  → REST API + AWSサービス統合&#10;&#10;• 「コスト/レイテンシ最優先のSPA向けAPI」&#10;  → HTTP API + JWT (Cognito)&#10;&#10;• 「Cognito / Auth0 のJWTで認証だけしたい」&#10;  → HTTP API (JWT Authorizer 標準)&#10;&#10;• 「Server→Client push (チャット/通知)」&#10;  → WebSocket API + DynamoDB (Conn ID)&#10;&#10;• 「リアルタイムDB同期 + GraphQL」&#10;  → AppSync (図2へ)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="535" width="450" height="225" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

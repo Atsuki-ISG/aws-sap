@@ -1,0 +1,245 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="serverless-lambda-limits" name="Lambda Limits and Decision">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Lambda 制限早見表 と Fargate / EC2 判断フロー — ワークロード適性診断" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ====== Lambda 制限早見表 ====== -->
+        <mxCell id="limits_box" value="Lambda 制限早見表 — ハードリミット (試験頻出)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="720" height="340" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lambda_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="70" y="115" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda_label" value="AWS Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="170" width="90" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Limit cards -->
+        <mxCell id="limit1" value="⏱ 実行時間&#10;最大 15分&#10;(同期/非同期共通)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="115" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="limit2" value="🧠 メモリ&#10;128 MB - 10,240 MB&#10;(1MB単位、CPU比例)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="360" y="115" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="limit3" value="💾 /tmp ストレージ&#10;512 MB (デフォルト)&#10;最大 10 GB に拡張可" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="560" y="115" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="limit4" value="📦 ペイロードサイズ&#10;同期: 6 MB / 非同期: 256 KB&#10;大きい場合は S3 経由" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="limit5" value="🚦 同時実行数&#10;リージョン default 1,000&#10;Reserved/Provisioned で固定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="290" y="210" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="limit6" value="📂 デプロイパッケージ&#10;Zip: 50MB (圧縮)/250MB (展開)&#10;Container Image: 10 GB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="210" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="limit_note" value="📌 制限超過時の選択肢:&#10;・15分超え → Step Functions で分割 / Fargate / EC2 ワーカー&#10;・10GBメモリ超え → Fargate (vCPU 16/120GB まで) / EC2&#10;・大ペイロード → S3に置いて Pre-signed URL or Event参照&#10;・1000同時実行超え → クォータ引上げ申請 or Reserved Concurrency 配分" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="295" width="680" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 判断フロー ====== -->
+        <mxCell id="flow_box" value="判断フロー — Lambda / Fargate / EC2 のどれを選ぶ？" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="80" width="780" height="340" as="geometry" />
+        </mxCell>
+
+        <!-- Decision tree nodes -->
+        <mxCell id="dec_start" value="ワークロードの特性は？" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="990" y="120" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_short" value="✅ Lambda&#10;短時間 (<15分)&#10;イベント駆動&#10;バースト負荷&#10;ステートレス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="810" y="220" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_long" value="⚠ Step Functions / Fargate&#10;15分超 / 長時間処理&#10;ワークフロー分割可&#10;バッチ処理&#10;コンテナ化済み" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#DD344C;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="220" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_persistent" value="🟢 Fargate / ECS&#10;常時稼働&#10;長期接続 (WebSocket)&#10;サイドカー必要&#10;Spotで節約可" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="220" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_special" value="🔴 EC2&#10;GPU / 特殊HW&#10;カーネル依存&#10;OSレベル制御&#10;非対応RT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="220" width="160" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Service icons under boxes -->
+        <mxCell id="svc_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="865" y="335" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_step" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;" vertex="1" parent="1">
+          <mxGeometry x="1055" y="335" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_fargate" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="335" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="svc_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1435" y="335" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows from decision -->
+        <mxCell id="arr_d1" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dec_start" target="dec_short">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_d2" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;exitX=0.4;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dec_start" target="dec_long">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_d3" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;exitX=0.7;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dec_start" target="dec_persistent">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_d4" style="endArrow=classic;html=1;strokeColor=#666666;strokeWidth=2;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dec_start" target="dec_special">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_note" value="📌 コスト目安: Lambda は実行時間×メモリで秒課金 / Fargate は vCPU×秒 / EC2 は常時稼働 (RIで節約)。&#10;バースト型でアイドルが長い → Lambda、安定負荷で常時稼働 → Fargate/EC2 が経済的。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="385" width="740" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 構成例: SQS → Lambda → DLQ → Fargate ====== -->
+        <mxCell id="arch_box" value="構成例 — SQS イベント駆動 + Lambda 失敗時 DLQ → Fargate ワーカーへフォールバック" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="445" width="1520" height="270" as="geometry" />
+        </mxCell>
+
+        <!-- Producer -->
+        <mxCell id="prod_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="100" y="510" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="prod_label" value="API Gateway&#10;(イベント発生源)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="65" y="565" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Main SQS -->
+        <mxCell id="sqs_main" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+          <mxGeometry x="280" y="510" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sqs_main_label" value="SQS (Standard)&#10;Visibility Timeout&#10;= 関数 timeout × 6" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="240" y="565" width="140" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda consumer -->
+        <mxCell id="lambda_consumer" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="460" y="510" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda_consumer_label" value="Lambda Consumer&#10;短時間処理 (<15分)&#10;Reserved Concurrency = 50" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="410" y="565" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Success path -->
+        <mxCell id="ddb_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="640" y="470" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb_label" value="DynamoDB&#10;成功時の保存先" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="525" width="130" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- DLQ -->
+        <mxCell id="dlq_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+          <mxGeometry x="640" y="600" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dlq_label" value="DLQ (SQS)&#10;maxReceiveCount=3&#10;失敗メッセージ蓄積" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="655" width="140" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- EventBridge trigger -->
+        <mxCell id="ebr_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+          <mxGeometry x="820" y="600" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ebr_label" value="EventBridge&#10;DLQ深さ閾値で発火" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="780" y="655" width="140" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ECS / Fargate worker -->
+        <mxCell id="fargate_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="600" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fargate_label" value="Fargate ワーカー&#10;15分超や大メモリ用&#10;フォールバック処理" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="950" y="655" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ECS Cluster icon -->
+        <mxCell id="ecs_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="600" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs_label" value="ECS Cluster&#10;Auto Scaling&#10;CW Alarm 連動" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="655" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Aurora target -->
+        <mxCell id="aurora_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="540" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aurora_label" value="Aurora&#10;バルク書込結果" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="595" width="130" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows main flow -->
+        <mxCell id="a_prod_sqs" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="prod_icon" target="sqs_main">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sqs_lambda" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="sqs_main" target="lambda_consumer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_lambda_ddb" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="lambda_consumer" target="ddb_icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="495" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_lambda_dlq" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;" edge="1" parent="1" source="lambda_consumer" target="dlq_icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_dlq_ebr" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;" edge="1" parent="1" source="dlq_icon" target="ebr_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_ebr_fargate" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;" edge="1" parent="1" source="ebr_icon" target="fargate_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_fargate_ecs" style="endArrow=classic;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;" edge="1" parent="1" source="fargate_icon" target="ecs_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_ecs_aurora" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="ecs_icon" target="aurora_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edge labels -->
+        <mxCell id="edge_succ" value="✅ 成功" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#7AA116;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="540" y="475" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_fail" value="❌ 失敗 (3回)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#DD344C;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="525" y="615" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom note -->
+        <mxCell id="arch_note" value="📌 ハイブリッド設計のベストプラクティス: Lambda で 95% を低コスト処理 → 残り 5% (タイムアウト/メモリ超過/外部API遅延) を DLQ → Fargate へ振り分ける。&#10;Lambda Destinations (onSuccess / onFailure) を使えば DLQ 不要で EventBridge / SNS / SQS / Lambda へ直接ルーティング可能 (非同期呼び出しのみ)。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="700" width="1480" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right key takeaway -->
+        <mxCell id="key_takeaway" value="📌 ワークロード→サービス選定&#10;短時間・イベント駆動 = Lambda / 長時間バッチ = Step Functions or Fargate / 常時稼働 = Fargate or EC2 / GPU・特殊HW = EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="755" width="1520" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right page mark -->
+        <mxCell id="page_mark" value="serverless-01 / Lambda 制限と判断" style="text;html=1;align=right;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="830" width="260" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

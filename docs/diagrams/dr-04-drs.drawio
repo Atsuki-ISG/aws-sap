@@ -1,0 +1,242 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="aws-drs" name="AWS Elastic Disaster Recovery">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AWS Elastic Disaster Recovery (DRS) — オンプレ／EC2 を AWS にリアルタイム複製" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="(旧称: CloudEndure Disaster Recovery — 2021年に AWS DRS として再構成)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=2;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="1520" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Source: On-Premises ===== -->
+        <mxCell id="src_dc" value="ソース: オンプレミス データセンター" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#666666;fillColor=#F5F5F5;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="380" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- VM/Physical -->
+        <mxCell id="src_vm1" value="物理サーバー&#10;Linux/Windows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="src_vm2" value="VMware ESXi&#10;Hyper-V VM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="240" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Replication Agent -->
+        <mxCell id="src_agent" value="🔧 AWS Replication Agent&#10;（各サーバーに常駐）&#10;・ブロックレベル変更を捕捉&#10;・継続的な転送&#10;・対応OS: Linux各種, Windows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontStyle=0;fontColor=#232F3E;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- DC Note -->
+        <mxCell id="src_note" value="✅ サポート対象:&#10;・物理サーバー (ベアメタル)&#10;・VMware / Hyper-V / KVM 仮想マシン&#10;・他クラウドのVM（Azure/GCP/オンプレEC2互換）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="340" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ===== AWS Staging Region ===== -->
+        <mxCell id="aws_stage" value="AWS Staging Region: us-west-2（低コスト保管）" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3F8624;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3F8624;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="100" width="500" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- DRS Service -->
+        <mxCell id="drs_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="540" y="160" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_l" value="AWS Elastic Disaster Recovery&#10;（DRS Service）" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="170" width="280" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Replication Server -->
+        <mxCell id="rep_server" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="540" y="250" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_server_l" value="Replication Server&#10;(自動起動 t3-class)&#10;・受信したブロックを EBS に書き込み" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="250" width="280" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Staging EBS -->
+        <mxCell id="stage_ebs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="540" y="330" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_ebs_l" value="Low-cost EBS Volumes&#10;（gp3 / sc1）&#10;・継続レプリケーションを保管&#10;・スナップショット取得（Point-in-time）" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="330" width="290" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Staging Note -->
+        <mxCell id="stage_note" value="💰 通常時のコスト: Replication Server + EBS 保管のみ&#10;⏱ RPO: 秒単位（継続的ブロックレベル転送）&#10;📸 過去任意時点のスナップショットから復元可能（Point-in-time Recovery）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3F8624;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="520" y="395" width="470" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Replication Arrow -->
+        <mxCell id="rep_arrow" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=4;" edge="1" parent="1" source="src_agent" target="rep_server">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="290" />
+              <mxPoint x="450" y="275" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rep_arrow_l" value="🔄 継続的ブロックレベルレプリケーション&#10;TLS暗号化・1024bitポート (TCP 1500)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#E7157B;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="395" y="190" width="170" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Recovery (Failover) Region ===== -->
+        <mxCell id="rec_region" value="リカバリ Region: us-west-2（フェイルオーバー時のみ起動）" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#DD344C;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#DD344C;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="100" width="480" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_ec2_1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt_ec2_1_l" value="Target EC2 #1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1095" y="215" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_ec2_2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt_ec2_2_l" value="Target EC2 #2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1215" y="215" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_ec2_3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt_ec2_3_l" value="Target EC2 #3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1335" y="215" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_ebs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="270" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt_ebs_l" value="EBS (gp3 / io2)&#10;変換されたデータボリューム" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="325" width="170" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_a1" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;" edge="1" parent="1" source="tgt_ebs" target="tgt_ec2_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tgt_note" value="🚀 フェイルオーバー実行手順 (Launch Recovery Instances):&#10;① ステージングEBSのスナップショットから新EBS作成&#10;② Launch Template / EC2 Type を起動時に指定&#10;③ ターゲットEC2 起動 (実コスト発生はここから)&#10;④ DNS（Route53）切替で本番化&#10;&#10;⏱ RTO: 数分（典型10分以内）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="365" width="450" height="105" as="geometry" />
+        </mxCell>
+
+        <!-- Failover Arrow -->
+        <mxCell id="failover_arrow" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=4;dashed=1;" edge="1" parent="1" source="stage_ebs" target="tgt_ebs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1040" y="355" />
+              <mxPoint x="1265" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="failover_arrow_l" value="⚡ Launch Recovery Instances&#10;(障害時のみ実行)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="305" width="170" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Use Cases / Features Table ===== -->
+        <mxCell id="uc_title" value="🎯 AWS DRS の主な特徴と利用シーン" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="495" width="700" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc_h0" value="観点" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="525" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_h1" value="AWS DRS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E7157B;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="220" y="525" width="380" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_h2" value="AWS Backup" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#7AA116;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="600" y="525" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_h3" value="使い分け判断" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#232F3E;fontColor=#FFFFFF;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="880" y="525" width="220" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ur1_l" value="RPO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="557" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur1_1" value="秒（継続的ブロックレベル）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="557" width="380" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur1_2" value="時間（バックアップ間隔）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="557" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur1_3" value="RPO秒 → DRS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="557" width="220" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ur2_l" value="RTO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="589" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur2_1" value="数分（Launch Instances 後）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="589" width="380" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur2_2" value="数十分〜時間（Restore必要）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="589" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur2_3" value="RTO数分 → DRS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="589" width="220" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ur3_l" value="ソース対応" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="621" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur3_1" value="物理 / VM / EC2 / 他クラウドVM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="621" width="380" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur3_2" value="AWSリソース中心 (EC2/RDS/EFS等)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="621" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur3_3" value="オンプレ→AWS DR要件 → DRS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="621" width="220" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ur4_l" value="コスト" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="653" width="180" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur4_1" value="Replication Server + 低コストEBS（実フェイルオーバー時のみEC2）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="653" width="380" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur4_2" value="バックアップ容量＋頻度に比例" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="653" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="ur4_3" value="バックアップ目的 → AWS Backup" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="653" width="220" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ur5_l" value="ユースケース" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="685" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ur5_1" value="DR・移行 (オンプレ→AWS) ・ランサムウェア対策" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="220" y="685" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ur5_2" value="定期バックアップ・コンプラ要件" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="685" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ur5_3" value="移行も兼ねるなら DRS / MGN" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#232F3E;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="880" y="685" width="220" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Migration vs DR Notes ===== -->
+        <mxCell id="mig_box" value="🔁 DRS と MGN（Application Migration Service）の関係" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#0D47A1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="495" width="440" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="mig_text" value="• 両者は CloudEndure 由来、ほぼ同じレプリ技術&#10;&#10;◆ DRS = 継続的レプリで「いつでも復旧可能」&#10;　 → DR用途・繰り返しテスト・ランサム対策&#10;&#10;◆ MGN = 移行を完了してEC2 cutover&#10;　 → 1回限りの移行が目的&#10;&#10;💡 試験Tips:&#10;　・「オンプレ → AWS で DR 構築」→ DRS&#10;　・「オンプレ → AWS へ最小ダウン移行」→ MGN&#10;　・「クロスRegion DR」→ DRS or Aurora Global" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#0D47A1;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="525" width="410" height="165" as="geometry" />
+        </mxCell>
+
+        <!-- ===== 📌 RTO/RPO Cheat Sheet ===== -->
+        <mxCell id="cheat_box" value="📌 RTO/RPO別 戦略選定表（DRS視点）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#F9A825;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="735" width="1520" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cheat_text" value="◆ オンプレ → AWS DR、RPO秒・RTO分 → AWS DRS（Pilot Light相当のコストで高速復旧、CloudEndure後継）&#10;◆ オンプレ → AWS への一回限り移行 → AWS MGN（Migration完了後はDRSへ切替も可能）&#10;◆ AWS内 EC2 → 別Regionの DR → DRS でも可能（リージョン間レプリ）&#10;◆ Tier-0 ミッションクリティカル DBなら → Aurora Global Database / DynamoDB Global Tables（RPO &lt; 1s）&#10;&#10;⚠️ 引っかけ:「オンプレのVM/物理サーバーをAWSへDR」「VM管理者がAWS不慣れ」→ 設定簡単・対応OS広い AWS DRS 一択&#10;⚠️ AWS Backup は『バックアップ』であり継続レプリではない → RPO 秒の要件は DRS でないと達成不能&#10;💡 暗記カード:『DRS = 継続レプリ + 低コスト保管 + フェイルオーバー時のみEC2起動』" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="765" width="1490" height="105" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

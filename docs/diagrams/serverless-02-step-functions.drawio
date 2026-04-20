@@ -1,0 +1,257 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="serverless-step-functions" name="Step Functions Orchestration">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Step Functions オーケストレーション — Standard / Express 比較とワークフロー設計" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ====== Standard vs Express 比較表 ====== -->
+        <mxCell id="cmp_box" value="Standard vs Express ワークフロー — 5つの軸で比較" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="1520" height="290" as="geometry" />
+        </mxCell>
+
+        <!-- Step Functions main icon -->
+        <mxCell id="sf_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;" vertex="1" parent="1">
+          <mxGeometry x="65" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_label" value="Step Functions" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="175" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Comparison table headers -->
+        <mxCell id="th_axis" value="比較軸" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="120" width="180" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="th_std" value="Standard ワークフロー" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF9900;strokeColor=#FF9900;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="120" width="600" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="th_exp" value="Express ワークフロー" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B48CC;strokeColor=#3B48CC;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="120" width="600" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1: 実行時間 -->
+        <mxCell id="r1_axis" value="⏱ 最大実行時間" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="155" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r1_std" value="1 年 (長期ワークフロー OK)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="155" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r1_exp" value="5 分 (短時間処理に特化)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="155" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2: 課金モデル -->
+        <mxCell id="r2_axis" value="💰 課金モデル" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="195" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_std" value="ステート遷移 単位 (1,000 遷移あたり $0.025) — 高額" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="195" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r2_exp" value="リクエスト数 + 実行時間 + メモリ — 高頻度で安価" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="195" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 3: 履歴保持 -->
+        <mxCell id="r3_axis" value="📜 実行履歴" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="235" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r3_std" value="90 日間コンソール保持 + 視覚化トレース" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="235" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r3_exp" value="CloudWatch Logs に出力 (要 Logging 設定) — 自前保管" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="235" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 4: 処理セマンティクス -->
+        <mxCell id="r4_axis" value="🔄 セマンティクス" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="275" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r4_std" value="Exactly-once / リトライ・キャッチ可 / 人手承認 (Wait/Callback) 対応" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="275" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r4_exp" value="At-least-once (同期) / At-most-once (非同期) — 冪等設計必須" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="275" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Row 5: ユースケース -->
+        <mxCell id="r5_axis" value="🎯 典型ユースケース" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="160" y="315" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r5_std" value="ETLパイプライン / 注文処理 / 承認フロー / 機械学習トレーニング" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="340" y="315" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r5_exp" value="IoT データ取込 / モバイルAPIバックエンド / ストリーミング処理" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="940" y="315" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ====== ワークフロー例 ====== -->
+        <mxCell id="wf_box" value="ワークフロー例 — ECS Task → Lambda → Wait → Choice → Parallel → 完了" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="395" width="980" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Start -->
+        <mxCell id="wf_start" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#7AA116;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="80" y="445" width="80" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Task 1: ECS RunTask -->
+        <mxCell id="wf_ecs" value="ECS RunTask&#10;(.sync)&#10;前処理コンテナ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="430" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="wf_ecs_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="345" y="450" width="32" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Task 2: Lambda -->
+        <mxCell id="wf_lambda" value="Lambda Invoke&#10;検証 + 変換" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="430" y="430" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="wf_lambda_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="575" y="450" width="32" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Wait state -->
+        <mxCell id="wf_wait" value="Wait&#10;30秒&#10;(レート制御)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="660" y="430" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Choice -->
+        <mxCell id="wf_choice" value="Choice&#10;status?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#DD344C;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="820" y="425" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Parallel branches -->
+        <mxCell id="wf_parallel_box" value="Parallel — 同時実行 (両方完了で次へ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="200" y="540" width="600" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Branch 1: Glue ETL -->
+        <mxCell id="wf_glue" value="Glue StartJobRun&#10;(.sync) — ETL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="220" y="585" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wf_glue_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.glue;" vertex="1" parent="1">
+          <mxGeometry x="290" y="650" width="32" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Branch 2: Batch -->
+        <mxCell id="wf_batch" value="Batch SubmitJob&#10;(.sync) — バッチ計算" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="420" y="585" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wf_batch_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.batch;" vertex="1" parent="1">
+          <mxGeometry x="490" y="650" width="32" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Branch 3: SNS notification -->
+        <mxCell id="wf_sns" value="SNS Publish&#10;通知 (callback)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="620" y="585" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wf_sns_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" vertex="1" parent="1">
+          <mxGeometry x="690" y="650" width="32" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- End / Catch -->
+        <mxCell id="wf_end" value="Success" style="ellipse;whiteSpace=wrap;html=1;fillColor=#7AA116;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="850" y="615" width="100" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="wf_fail" value="Catch / Fail&#10;リトライ後DLQ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#DD344C;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="850" y="675" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows for workflow -->
+        <mxCell id="wfa1" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="wf_start" target="wf_ecs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wfa2" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="wf_ecs" target="wf_lambda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wfa3" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="wf_lambda" target="wf_wait">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wfa4" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="wf_wait" target="wf_choice">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="wfa5" value="OK" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=10;" edge="1" parent="1" source="wf_choice" target="wf_parallel_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wfa6" value="ERROR" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=10;" edge="1" parent="1" source="wf_choice" target="wf_fail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="wfa7" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="wf_parallel_box" target="wf_end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Note in WF box -->
+        <mxCell id="wf_note" value="📌 .sync 終端 = Task 完了まで Step Functions が待機 (RunTask/Glue/Batch等)。&#10;.waitForTaskToken = 人手承認やコールバック (SQS送信→token返却)。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="510" width="900" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ====== Service Integrations ====== -->
+        <mxCell id="si_box" value="Service Integration — 200+ AWSサービスを Lambda 不要で直接呼び出し" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="395" width="520" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Pattern types -->
+        <mxCell id="si_p1" value="① Request/Response (デフォルト)&#10;呼び出してすぐ次へ。応答を待たない。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="440" width="480" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="si_p2" value="② Run a Job (.sync)&#10;ジョブ完了まで待機 (ECS/Glue/Batch/EMR/SageMaker)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="500" width="480" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="si_p3" value="③ Wait for Callback (.waitForTaskToken)&#10;Token を SQS/SNS/Lambda に渡し、外部 SendTaskSuccess で再開" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;fontSize=11;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="560" width="480" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Service integration icons -->
+        <mxCell id="si_icon_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_ecs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_batch" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.batch;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_glue" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.glue;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_sns" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_sqs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="si_icon_eb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="si_note" value="📌 メリット: Lambda グルーコード不要 → コスト削減 + 障害点削減。&#10;Workflow Studio でドラッグ&amp;ドロップ設計可。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#7AA116;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="685" width="480" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right key takeaway -->
+        <mxCell id="key_takeaway" value="📌 ワークロード→サービス選定&#10;長期・人手承認・監査必須 = Standard / 高頻度・短時間・低コスト = Express / 両方混在 = ネスト (Standard 内に Express)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="800" width="1520" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right page mark -->
+        <mxCell id="page_mark" value="serverless-02 / Step Functions" style="text;html=1;align=right;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="870" width="260" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

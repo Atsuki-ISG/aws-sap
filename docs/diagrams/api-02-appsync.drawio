@@ -1,0 +1,203 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="appsync-graphql" name="AppSync GraphQL">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AWS AppSync — マネージド GraphQL の典型構成" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="1リクエストで複数データソースを取得 / リアルタイム Subscriptions / オフライン同期 — モバイル&amp;Web に最適" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="1520" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Clients ===== -->
+        <mxCell id="clients_box" value="クライアント (Amplify SDK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="240" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cli_mobile" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.mobile_client;" vertex="1" parent="1">
+          <mxGeometry x="140" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cli_mobile_l" value="iOS / Android&#10;(Amplify DataStore)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="205" width="140" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cli_web" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+          <mxGeometry x="140" y="250" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cli_web_l" value="Web SPA&#10;(React/Vue)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="315" width="140" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cli_note" value="📌 1回のクエリで&#10;必要な分だけ取得&#10;(Over-fetch回避)&#10;&#10;Subscription で&#10;サーバ更新を購読" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="200" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ===== AppSync Center ===== -->
+        <mxCell id="appsync_box" value="AWS AppSync — GraphQL エンドポイント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="420" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="appsync_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.appsync;" vertex="1" parent="1">
+          <mxGeometry x="500" y="135" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="appsync_icon_l" value="AppSync" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="475" y="208" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Schema box -->
+        <mxCell id="schema_box" value="Schema (型定義)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="370" y="240" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="schema_text" value="type Post {&#10;  id: ID!&#10;  title: String&#10;  author: User @hasOne&#10;  comments: [Comment]&#10;}&#10;type Subscription {&#10;  onCreatePost: Post&#10;}" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="380" y="262" width="160" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Resolvers box -->
+        <mxCell id="resolver_box" value="Resolver (VTL / JS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="570" y="240" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="resolver_text" value="• 各フィールドに紐付け&#10;• 直接DDB/RDSへ問合わせ&#10;• Lambda呼出も可&#10;• Pipeline Resolver で&#10;  複数DSを連結&#10;• Caching (TTL指定)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="580" y="262" width="160" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- 4 features -->
+        <mxCell id="feat_q" value="Query (取得)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#7AA116;strokeWidth=1;fontSize=10;fontStyle=1;fontColor=#1B660F;" vertex="1" parent="1">
+          <mxGeometry x="370" y="355" width="85" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="feat_m" value="Mutation (更新)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#DD344C;strokeWidth=1;fontSize=10;fontStyle=1;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="465" y="355" width="95" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="feat_s" value="Subscription (購読)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=1;fontSize=10;fontStyle=1;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="570" y="355" width="115" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="feat_o" value="Offline同期 (DataStore)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontStyle=1;fontColor=#FF9900;" vertex="1" parent="1">
+          <mxGeometry x="370" y="395" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="feat_c" value="Cognito/IAM/API Key/OIDC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#666666;strokeWidth=1;fontSize=10;fontStyle=1;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="550" y="395" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="appsync_note" value="WebSocket 自動管理 → Subscriptionで配信" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#FF9900;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="370" y="440" width="380" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: client to AppSync -->
+        <mxCell id="arr_cli_app" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=3;" edge="1" parent="1" source="cli_mobile" target="appsync_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_cli_app2" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=3;" edge="1" parent="1" source="cli_web" target="appsync_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_label" value="GraphQL over HTTPS&#10;+ WebSocket (Subs)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#3B48CC;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="305" y="220" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Data Sources ===== -->
+        <mxCell id="ds_box" value="データソース (1スキーマから複数を統合)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="100" width="720" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- DynamoDB -->
+        <mxCell id="ds_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="860" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_ddb_l" value="DynamoDB&#10;(主データ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_ddb_note" value="単純CRUD/&#10;高スループット" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="830" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Lambda -->
+        <mxCell id="ds_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="990" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_lambda_l" value="Lambda&#10;(任意処理)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="960" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_lambda_note" value="複雑ロジック/&#10;外部API呼出" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="960" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- RDS -->
+        <mxCell id="ds_rds" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_rds_l" value="Aurora Serverless&#10;(Data API)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_rds_note" value="リレーショナル/&#10;トランザクション" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- OpenSearch -->
+        <mxCell id="ds_os" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticsearch_service;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_os_l" value="OpenSearch&#10;(全文検索)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_os_note" value="検索/集計クエリ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- HTTP -->
+        <mxCell id="ds_http" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="140" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_http_l" value="HTTP endpoint&#10;(外部REST)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="205" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_http_note" value="既存マイクロサービス" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Pipeline Resolver illustration -->
+        <mxCell id="pipeline_box" value="🔗 Pipeline Resolver — 1クエリで複数DSを連結" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;dashed=1;fontSize=11;fontStyle=1;fontColor=#1B660F;verticalAlign=top;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="840" y="290" width="680" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="pipeline_text" value="例: query getDashboard {&#10;   user(id: $id) → DynamoDB&#10;   posts(authorId: $id) → DynamoDB&#10;   recommendations → Lambda → 外部API&#10;   trending → OpenSearch&#10;}&#10;&#10;→ 従来REST: 4回のラウンドトリップ&#10;→ AppSync: 1回でまとめて取得 (over/under-fetch解消)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="860" y="315" width="640" height="135" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: AppSync to data sources -->
+        <mxCell id="arr_app_ddb" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="appsync_icon" target="ds_ddb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_app_lam" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="appsync_icon" target="ds_lambda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_app_rds" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="appsync_icon" target="ds_rds">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_app_os" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="appsync_icon" target="ds_os">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_app_http" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="appsync_icon" target="ds_http">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Bottom: Use cases ===== -->
+        <mxCell id="uc_box" value="AppSync を選ぶ典型ユースケース" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="980" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_text" value="① モバイルアプリのオフライン同期&#10;   Amplify DataStore でローカルDBと自動同期。電波回復時に Conflict resolution 実行。&#10;&#10;② リアルタイム協調編集 / チャット / 通知&#10;   Subscription で他クライアントの Mutation を即時 push。WebSocket 管理は AppSync 任せ。&#10;&#10;③ 1画面に複数データソース集約 (BFF不要)&#10;   ダッシュボード等で User/Post/Trending を 1クエリで取得 → API Gateway+Lambda+REST 集約より工数大幅減。&#10;&#10;④ きめ細かいフィールドレベル認可&#10;   @auth ディレクティブ (Amplify) や Resolver で「owner だけが update 可」等を Schema に宣言的に記述。&#10;&#10;⑤ Pub/Sub バックエンド&#10;   AppSync Events / Subscription による fan-out。MQTT (IoT Core) との使い分けは「クライアントがWebか/IoTデバイスか」。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="535" width="940" height="225" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Selection Matrix (right) ===== -->
+        <mxCell id="mat_box" value="📌 サービス選定マトリクス — AppSync vs API Gateway" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="500" width="480" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="mat_text" value="✓ AppSync を選ぶ&#10;• モバイル/Web で「リアルタイム同期」&#10;  + 「オフライン対応」&#10;• 1画面に複数DSをまとめる BFF を作りたくない&#10;• GraphQL を使いたい&#10;• Schema 駆動で型安全に開発したい&#10;&#10;✗ AppSync を避ける&#10;• B2B REST API公開 (API Key/Usage Plan必要)&#10;  → API Gateway REST&#10;• 既存 REST 資産を再利用&#10;  → API Gateway REST/HTTP&#10;• 単純な CRUD のみ / GraphQL不要&#10;  → API Gateway HTTP + Lambda&#10;• IoT MQTT 通信&#10;  → IoT Core" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="535" width="450" height="225" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

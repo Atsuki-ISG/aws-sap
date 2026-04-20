@@ -1,0 +1,263 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="serverless-modernization" name="Modernization Strategy">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="モノリス → サーバーレス モダナイゼーション戦略 — Strangler Fig + 6R + 段階移行" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ====== Strangler Fig Pattern ====== -->
+        <mxCell id="sf_box" value="Strangler Fig パターン — モノリスを段階的に絞め殺す (切り出し → 置換 → 退役)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="1020" height="360" as="geometry" />
+        </mxCell>
+
+        <!-- Phase 1 -->
+        <mxCell id="p1_label" value="Phase 1: 現状 (モノリス)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="60" y="115" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_ec2_label" value="EC2 モノリス&#10;App (全機能)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_rds" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="250" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_rds_label" value="RDS MySQL&#10;単一大DB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="225" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_arr" style="endArrow=classic;html=1;strokeColor=#232F3E;" edge="1" parent="1" source="p1_ec2" target="p1_rds">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Phase 2 -->
+        <mxCell id="p2_label" value="Phase 2: API GW + Lambda で 1機能切り出し" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#FF9900;" vertex="1" parent="1">
+          <mxGeometry x="400" y="115" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="410" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_apigw_label" value="API Gateway&#10;(Facade)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="385" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="540" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_lambda_label" value="Lambda&#10;(新機能 A)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="515" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="670" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_ec2_label" value="EC2&#10;(既存B,C,D)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="645" y="200" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_arr1" style="endArrow=classic;html=1;strokeColor=#232F3E;" edge="1" parent="1" source="p2_apigw" target="p2_lambda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_arr2" style="endArrow=classic;html=1;strokeColor=#232F3E;dashed=1;" edge="1" parent="1" source="p2_apigw" target="p2_ec2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Phase 3 -->
+        <mxCell id="p3_label" value="Phase 3: 全機能をサーバーレスへ → モノリス退役" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="740" y="115" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="760" y="145" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_apigw_label" value="API Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="735" y="200" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_lambda_a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="870" y="115" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_lambda_b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="870" y="160" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_fargate" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="870" y="205" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_lambdas_label" value="Lambda A,B,C&#10;/ Fargate D" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="850" y="250" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_aurora" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="970" y="165" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_aurora_label" value="Aurora&#10;Serverless v2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="950" y="208" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_arr1" style="endArrow=classic;html=1;strokeColor=#232F3E;" edge="1" parent="1" source="p3_apigw" target="p3_lambda_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_arr2" style="endArrow=classic;html=1;strokeColor=#232F3E;" edge="1" parent="1" source="p3_lambda_b" target="p3_aurora">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Strangler Fig pattern steps -->
+        <mxCell id="sf_steps_box" value="Strangler Fig の実装 5 ステップ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="980" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_step1" value="① Facade 配置&#10;API Gateway / ALB で&#10;全トラフィックを仲介&#10;ドメインを統一" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=top;spacingTop=4;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="285" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_step2" value="② 境界特定&#10;ビジネス境界/契約を&#10;明確化、最も変更頻度&#10;の高い機能を選定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=top;spacingTop=4;align=center;" vertex="1" parent="1">
+          <mxGeometry x="275" y="285" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_step3" value="③ 新実装&#10;Lambda/Fargate で&#10;対象機能を書き直し&#10;DBアクセスは共存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=top;spacingTop=4;align=center;" vertex="1" parent="1">
+          <mxGeometry x="470" y="285" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_step4" value="④ ルーティング切替&#10;Canary/Blue-Green&#10;新版へトラフィック&#10;段階移行 (1%→100%)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=top;spacingTop=4;align=center;" vertex="1" parent="1">
+          <mxGeometry x="665" y="285" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="sf_step5" value="⑤ 旧退役&#10;旧コードを物理削除&#10;DBスキーマ分割&#10;次の機能へ反復" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=top;spacingTop=4;align=center;" vertex="1" parent="1">
+          <mxGeometry x="860" y="285" width="170" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 6R 戦略 ====== -->
+        <mxCell id="r6_box" value="6R 戦略 — AWS Migration Hub で各アプリの移行方式を判定" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="80" width="480" height="360" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mhub_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.migration_hub;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="95" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r6_rehost" value="🔹 Rehost (Lift &amp; Shift)&#10;そのまま EC2 へ。AWS Application Migration Service (MGN)。速いが最適化なし。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="125" width="440" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_replatform" value="🔹 Replatform (Lift &amp; Reshape)&#10;OS/DB を置換 (Oracle→Aurora / Windows→Linux)。中程度の改修。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="175" width="440" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_refactor" value="🔹 Refactor / Re-architect&#10;サーバーレス化・マイクロサービス分割。コスト高だが TCO 最小。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="225" width="440" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_repurchase" value="🔹 Repurchase (Drop &amp; Shop)&#10;SaaS へ乗り換え (CRM→Salesforce / HR→Workday)。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="275" width="440" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_retain" value="🔹 Retain&#10;コンプライアンス/依存関係で現状維持。後回し判定。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="325" width="440" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="r6_retire" value="🔹 Retire&#10;利用されていない → 削除 (棚卸しで 10-20% は該当)。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="375" width="440" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- ====== 段階移行パス (コンテナ化→サーバーレス) ====== -->
+        <mxCell id="path_box" value="段階的モダナイゼーションパス — 小さく始める → 完全サーバーレスへ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="460" width="1520" height="270" as="geometry" />
+        </mxCell>
+
+        <!-- Stage 1 -->
+        <mxCell id="s1_box" value="Stage 1: コンテナ化&#10;(Docker 化 + ECS/Fargate)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="505" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_ecs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="100" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_fargate" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+          <mxGeometry x="210" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_text" value="• アプリを Docker 化&#10;• EC2 依存排除&#10;• 起動高速化&#10;• Blue/Green 配備&#10;• オブザーバビリティ" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="75" y="615" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Stage 2 -->
+        <mxCell id="s2_box" value="Stage 2: API 分解&#10;(BFF + サイドカー)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;align=center;" vertex="1" parent="1">
+          <mxGeometry x="325" y="505" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#5294CF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="365" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_appmesh" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.app_mesh;" vertex="1" parent="1">
+          <mxGeometry x="475" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s2_text" value="• API Gateway Facade&#10;• 境界別にサービス分離&#10;• サービス間通信 = App Mesh&#10;• 段階リリース (Canary)&#10;• DB は共有のまま" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="340" y="615" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Stage 3 -->
+        <mxCell id="s3_box" value="Stage 3: Lambda 置換&#10;(機能別サーバーレス化)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;align=center;" vertex="1" parent="1">
+          <mxGeometry x="590" y="505" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="630" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_step" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;" vertex="1" parent="1">
+          <mxGeometry x="740" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_text" value="• 短時間APIは Lambda へ&#10;• 長時間は Step Functions&#10;• コールドスタート対策&#10;  = Provisioned Concurrency&#10;• EventBridge でイベント化" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="605" y="615" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Stage 4 -->
+        <mxCell id="s4_box" value="Stage 4: DB モダナイズ&#10;(Aurora Serverless v2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;align=center;" vertex="1" parent="1">
+          <mxGeometry x="855" y="505" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="s4_aurora" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="895" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s4_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="1005" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s4_text" value="• 負荷に応じ ACU 自動伸縮&#10;• Serverless v2 = 0.5〜128 ACU&#10;• 低頻度ワークは DynamoDB&#10;  (単一桁ms / オンデマンド)&#10;• DMS で既存DB 連続レプリ" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="870" y="615" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Stage 5 -->
+        <mxCell id="s5_box" value="Stage 5: イベント駆動&#10;(完全疎結合)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="505" width="420" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_eb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_sns" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_sqs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="555" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s5_text" value="• EventBridge / SNS / SQS で完全疎結合&#10;• イベントソーシング + CQRS 採用可&#10;• 新機能追加はルール追加のみ — 既存影響 0&#10;• Observability: X-Ray / CloudWatch Logs Insights&#10;• IaC (SAM / CDK) + CI/CD で デプロイ自動化" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1135" y="615" width="390" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows between stages -->
+        <mxCell id="s_arr1" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="s1_box" target="s2_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_arr2" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="s2_box" target="s3_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_arr3" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="s3_box" target="s4_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_arr4" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="s4_box" target="s5_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ====== Migration Hub ====== -->
+        <mxCell id="hub_note" value="📌 AWS Migration Hub を司令塔として: Discovery (依存関係可視化) → Assessment (6R判定) → Orchestrator (移行プレイブック実行) → Refactor Spaces (Strangler Fig 支援)。&#10;Aurora Serverless v2 は RDS Blue/Green + DMS CDC で RPO 秒単位・RTO 分単位の切替が可能。停止時間ほぼゼロで DB 移行。" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="745" width="1520" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right key takeaway -->
+        <mxCell id="key_takeaway" value="📌 ワークロード→サービス選定&#10;未使用=Retire / SaaS可=Repurchase / 急ぎ=Rehost / 部分改修=Replatform / 最適化=Refactor(Lambda/Fargate) / DB=Aurora Serverless v2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="800" width="1520" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Bottom-right page mark -->
+        <mxCell id="page_mark" value="serverless-04 / モダナイゼーション戦略" style="text;html=1;align=right;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="860" width="260" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

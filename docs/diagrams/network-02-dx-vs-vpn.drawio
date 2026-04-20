@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="network-dx-vs-vpn" name="DX vs VPN">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="オンプレ - AWS 接続選定 — Direct Connect vs Site-to-Site VPN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== LEFT: Direct Connect ===== -->
+        <mxCell id="dx_box" value="AWS Direct Connect — 専用線 / 高品質 / 高コスト" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="480" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- Onprem DX -->
+        <mxCell id="dx_onprem" value="オンプレ DC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="90" y="140" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- DX Location -->
+        <mxCell id="dx_loc" value="DX Location&#10;(キャリアハウス)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="240" y="140" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- DX icon -->
+        <mxCell id="dx_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+          <mxGeometry x="400" y="150" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dx_icon_l" value="Direct Connect" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="380" y="215" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- VPC for DX -->
+        <mxCell id="dx_vpc" value="AWS VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="260" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Connection arrows -->
+        <mxCell id="dx_link1" value="専用線 (1/10/100Gbps)" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=3;fontSize=9;" edge="1" parent="1" source="dx_onprem" target="dx_loc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dx_link2" value="クロスコネクト" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=3;fontSize=9;" edge="1" parent="1" source="dx_loc" target="dx_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dx_link3" value="VIF" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=9;" edge="1" parent="1" source="dx_icon" target="dx_vpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- DX features -->
+        <mxCell id="dx_features" value="特徴&#10;• 物理専用線 (1/10/100 Gbps)、安定した低レイテンシ&#10;• 帯域保証、ジッター/パケロス少&#10;• データ転送料が VPN/Internet より安い&#10;• セットアップ 数週間〜数ヶ月 (キャリア工事)&#10;• 月額: ポート $300〜、データ転送 $0.02/GB〜&#10;• 単一回線は SLA なし → 冗長化が前提" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="380" width="440" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ===== MIDDLE: VPN ===== -->
+        <mxCell id="vpn_box" value="Site-to-Site VPN — IPsec / 即時 / 低コスト" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="480" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- Onprem VPN -->
+        <mxCell id="vpn_onprem" value="オンプレ DC&#10;(CGW)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="140" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Internet -->
+        <mxCell id="vpn_inet" value="Internet" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="750" y="150" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- VPN GW icon -->
+        <mxCell id="vpn_icon" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.site_to_site_vpn;" vertex="1" parent="1">
+          <mxGeometry x="890" y="150" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vpn_icon_l" value="Site-to-Site VPN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="870" y="215" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- VPC for VPN -->
+        <mxCell id="vpn_vpc" value="AWS VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="260" width="220" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- VPN connections -->
+        <mxCell id="vpn_link1" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;" edge="1" parent="1" source="vpn_onprem" target="vpn_inet">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vpn_link2" value="IPsec トンネル&#10;(2本冗長)" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=9;" edge="1" parent="1" source="vpn_inet" target="vpn_icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vpn_link3" value="" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="vpn_icon" target="vpn_vpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- VPN features -->
+        <mxCell id="vpn_features" value="特徴&#10;• IPsec over Internet、暗号化済み&#10;• 即時開始 (数十分でセットアップ)&#10;• トンネル2本で AZ レベル冗長&#10;• 1.25 Gbps / トンネル (TGW併用で ECMP 拡張可)&#10;• 月額: $0.05/h × 2本 + データ転送料 (Internet経由)&#10;• レイテンシ/帯域は Internet 品質に依存" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="580" y="380" width="440" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ===== RIGHT: DX + VPN backup ===== -->
+        <mxCell id="hyb_box" value="DX + VPN Backup — ベストプラクティス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="80" width="480" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- Onprem hybrid -->
+        <mxCell id="hyb_onprem" value="オンプレ DC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="180" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- DX path -->
+        <mxCell id="hyb_dx" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyb_dx_l" value="DX (主回線)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#FF9900;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="170" width="90" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- VPN path -->
+        <mxCell id="hyb_vpn" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.site_to_site_vpn;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="270" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hyb_vpn_l" value="VPN (Backup)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="320" width="90" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Hybrid VPC -->
+        <mxCell id="hyb_vpc" value="AWS VPC / TGW" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="190" width="140" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hyb_l1" value="Active" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=3;fontSize=9;" edge="1" parent="1" source="hyb_onprem" target="hyb_dx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hyb_l2" value="Standby" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;fontSize=9;" edge="1" parent="1" source="hyb_onprem" target="hyb_vpn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hyb_l3" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=3;" edge="1" parent="1" source="hyb_dx" target="hyb_vpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hyb_l4" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;" edge="1" parent="1" source="hyb_vpn" target="hyb_vpc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Hybrid features -->
+        <mxCell id="hyb_features" value="特徴&#10;• DX 主回線 + VPN バックアップ (BGP で自動切替)&#10;• DX 障害時に数秒〜数分で VPN に Failover&#10;• VPN 側はコスト軽 (常時利用ではない)&#10;• DX に SLA を実質付与する標準パターン&#10;• 完全冗長は DX×2 (別ロケーション) が最強だが高コスト&#10;• 試験定番: 「DX + VPN backup」を即答" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="380" width="440" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Comparison Table ===== -->
+        <mxCell id="cmp_box" value="📊 帯域・セットアップ・コスト早見表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="530" width="900" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp_tbl" value="観点              Direct Connect              Site-to-Site VPN&#10;──────────────────────────────────────────────────────────────&#10;帯域              1 / 10 / 100 Gbps           最大 1.25 Gbps/トンネル (ECMP拡張可)&#10;レイテンシ        低・安定                    Internet 依存・変動&#10;セットアップ      数週間〜数ヶ月               数十分〜数時間&#10;月額固定費        $300〜 (ポート)             $36 (1接続=2トンネル)&#10;データ転送料      $0.02/GB〜 (安い)           $0.09/GB (Internet OUT 通常料金)&#10;暗号化            なし (MACsec オプション)    IPsec 標準&#10;SLA               単一回線なし→冗長化前提     なし (Internet 経由)&#10;ユースケース      大容量定常転送/低レイテンシ  即時開始/小容量/Backup" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="80" y="560" width="870" height="145" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Decision Tree ===== -->
+        <mxCell id="dec_box" value="📌 試験で迷ったときの判断フロー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="980" y="530" width="560" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="dec_text" value="• 「明日から接続したい」→ VPN (DX は工事必要)&#10;• 「10Gbps 安定回線が必要」→ DX&#10;• 「コスト最優先・小容量」→ VPN&#10;• 「DX に SLA 相当を付けたい」→ DX + VPN Backup&#10;• 「DX 工事中の暫定接続」→ VPN を先行構築&#10;• 「DR 用の予備回線」→ VPN (低コスト)&#10;• 「規制で Internet 経由NG」→ DX (専用線)&#10;• 「複数VPC/オンプレを束ねる」→ DX Gateway + TGW" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="560" width="530" height="145" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

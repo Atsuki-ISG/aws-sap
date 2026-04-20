@@ -1,0 +1,243 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="privatelink" name="PrivateLink Service Publishing">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AWS PrivateLink — サービス公開モデル / Peering・TGW との比較" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Producer Account (Service Provider) ===== -->
+        <mxCell id="prod_acc" value="プロデューサー アカウント (サービス提供側) — 222222222222" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;strokeColor=#3B48CC;fillColor=#EBF1FF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="540" height="500" as="geometry" />
+        </mxCell>
+
+        <mxCell id="prod_vpc" value="VPC (10.10.0.0/16)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#FFFFFF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="500" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Endpoint Service -->
+        <mxCell id="ep_svc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.endpoints;" vertex="1" parent="1">
+          <mxGeometry x="450" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ep_svc_l" value="VPC Endpoint Service&#10;com.amazonaws.vpce.&#10;ap-northeast-1.vpce-svc-xxx" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="213" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- NLB -->
+        <mxCell id="nlb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.network_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="nlb_l" value="NLB (必須)&#10;ALB は不可" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="333" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Backend EC2 -->
+        <mxCell id="be_ec2_1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be_ec2_1_l" value="App AZ-a" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="320" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="be_ec2_2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be_ec2_2_l" value="App AZ-c" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Allow list -->
+        <mxCell id="allow_box" value="✅ Allow リスト (Allowed Principals)&#10;arn:aws:iam::333344445555:root&#10;arn:aws:iam::666677778888:role/AppRole&#10;&#10;・Acceptance Required = ON&#10;  → 接続申請を手動承認&#10;・Acceptance = OFF&#10;  → 自動許可（リスト内）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E9F3E6;strokeColor=#248814;strokeWidth=2;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="100" y="430" width="460" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Producer side note -->
+        <mxCell id="prod_note" value="📌 提供側のセットアップ手順&#10;1. NLB を作成（複数AZでターゲット登録）&#10;2. Endpoint Service を NLB に紐付けて作成&#10;3. Service Name (vpce-svc-xxx) をコンシューマに通知&#10;4. Allowed Principal にコンシューマの ARN を追加" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="510" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Middle: PrivateLink Tunnel ===== -->
+        <mxCell id="link_box" value="🔒 PrivateLink&#10;(AWS バックボーン)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C4FFF;strokeColor=#8C4FFF;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FFFFFF;verticalAlign=middle;align=center;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="610" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="link_label" value="✅ CIDR 重複OK&#10;(VPCのIPは見えない)&#10;✅ 片方向のみ&#10;(Consumer→Provider)&#10;✅ サービス単位&#10;(VPC全体ではない)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#8C4FFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="380" width="140" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Consumer Account ===== -->
+        <mxCell id="cons_acc" value="コンシューマー アカウント (利用側) — 333344445555" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;strokeColor=#FF9900;fillColor=#FFEFD5;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="80" width="540" height="500" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cons_vpc" value="VPC (10.10.0.0/16) — CIDR重複OK！" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#FFFFFF;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="780" y="120" width="500" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Interface EP on consumer -->
+        <mxCell id="cons_ep" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.endpoint;" vertex="1" parent="1">
+          <mxGeometry x="820" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cons_ep_l" value="Interface VPC&#10;Endpoint (ENI)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="213" width="100" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- DNS Resolver -->
+        <mxCell id="cons_dns" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="970" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cons_dns_l" value="Private DNS&#10;(api.example.com&#10;→ EP の私有IP)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="935" y="213" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Consumer EC2 -->
+        <mxCell id="cons_ec2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="160" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cons_ec2_l" value="Client EC2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="213" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Direction arrow on consumer side -->
+        <mxCell id="dir_arr" value="片方向アクセス" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=3;fontSize=11;fontColor=#DD344C;fontStyle=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="290" as="sourcePoint" />
+            <mxPoint x="850" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="cons_call" value="Client → Endpoint Service&#10;(逆方向は不可)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="305" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Consumer use cases -->
+        <mxCell id="cons_use" value="📌 利用例 (SaaS / 共通サービス)&#10;・自社の社内認証API を 子アカウントへ提供&#10;・SaaS ベンダー (Datadog/Snowflake/MongoDB Atlas)&#10;  へインターネットを介さず接続&#10;・複数顧客 VPC へ同じサービスを提供&#10;  (CIDR が重複していても OK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="800" y="350" width="460" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cons_note" value="📌 利用側のセットアップ手順&#10;1. Endpoint Service Name を入手 (vpce-svc-xxx)&#10;2. Interface VPC Endpoint を作成 (ENI 配置)&#10;3. Private DNS 有効化（任意） → 独自FQDN で透過アクセス&#10;4. Security Group で Endpoint への通信を許可" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="780" y="510" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: Producer chain -->
+        <mxCell id="arr_p1" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="be_ec2_1" target="nlb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_p2" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="be_ec2_2" target="nlb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_p3" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="nlb" target="ep_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: Consumer chain -->
+        <mxCell id="arr_c1" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="cons_ec2" target="cons_dns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_c2" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="cons_dns" target="cons_ep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr_c3" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=3;" edge="1" parent="1" source="cons_ep" target="ep_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Bottom: Comparison ===== -->
+        <mxCell id="cmp_box" value="比較表 — PrivateLink vs VPC Peering vs Transit Gateway" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="900" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ch1" value="観点" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontSize=11;fontStyle=1;fontColor=#FFFFFF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="80" y="630" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ch2" value="PrivateLink" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8C4FFF;strokeColor=#8C4FFF;fontSize=11;fontStyle=1;fontColor=#FFFFFF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="630" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ch3" value="VPC Peering" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF9900;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#FFFFFF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="630" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ch4" value="Transit Gateway" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#3B48CC;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#FFFFFF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="630" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cr1a" value="CIDR 重複" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="660" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr1b" value="✅ OK" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontColor=#248814;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="660" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr1c" value="❌ NG" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontColor=#DD344C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="660" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr1d" value="❌ NG" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontColor=#DD344C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="660" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cr2a" value="方向" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="690" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr2b" value="片方向 (Consumer→Provider)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="690" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr2c" value="双方向 (full mesh)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="690" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr2d" value="双方向 (RT制御で片方向化可)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="690" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cr3a" value="公開単位" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="720" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr3b" value="サービス単位 (NLB背後)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="720" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr3c" value="VPC全体 (CIDR全部)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="720" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr3d" value="VPC全体 (RT/Attachmentで制御)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="720" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cr4a" value="スケール" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="750" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr4b" value="多数顧客 1サービス公開" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="750" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr4c" value="N×N でメッシュ爆発" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="750" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr4d" value="ハブ&amp;スポーク (5000 VPCまで)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="750" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cr5a" value="代表ユース" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="780" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr5b" value="SaaS / 認証API公開" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="780" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr5c" value="少数 VPC 間の直結" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="780" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="cr5d" value="多数 VPC + DX/VPN ハブ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="700" y="780" width="240" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Decision Flow ===== -->
+        <mxCell id="dec_box" value="🧭 試験で迷ったときの判断フロー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="980" y="600" width="560" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_text" value="• 「サービス単体だけ公開、CIDR重複OK」&#10;  → PrivateLink (Endpoint Service + NLB)&#10;&#10;• 「VPC 全体を相互接続、CIDR重複なし、少数」&#10;  → VPC Peering（推移ルーティング不可に注意）&#10;&#10;• 「多数 VPC + オンプレ DX/VPN ハブ集約」&#10;  → Transit Gateway&#10;&#10;• 「ALB の HTTP/HTTPS を公開したい」&#10;  → 一旦 NLB を ALB の前段に置く or HTTP を NLB で TCP 伝送&#10;&#10;• 「双方向通信が必要」&#10;  → PrivateLink は片方向 → Peering / TGW を選択" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;spacingLeft=10;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry x="990" y="630" width="540" height="190" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

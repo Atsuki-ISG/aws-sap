@@ -1,0 +1,257 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="api-patterns" name="API Patterns">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="API 構成パターン — 4ユースケースで API Gateway / AppSync を選定" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="クライアント種別 × 通信モデル × データソース から最適なAPI層を選ぶ。" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="1520" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Pattern A: Mobile + AppSync ===== -->
+        <mxCell id="pa_box" value="🅐 モバイル: AppSync + DynamoDB + Lambda — オフライン同期 + リアルタイム" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="730" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_cli" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.mobile_client;" vertex="1" parent="1">
+          <mxGeometry x="100" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_cli_l" value="iOS / Android&#10;(Amplify SDK)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="220" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_cog" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;" vertex="1" parent="1">
+          <mxGeometry x="220" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_cog_l" value="Cognito&#10;User Pool" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="195" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_app" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.appsync;" vertex="1" parent="1">
+          <mxGeometry x="340" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_app_l" value="AppSync&#10;(GraphQL)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="315" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_ddb_l" value="DynamoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="455" y="185" width="110" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="480" y="220" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_lam_l" value="Lambda&#10;(複雑処理)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="455" y="285" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_arr1" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pa_cli" target="pa_cog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_arr2" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pa_cog" target="pa_app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_arr3" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pa_app" target="pa_ddb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_arr4" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pa_app" target="pa_lam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa_text" value="✓ 選定理由: オフライン同期 (DataStore) / Subscriptions リアルタイム / 1クエリ複数DS / フィールド単位認可&#10;✗ 不適合: B2B課金 (Usage Plan不可) / GraphQL不要なら過剰&#10;典型: SNS / メモアプリ / コラボツール / 配車 / メッセンジャー" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="690" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_text_extra" value="" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="600" y="120" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_extra_text" value="📌 ポイント&#10;• Subscription で他端末の更新を即時受信&#10;• @auth ディレクティブで&#10;  owner-only 認可&#10;• Conflict Resolution で&#10;  オフライン編集を自動マージ" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#FF9900;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="600" y="120" width="180" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Pattern B: Web + REST CRUD ===== -->
+        <mxCell id="pb_box" value="🅑 Web SPA: API Gateway REST + Lambda + DynamoDB — 標準CRUD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="810" y="100" width="730" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_cli" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+          <mxGeometry x="850" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_cli_l" value="Web SPA&#10;(CloudFront/S3)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_cog" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cognito;" vertex="1" parent="1">
+          <mxGeometry x="970" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_cog_l" value="Cognito&#10;(JWT)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="945" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_apigw_l" value="API Gateway&#10;REST" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1065" y="220" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_lam_l" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1185" y="220" width="110" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="155" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_ddb_l" value="DynamoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1305" y="220" width="110" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_arr1" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pb_cli" target="pb_cog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_arr2" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pb_cog" target="pb_apigw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_arr3" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pb_apigw" target="pb_lam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb_arr4" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pb_lam" target="pb_ddb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pb_text" value="✓ 選定理由: REST資産・WAF・Edgeキャッシュ / VTLでDDB直接統合も可 / Cognito Authorizer 標準&#10;💡 軽量化: HTTP API + JWT で 70%安・60%低レイテンシ → ToB/SaaS基本構成&#10;典型: 管理画面 / 業務システム / SaaSの REST API 公開" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="320" width="690" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Pattern C: IoT + WebSocket ===== -->
+        <mxCell id="pc_box" value="🅒 IoT/リアルタイム: API Gateway WebSocket + Lambda + DynamoDB — 双方向" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="370" width="730" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_dev" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.iot_core;" vertex="1" parent="1">
+          <mxGeometry x="100" y="425" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_dev_l" value="IoTデバイス&#10;ブラウザ/ゲーム" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="490" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="240" y="425" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_apigw_l" value="API Gateway&#10;WebSocket" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="215" y="490" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="380" y="425" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_lam_l" value="Lambda&#10;($connect/$default)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="350" y="490" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="540" y="395" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_ddb_l" value="DynamoDB&#10;(Connection ID)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="510" y="460" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_back" value="@connections API&#10;で push back" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=1;dashed=1;fontSize=10;fontColor=#7AA116;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="540" y="475" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_arr1" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=3;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pc_dev" target="pc_apigw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_arr2" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pc_apigw" target="pc_lam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc_arr3" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pc_lam" target="pc_ddb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pc_text" value="✓ 選定理由: Server→Client push (チャット/通知/価格更新) / 接続維持&#10;⚠ MQTT が必要なら IoT Core / 大量同接 (10万〜) なら IoT Core or 専用WebSocketサービス&#10;典型: チャット / リアルタイム入札 / 株価/ゲーム同期 / IoT 制御コマンド" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="525" width="690" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Pattern D: B2B + API Key ===== -->
+        <mxCell id="pd_box" value="🅓 B2B Partner: API Gateway REST + API Key + Usage Plan — 従量課金/レート制限" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="810" y="370" width="730" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_p" value="🏢 B2B&#10;Partners&#10;(各社API Key)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="850" y="425" width="100" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_la" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="990" y="395" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_la_l" value="Lambda Auth&#10;(本人確認)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="960" y="445" width="110" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="425" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_apigw_l" value="REST API + WAF&#10;Usage Plan" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="490" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_plan" value="📋 Usage Plan&#10;Free: 1k/d&#10;Pro: 10万/d&#10;Throttle 1k/s" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=1;fontSize=9;fontColor=#DD344C;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="395" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_back" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#945DF2;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="425" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_back_l" value="バックエンド&#10;(VPC Link 等)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="490" width="120" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_arr1" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pd_p" target="pd_la">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_arr1_l" value="x-api-key + Bearer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#DD344C;" vertex="1" parent="1">
+          <mxGeometry x="945" y="378" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_arr2" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pd_la" target="pd_apigw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pd_arr3" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="pd_apigw" target="pd_back">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pd_text" value="✓ 選定理由: API Key で課金集計 / Usage Plan で プラン別 throttle/quota / WAF で IP制限&#10;⚠ HTTP API/AppSync は API Key + Usage Plan 非対応 → REST API 一択&#10;典型: 公開 SaaS API / 決済/地図/SMS API / マーケットプレイス出品" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="830" y="525" width="690" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Decision Flow ===== -->
+        <mxCell id="dec_box" value="🧭 判断フロー — 要件から選ぶ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;strokeWidth=1;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="640" width="980" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="dec_text" value="① クライアントとサーバの双方向通信が必要か？&#10;   YES → API Gateway WebSocket (パターンC) または AppSync Subscription (パターンA)&#10;② オフライン同期 / GraphQL / 1リクエストで複数DSが必要か？&#10;   YES → AppSync (パターンA)&#10;③ B2B でAPI Key + Usage Plan + 細かい契約管理が必要か？&#10;   YES → API Gateway REST (パターンD)&#10;④ それ以外の通常CRUD/RESTか？&#10;   YES → API Gateway HTTP (低コスト/低レイテンシ) ＋ Cognito JWT (パターンB の HTTP版)&#10;   既存REST資産/AWSサービス直接統合/VTLが必要なら REST API" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="675" width="940" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Selection Matrix ===== -->
+        <mxCell id="mat_box" value="📌 サービス選定マトリクス — 要件 → サービス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="640" width="480" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="mat_text" value="• オフライン+リアルタイム → AppSync (Ⓐ)&#10;• 標準SPA CRUD/コスト重視 → HTTP API (Ⓑ軽量版)&#10;• AWS直接統合/VTL/WAF → REST API (Ⓑ)&#10;• Server push (チャット/IoT制御) → WebSocket (Ⓒ)&#10;• B2B + Usage Plan/API Key → REST API (Ⓓ)&#10;• MQTT / 大量同接 IoT → IoT Core (図対象外)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="675" width="450" height="90" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
