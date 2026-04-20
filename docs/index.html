@@ -273,7 +273,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <div class="stat red"><div class="stat-num" id="statWrong">0</div><div class="stat-label">不正解</div></div>
       <div class="stat"><div class="stat-num" id="statRate">-%</div><div class="stat-label">正答率</div></div>
     </div>
-    <div class="filter-tabs">
+    <div class="filter-tabs" id="filterTabs">
       <button class="filter-tab active" data-filter="all">全問</button>
       <button class="filter-tab" data-filter="unanswered">未回答</button>
       <button class="filter-tab" data-filter="wrong">不正解</button>
@@ -288,6 +288,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <button class="filter-tab" data-tag="api-design">API設計</button>
       <button class="filter-tab" data-tag="serverless">サーバーレス</button>
       <button class="filter-tab" data-tag="container">コンテナ</button>
+    </div>
+    <div class="filter-tabs" id="sourceTabs">
+      <button class="filter-tab active" data-source="all">全ソース</button>
+      <button class="filter-tab" data-source="cloudtech">☁️ CloudTech</button>
+      <button class="filter-tab" data-source="udemy">📘 Udemy</button>
     </div>
     <div class="range-tabs" id="rangeTabs"></div>
     <div class="grid" id="grid"></div>
@@ -332,6 +337,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   let currentQ = null;
   let currentFilter = 'all';
   let currentTag = 'all';
+  let currentSource = 'all';
   let currentRange = 0;
   const RANGE_SIZE = 50;
   let filteredIds = [];
@@ -394,14 +400,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       if (currentTag !== 'all') {
         passTag = q.tags && q.tags.includes(currentTag);
       }
-      return passFilter && passTag;
+      let passSource = true;
+      if (currentSource !== 'all') {
+        passSource = q.source === currentSource;
+      }
+      return passFilter && passTag && passSource;
     }).map(q => q.id);
 
-    // Update stats for current tag
-    const tagFiltered = currentTag === 'all' ? questions : questions.filter(q => q.tags && q.tags.includes(currentTag));
-    const total = tagFiltered.length;
+    // Update stats for current tag + source
+    const baseFiltered = questions.filter(q => {
+      let passTag = currentTag === 'all' || (q.tags && q.tags.includes(currentTag));
+      let passSource = currentSource === 'all' || q.source === currentSource;
+      return passTag && passSource;
+    });
+    const total = baseFiltered.length;
     let correct = 0, wrong = 0;
-    tagFiltered.forEach(q => {
+    baseFiltered.forEach(q => {
       const a = state.answers[q.id];
       if (a) { if (a.correct) correct++; else wrong++; }
     });
@@ -468,9 +482,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   }
 
   // Filter tabs
-  document.querySelectorAll('.filter-tab').forEach(tab => {
+  document.querySelectorAll('#filterTabs .filter-tab').forEach(tab => {
     tab.onclick = () => {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('#filterTabs .filter-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentFilter = tab.dataset.filter;
       currentRange = 0;
@@ -484,6 +498,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       document.querySelectorAll('#tagTabs .filter-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentTag = tab.dataset.tag;
+      currentRange = 0;
+      applyFilter();
+    };
+  });
+
+  // Source tabs
+  document.querySelectorAll('#sourceTabs .filter-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('#sourceTabs .filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentSource = tab.dataset.source;
       currentRange = 0;
       applyFilter();
     };
