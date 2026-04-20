@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-318 / EduTech DR: S3 CRR + Route 53 Failover + Elastic DR" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="rp" value="Primary Region" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="460" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="cf" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cf_l" value="CloudFront" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="178" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="180" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_p_l" value="ALB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="145" y="178" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_p_l" value="App Server" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="178" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="420" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_p_l" value="RDS&#10;Primary" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="178" width="90" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_p_l" value="S3 ビデオ教材" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="308" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_p" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="220" y="250" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_p_l" value="Elastic DR Agent" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="175" y="308" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="pn" value="【通常運用】&#10;・CloudFrontで教材配信 (キャッシュ)&#10;・ALB→EC2→RDS&#10;・S3ビデオ教材格納&#10;・Elastic DR で EC2 継続レプリ&#10;・RDS クロスリージョンリードレプリカ" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="420" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="r53" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="500" y="70" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r53_l" value="Route 53 Failover" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="445" y="128" width="160" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="rs" value="DR Region" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#7AA116;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="140" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+          <mxGeometry x="560" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="alb_s_l" value="ALB (待機)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="525" y="258" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="680" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_s_l" value="EC2 最小" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="650" y="258" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="800" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_s_l" value="RDS RR&#10;→Promote" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="258" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="560" y="320" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_s_l" value="S3 CRR ターゲット" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="378" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="720" y="320" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_s_l" value="DRS Target" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="685" y="378" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sn" value="【DR発動】DRSでEC2を起動／RR Promote／ASG希望容量増／S3は既に同期済" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="540" y="410" width="430" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;" edge="1" parent="1" source="r53" target="alb_p">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1_l" value="Primary" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ar1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar2" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;" edge="1" parent="1" source="r53" target="alb_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2_l" value="Failover" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ar2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar3" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="s3_p" target="s3_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3_l" value="S3 CRR" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ar3">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar4" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="rds_p" target="rds_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar4_l" value="Cross-Region RR" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ar4">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ar5" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=3;dashed=1;" edge="1" parent="1" source="drs_p" target="drs_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar5_l" value="ブロック継続レプリ" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#DD344C;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="ar5">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="✅ 教材(S3)＝CRR／EC2＝Elastic DR／RDS＝Cross-Region RR／DNS＝Route 53 Failover が王道構成&#10;💡 ビデオ配信はCloudFrontで世界中にキャッシュ、障害時もエッジから配信継続" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="520" width="960" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

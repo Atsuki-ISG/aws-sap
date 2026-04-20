@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="sqs-decouple-external-api" name="UDEMY-249">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="UDEMY-249 / 外部 API 遅延を吸収: Lambda → SQS キュー → Worker Lambda → External API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="20" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_52" value="遅い API の応答待ちでフロント Lambda が詰まらない — バッファ + 非同期が基本" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="52" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="client" value="Web Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="40" y="140" width="100" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apigw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="170" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="apigw_l" value="API Gateway" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="145" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="l1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="320" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="l1_l" value="Front Lambda
+(即時 Ack)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="295" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sqs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+  <mxGeometry x="470" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sqs_l" value="SQS Queue" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="445" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="l2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="620" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="l2_l" value="Worker Lambda" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="595" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="ext" value="External API
+(遅い/不安定)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F2F2F2;strokeColor=#666;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="780" y="140" width="140" height="50" as="geometry" />
+</mxCell>
+<mxCell id="dlq" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+  <mxGeometry x="620" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="dlq_l" value="DLQ" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="595" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="client" target="apigw">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="apigw" target="l1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="SendMessage" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="l1" target="sqs">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a4" value="poll" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="sqs" target="l2">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a5" value="HTTP" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="l2" target="ext">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a6" value="失敗" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="l2" target="dlq">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ SQS が「緩衝材」— 外部 API 障害時もメッセージ保持。Worker 側リトライで最終整合性" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="360" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ Lambda 同期呼び出し: 外部 API の遅延分ユーザー待ち + タイムアウト連鎖
+❌ SNS: メッセージ消失リスク、キュー永続化特性なし" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="420" width="960" height="60" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 SQS Visibility Timeout = Worker 処理時間 × 1.5 が目安。Batch 処理で ESM の maxBatchingWindow を活用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="500" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

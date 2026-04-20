@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-297 / ハイブリッドDR: Elastic Disaster Recovery (オンプレ→AWS)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="op" value="オンプレミス DC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#666666;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#666666;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="440" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="srv" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="srv_l" value="通関関連サーバー&#10;(法令によりオンプレ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="188" width="170" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_a" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="250" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_a_l" value="DRS Agent&#10;(継続レプリ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="205" y="188" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="op_n" value="【オンプレ要件】&#10;・法令でインターネット接続可&#10;  通関ファイルはオンプレ&#10;・AWS とハイブリッドに統合&#10;&#10;【DR戦略】&#10;・Elastic DRをオンプレにインストール&#10;・ブロックレベル継続レプリ&#10;・RPO 秒〜分／RTO 数分" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="400" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" value="AWS Region" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="60" width="500" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="520" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_s_l" value="Elastic DR&#10;(ステージング)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="188" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_dr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="700" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_dr_l" value="DR EC2 起動" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="188" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="840" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_l" value="EBS&#10;スナップショット" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="795" y="188" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="aws_n" value="【フェイルオーバー】&#10;・障害検知 → Elastic DR で数分以内に&#10;　EC2 起動 (AMIベース)&#10;・EBS ボリュームは最新ステートで提供&#10;&#10;【フェイルバック】&#10;・同じDRSでオンプレに戻す&#10;・双方向動作が強み" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="500" y="260" width="460" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="rep" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=4;" edge="1" parent="1" source="drs_a" target="drs_s">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_l" value="継続ブロックレプリ" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#DD344C;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rep">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="fo" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;" edge="1" parent="1" source="drs_s" target="ec2_dr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fo_l" value="フェイルオーバー起動" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#DD344C;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="fo">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="💡 Elastic Disaster Recovery (DRS) = CloudEndure の後継&#10;・オンプレ→AWS、AWS Region間の両方で動作／フェイルバック対応／RPO秒〜分・RTO分" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="510" width="960" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

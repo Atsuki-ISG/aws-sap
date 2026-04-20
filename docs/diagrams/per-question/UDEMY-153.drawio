@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q452] ECS Capacity Provider: Spot + 予測スケーリング" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="sit" value="シーン: 繁忙期（イースター・独立記念日）トラフィック急増／オンデマンドのみでは高コスト" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="130" width="960" height="440" as="geometry"/>
+</mxCell>
+
+<mxCell id="ecscl" value="ECS Cluster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FF9900;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="170" width="920" height="220" as="geometry"/>
+</mxCell>
+
+<mxCell id="ecs_80_210" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+  <mxGeometry x="80" y="210" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ecs_80_210" value="ECS" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="268" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="cp1" value="① On-Demand Capacity Provider (既存)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#666666;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="200" y="210" width="340" height="160" as="geometry"/>
+</mxCell>
+
+<mxCell id="asg1_230_240" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="230" y="240" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_asg1_230_240" value="ASG (OD)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="210" y="298" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="cp1n" value="重み: 1 (例)&#10;安定性重視&#10;予測可能な負荷用" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="290" y="260" width="240" height="80" as="geometry"/>
+</mxCell>
+
+<mxCell id="cp2" value="② Spot Capacity Provider (追加)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="570" y="210" width="360" height="160" as="geometry"/>
+</mxCell>
+
+<mxCell id="asg2_600_240" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="600" y="240" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_asg2_600_240" value="ASG (Spot)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="580" y="298" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="cp2n" value="重み: 1 (同じ)&#10;⭐ コスト最大 90% 削減&#10;中断許容可能なワークロード" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+  <mxGeometry x="660" y="260" width="260" height="80" as="geometry"/>
+</mxCell>
+
+<mxCell id="ps" value="E. 予測スケーリングポリシー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="410" width="460" height="150" as="geometry"/>
+</mxCell>
+
+<mxCell id="psn" value="• スケジュールドスケーリング → 固定時刻&#10;• 予測スケーリング → ML で過去のパターン予測&#10;&#10;  → 繁忙期前にプロアクティブにキャパシティ確保&#10;  → スパイク遅延を回避" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="445" width="420" height="110" as="geometry"/>
+</mxCell>
+
+<mxCell id="ans" value="✓ 正解: A + E" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="520" y="410" width="440" height="150" as="geometry"/>
+</mxCell>
+
+<mxCell id="ansn" value="A. Spot ECS キャパシティプロバイダ追加 (重み同じ)&#10;E. 予測スケーリングポリシーを使う&#10;&#10;✗ C (オンデマンドキャパシティ予約) はコスト削減にはならない&#10;✗ S3 Transfer Acceleration は関係ない" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="540" y="445" width="400" height="110" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

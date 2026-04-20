@@ -1,0 +1,148 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q388] EU低レイテンシ化: Route53 Latency + RDS リードレプリカ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="r53_450_50" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+  <mxGeometry x="450" y="50" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_r53_450_50" value="Route 53
+Latency-based" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="430" y="108" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="nau" value="北米ユーザー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="130" width="130" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="euu" value="欧州ユーザー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="830" y="130" width="130" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="na" value="北米リージョン (us-east-1)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="220" width="460" height="340" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw1_60_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="60" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw1_60_260" value="API GW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="40" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lam1_210_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="210" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lam1_210_260" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="190" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="rds1_360_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+  <mxGeometry x="360" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_rds1_360_260" value="RDS Primary" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="340" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="eu" value="欧州リージョン (eu-west-1)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="500" y="220" width="460" height="340" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw2_540_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="540" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw2_540_260" value="API GW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="520" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lam2_690_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="690" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lam2_690_260" value="Lambda" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="670" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="rds2_840_260" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+  <mxGeometry x="840" y="260" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_rds2_840_260" value="RDS Read Replica
+(95% Read OK)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="820" y="318" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l1" value="近い方へ" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="450" y="90" as="sourcePoint"/>
+    <mxPoint x="110" y="260" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="l2" value="近い方へ" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="525" y="90" as="sourcePoint"/>
+    <mxPoint x="590" y="260" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="na1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="170" y="155" as="sourcePoint"/>
+    <mxPoint x="450" y="85" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="eu1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="830" y="155" as="sourcePoint"/>
+    <mxPoint x="550" y="85" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="repl" value="非同期リードレプリカ複製" style="endArrow=classic;html=1;rounded=0;strokeColor=#7AA116;strokeWidth=3;fontSize=10;fontColor=#7AA116;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="410" y="400" as="sourcePoint"/>
+    <mxPoint x="840" y="400" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="na2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="110" y="290" as="sourcePoint"/>
+    <mxPoint x="210" y="290" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="na3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="260" y="290" as="sourcePoint"/>
+    <mxPoint x="360" y="290" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="eu2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="590" y="290" as="sourcePoint"/>
+    <mxPoint x="690" y="290" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="eu3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="740" y="290" as="sourcePoint"/>
+    <mxPoint x="840" y="290" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="note" value="要点: 95%が Read → RDS リードレプリカで十分（Aurora Global より低コスト） / Route53=Latency-based で近いリージョンへ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#1B5E20;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="570" width="960" height="25" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

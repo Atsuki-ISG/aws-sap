@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-141">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="640" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-141: Organizations 招待 + OrganizationAccountAccessRole で一元管理" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="central" value="中央管理アカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="340" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="150" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="AWS Organizations (管理)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="90" y="165" width="240" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="central_d" value="① Organizations で中央管理アカウントを作成&#xa;② 既存の各事業部アカウントに 招待 (Invite) を送信&#xa;③ 各事業部が 招待を承諾&#xa;&#xa;請求の一元化 (Consolidated Billing):&#xa;  ・すべての事業部の請求が中央アカウントに集約&#xa;  ・ボリューム割引も組織全体で適用&#xa;&#xa;アクセスポリシー一元管理:&#xa;  ・SCP で制限を適用&#xa;  ・OrganizationAccountAccessRole で管理アクセス" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="300" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="sts:AssumeRole" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="200" as="sourcePoint" />
+            <mxPoint x="620" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mem" value="各事業部メンバーアカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="340" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="role" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="640" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="role_l" value="OrganizationAccount&#xa;AccessRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="165" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="role_t" value="信頼ポリシー:&#xa;  Principal:&#xa;    arn:aws:iam::中央acct:root&#xa;  Action: sts:AssumeRole&#xa;&#xa;権限ポリシー:&#xa;  AdministratorAccess&#xa;  (AWS 管理ポリシー)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="740" y="105" width="200" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="biz0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="650" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="biz0_l" value="事業部 1 アカウント (買収した人材紹介会社)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="700" y="270" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="biz1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="650" y="330" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="biz1_l" value="事業部 2 アカウント (買収した人材紹介会社)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="700" y="340" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="biz2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="650" y="400" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="biz2_l" value="事業部 3 アカウント (買収した人材紹介会社)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="700" y="410" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 招待 vs Control Tower vs 手動" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="470" width="920" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ 既存アカウントを組織に入れる = 「招待」方式 (InviteAccountToOrganization)&#xa;  → 招待を承諾する 必要がある (両方の同意)&#xa;✓ OrganizationAccountAccessRole = Organizations が作成/招待したメンバーに自動で作られる IAM ロール&#xa;  (管理アカウントからAssumeRoleで Admin 操作できる共通ロール)&#xa;  → 招待方式でも メンバーアカウントで 手動で作成する 必要がある (自動作成は Organizations 「作成」時のみ)&#xa;✗ 作成 vs 招待 の区別が問われる (招待では自動で作られない) — 試験頻出ポイント" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="500" width="900" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

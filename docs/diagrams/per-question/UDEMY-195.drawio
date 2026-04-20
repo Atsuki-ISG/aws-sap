@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q494] Webhook受信: API GW HTTP API + Lambda 個別関数" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="src" value="オンプレミス Git サーバー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="100" width="200" height="200" as="geometry"/>
+</mxCell>
+
+<mxCell id="srcn" value="Webhook 発火:&#10;• push&#10;• pull_request&#10;• issues&#10;• release&#10;&#10;HTTPS POST" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="140" width="160" height="140" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw_320_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="320" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw_320_150" value="API Gateway
+HTTP API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="300" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="apin" value="HTTP API:&#10;• 低レイテンシ&#10;• 低コスト&#10;• REST より高速" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#E7157B;" vertex="1" parent="1">
+  <mxGeometry x="290" y="220" width="130" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="l1_540_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="540" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l1_540_100" value="Lambda
+/push" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="520" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l2_540_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="540" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l2_540_200" value="Lambda
+/pr" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="520" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l3_540_300" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="540" y="300" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l3_540_300" value="Lambda
+/release" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="520" y="358" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ddb_780_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="780" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ddb_780_200" value="DynamoDB
+イベント記録" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="760" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a0" value="webhook" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="240" y="180" as="sourcePoint"/>
+    <mxPoint x="320" y="180" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a1" value="route /push" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="370" y="180" as="sourcePoint"/>
+    <mxPoint x="540" y="130" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="370" y="180" as="sourcePoint"/>
+    <mxPoint x="540" y="230" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="370" y="180" as="sourcePoint"/>
+    <mxPoint x="540" y="330" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="590" y="220" as="sourcePoint"/>
+    <mxPoint x="780" y="225" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="cmp" value="🧭 REST API vs HTTP API vs Lambda 直URL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#666666;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="340" width="920" height="230" as="geometry"/>
+</mxCell>
+
+<mxCell id="cmpn" value="✓ API Gateway HTTP API: Webhook 受信に最適&#10;  • REST API より最大 70% 低コスト / 低レイテンシ&#10;  • Lambda プロキシ統合・JWT 認証をサポート&#10;  • Webhook は単純なルーティング+処理で OK → HTTP API で十分&#10;&#10;✗ REST API: 使用量プラン/API キー/SDK 生成などフル機能が不要な場合は過剰&#10;✗ Lambda Function URL: 単一関数のみ。複数 Webhook ルートには不適&#10;✗ ALB + Lambda: 常時稼働の ALB 料金発生" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="375" width="900" height="190" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

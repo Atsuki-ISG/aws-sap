@@ -1,0 +1,122 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q482] モノリス→サーバーレス: API Gateway + Lambda 分割" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="tb" value="モノリシック REST API → Lambda 分割 + API Gateway" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="60" width="960" height="30" as="geometry"/>
+</mxCell>
+
+<mxCell id="before" value="❌ 現行: EC2 フリート上のモノリシック API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#DD344C;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="100" width="440" height="460" as="geometry"/>
+</mxCell>
+
+<mxCell id="alb0_80_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+  <mxGeometry x="80" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_alb0_80_150" value="ALB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ec21_220_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="220" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ec21_220_150" value="EC2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="200" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ec22_340_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="340" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ec22_340_150" value="EC2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="320" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="bn" value="• 使用量が大きく変動 → EC2 は常時稼働コスト&#10;• アイドル時も VM 料金発生&#10;• パッチ・スケーリング設定が必要&#10;&#10;欠点:&#10;  • オーバープロビジョニング&#10;  • モノリシックで API ごとの個別スケール不可&#10;  • 障害が全APIへ伝搬" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+  <mxGeometry x="60" y="260" width="400" height="280" as="geometry"/>
+</mxCell>
+
+<mxCell id="after" value="✓ サーバーレス: API GW + Lambda" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="510" y="100" width="470" height="460" as="geometry"/>
+</mxCell>
+
+<mxCell id="r53_550_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+  <mxGeometry x="550" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_r53_550_150" value="Route 53" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="530" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw_700_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="700" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw_700_150" value="API Gateway
+REST API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="680" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l1_880_130" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="880" y="130" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l1_880_130" value="Lambda
+/users" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="860" y="188" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l2_880_220" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="880" y="220" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l2_880_220" value="Lambda
+/orders" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="860" y="278" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="l3_880_310" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="880" y="310" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_l3_880_310" value="Lambda
+/payments" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="860" y="368" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="600" y="180" as="sourcePoint"/>
+    <mxPoint x="700" y="180" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="750" y="180" as="sourcePoint"/>
+    <mxPoint x="880" y="160" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="750" y="200" as="sourcePoint"/>
+    <mxPoint x="880" y="245" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="750" y="220" as="sourcePoint"/>
+    <mxPoint x="880" y="335" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="an" value="✓ 従量課金 (リクエスト数 × 実行時間)&#10;✓ API 毎に独立スケール (機能ごとに最適化)&#10;✓ パッチ・OS 管理不要 (完全マネージド)&#10;✓ デプロイは Lambda 関数単位で迅速&#10;&#10;注意: コールドスタート (Provisioned Concurrency 可)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+  <mxGeometry x="530" y="400" width="430" height="140" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q324] API Gateway セキュリティ: WAF(IP) + 使用量プラン(レート)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="inst" value="3つの医療研究機関" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="100" width="200" height="180" as="geometry"/>
+</mxCell>
+
+<mxCell id="insta" value="研究機関A (IP: x.x.x.1)&#10;研究機関B (IP: x.x.x.2)&#10;研究機関C (IP: x.x.x.3)&#10;&#10;毎日1回アクセス&#10;匿名化患者データ送信" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="130" width="160" height="140" as="geometry"/>
+</mxCell>
+
+<mxCell id="bot" value="悪意あるボットネット" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#DD344C;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="310" width="200" height="120" as="geometry"/>
+</mxCell>
+
+<mxCell id="bota" value="1,000 IP から&#10;毎秒 2,000 req&#10;&#10;✗ ブロック対象" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+  <mxGeometry x="60" y="340" width="160" height="80" as="geometry"/>
+</mxCell>
+
+<mxCell id="waf_310_170" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.waf;" vertex="1" parent="1">
+  <mxGeometry x="310" y="170" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_waf_310_170" value="AWS WAF" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="290" y="228" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="wafn" value="IP 許可リスト&#10;(3機関のみ)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+  <mxGeometry x="280" y="230" width="130" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw_510_170" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="510" y="170" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw_510_170" value="API Gateway
+(REST Regional)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="490" y="228" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="apin" value="• 使用量プラン&#10;• API キー&#10;• レート制限&#10;• スロットル" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="480" y="240" width="130" height="80" as="geometry"/>
+</mxCell>
+
+<mxCell id="lam_770_170" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="770" y="170" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lam_770_170" value="Lambda
+分析処理" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="750" y="228" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="許可" style="endArrow=classic;html=1;rounded=0;strokeColor=#7AA116;strokeWidth=3;fontSize=10;fontColor=#7AA116;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="240" y="200" as="sourcePoint"/>
+    <mxPoint x="310" y="200" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="✗ ブロック" style="endArrow=classic;html=1;rounded=0;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#DD344C;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="240" y="370" as="sourcePoint"/>
+    <mxPoint x="310" y="230" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="360" y="200" as="sourcePoint"/>
+    <mxPoint x="510" y="200" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="560" y="200" as="sourcePoint"/>
+    <mxPoint x="770" y="200" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="note" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=1;fontSize=11;fontStyle=0;fontColor=#0D47A1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="470" width="960" height="100" as="geometry"/>
+</mxCell>
+
+<mxCell id="noteinner" value="要点:&#10;  ① WAF（IP セット）= ネットワーク層で不正 IP を遮断（DDoS / ボット対策）&#10;  ② API キー + 使用量プラン = 認証された正規顧客ごとにレート上限・クォータを付与&#10;  ③ WAF だけでは顧客別レート制御はできない。API キーだけでは IP 制限はできない → 両方必須" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#0D47A1;" vertex="1" parent="1">
+  <mxGeometry x="40" y="485" width="920" height="80" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d526" name="TGW + VPN + VPC-A/B">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-227 / num=526: TGW に VPN + 複数 VPC を集約" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="dc" value="オンプレ DC (金融情報 要保管)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#7D7D7D;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="30" y="80" width="200" height="260" as="geometry" /></mxCell>
+        <mxCell id="dcs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.corporate_data_center_2;" vertex="1" parent="1">
+      <mxGeometry x="80" y="120" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="dcs_l" value="機密システム" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="50" y="180" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="cgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.customer_gateway;" vertex="1" parent="1">
+      <mxGeometry x="80" y="230" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="cgw_l" value="CGW (Router)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="50" y="290" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpn" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.site_to_site_vpn;" vertex="1" parent="1">
+      <mxGeometry x="280" y="190" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="vpn_l" value="Site-to-Site VPN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="250" y="258" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="tgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="430" y="190" width="70" height="70" as="geometry" /></mxCell>
+        <mxCell id="tgw_l" value="Transit Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="390" y="265" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpcA" value="VPC A (既存 / オンプレ連携)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="600" y="80" width="360" height="180" as="geometry" /></mxCell>
+        <mxCell id="ecA" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="680" y="130" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ecA_l" value="EC2 / RDS 既存" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="650" y="190" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="tgwaA" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="830" y="130" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="tgwaA_l" value="TGW Attach" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="800" y="190" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpcB" value="VPC B (新規)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="600" y="290" width="360" height="180" as="geometry" /></mxCell>
+        <mxCell id="ecB" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="680" y="340" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ecB_l" value="EC2 新システム" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="650" y="400" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="tgwaB" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="830" y="340" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="tgwaB_l" value="TGW Attach" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="800" y="400" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#7AA116;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="cgw" target="vpn">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#7AA116;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="vpn" target="tgw">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw" target="tgwaA">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw" target="tgwaB">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 A: TGW を新規作成 → VPN + VPC A + VPC B を全てアタッチ → TGW RT で相互ルート。
+・VPC Peering では VPN がオンプレ→VPC B へ推移しない (VPC A を経由できない)
+・TGW なら推移ルーティング ○ で全区間疎通
+・将来 VPC 増えても TGW アタッチ追加だけで拡張" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="490" width="960" height="95" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

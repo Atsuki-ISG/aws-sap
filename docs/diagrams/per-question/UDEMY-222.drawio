@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-222 / 正解B: RDS Proxy (Multi-AZ フェイルオーバー後の自動再接続)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" value="us-east-1 (Multi-AZ)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="960" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="app_l" value="アプリ&#10;(再起動不要)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="188" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="230" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy_l" value="RDS Proxy" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="188" width="110" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="az1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="az1_l" value="RDS MySQL&#10;Primary (AZ-a)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="138" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="az2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="400" y="220" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="az2_l" value="RDS MySQL&#10;Standby (AZ-b)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="278" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="app" target="proxy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_l" value="Endpoint = Proxy" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#FF9900;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="p1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="p2" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;" edge="1" parent="1" source="proxy" target="az1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_l" value="Active" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="p2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="p3" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;" edge="1" parent="1" source="proxy" target="az2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_l" value="Failover 時" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="p3">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="repl" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;" edge="1" parent="1" source="az1" target="az2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="repl_l" value="同期レプリ" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#3B48CC;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="repl">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="n1" value="【問題】Multi-AZ フェイルオーバー後に接続切断 → アプリ再起動が必要&#10;&#10;【原因】アプリがRDSエンドポイント (DNS) を直接使用 → フェイルオーバー後のDNS切替を&#10;           持続接続プールが追従できない&#10;&#10;【正解Bの仕組み】&#10;・RDS Proxy が接続プールを管理&#10;・フェイルオーバー時、Proxy が新Primary に接続を振り直す&#10;・アプリから見るとエンドポイントは不変 → 再起動不要&#10;&#10;❌ A: Aurora Serverless v1 への全面移行は大掛かり ／ Readerエンドポイントは書込不可&#10;❌ C: Auroraクラスタへの移行もオーバースペック&#10;❌ D: S3→Athenaは分析用途、RDSワークロード非互換" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="920" height="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

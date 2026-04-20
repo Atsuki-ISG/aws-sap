@@ -1,0 +1,62 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d427" name="Multi-AZ HA Pattern">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-128 / num=427: マルチ AZ 可用性パターン (NAT GW / RDS / ASG)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="vpc" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="30" y="60" width="940" height="450" as="geometry" /></mxCell>
+        <mxCell id="az1" value="AZ-a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="60" y="110" width="430" height="380" as="geometry" /></mxCell>
+        <mxCell id="ngw1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.nat_gateway;" vertex="1" parent="1">
+      <mxGeometry x="130" y="150" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="ngw1_l" value="NAT GW a" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="100" y="218" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="alb1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;" vertex="1" parent="1">
+      <mxGeometry x="310" y="150" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="alb1_l" value="ALB (a)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="280" y="218" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="ec1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="130" y="280" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ec1_l" value="EC2 ASG a" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="100" y="340" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="rds1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+      <mxGeometry x="300" y="280" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="rds1_l" value="RDS (Primary)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="270" y="340" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="az2" value="AZ-b" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="510" y="110" width="430" height="380" as="geometry" /></mxCell>
+        <mxCell id="ngw2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.nat_gateway;" vertex="1" parent="1">
+      <mxGeometry x="580" y="150" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="ngw2_l" value="NAT GW b" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="550" y="218" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="alb2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;" vertex="1" parent="1">
+      <mxGeometry x="760" y="150" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="alb2_l" value="ALB (b)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="730" y="218" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="ec2b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="580" y="280" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ec2b_l" value="EC2 ASG b" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="550" y="340" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="rds2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+      <mxGeometry x="750" y="280" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="rds2_l" value="RDS (Standby)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="720" y="340" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ec1" target="ngw1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ec2b" target="ngw2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="Multi-AZ 同期レプリ" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="rds1" target="rds2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="alb1" target="ec1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="alb2" target="ec2b">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 A: 追加 AZ に NAT GW を配置 + ルートテーブル更新 / RDS Multi-AZ / ASG を複数 AZ 分散。単一 AZ 障害でもアプリ継続。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="525" width="960" height="60" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

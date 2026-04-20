@@ -1,0 +1,136 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q344] サーバーレス注文: AppSync + SQS/DLQ + Lambda" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="u" value="顧客・店舗" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="100" width="120" height="60" as="geometry"/>
+</mxCell>
+
+<mxCell id="cf_190_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+  <mxGeometry x="190" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_cf_190_100" value="CloudFront" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="170" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="s3_350_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_storage_service;" vertex="1" parent="1">
+  <mxGeometry x="350" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_s3_350_100" value="S3 静的サイト" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="330" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="160" y="130" as="sourcePoint"/>
+    <mxPoint x="190" y="130" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="240" y="130" as="sourcePoint"/>
+    <mxPoint x="350" y="130" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="as_510_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.appsync;" vertex="1" parent="1">
+  <mxGeometry x="510" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_as_510_100" value="AppSync
+注文管理 API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="490" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="asn" value="GraphQL / 単一EP" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="480" y="160" width="130" height="30" as="geometry"/>
+</mxCell>
+
+<mxCell id="a3" value="注文 API" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="240" y="130" as="sourcePoint"/>
+    <mxPoint x="510" y="115" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="sqs_700_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_queue_service;" vertex="1" parent="1">
+  <mxGeometry x="700" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_sqs_700_100" value="SQS
+注文キュー" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="680" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lam_700_250" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="700" y="250" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lam_700_250" value="Lambda
+配送ロジック" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="680" y="308" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="dlq_500_380" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_queue_service;" vertex="1" parent="1">
+  <mxGeometry x="500" y="380" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_dlq_500_380" value="SQS DLQ
+失敗注文管理" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="480" y="438" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ddb_860_250" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+  <mxGeometry x="860" y="250" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ddb_860_250" value="DynamoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="840" y="308" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="560" y="130" as="sourcePoint"/>
+    <mxPoint x="700" y="130" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a5" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="725" y="155" as="sourcePoint"/>
+    <mxPoint x="725" y="250" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a6" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="750" y="275" as="sourcePoint"/>
+    <mxPoint x="860" y="275" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a7" value="処理失敗→DLQ" style="endArrow=classic;html=1;rounded=0;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontColor=#DD344C;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="700" y="285" as="sourcePoint"/>
+    <mxPoint x="550" y="385" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="note" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#0D47A1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="470" width="960" height="100" as="geometry"/>
+</mxCell>
+
+<mxCell id="noteinner" value="要点: AppSync（GraphQL）がリアルタイム通知 & サブスクリプションに最適。API Gateway+REST より注文状態のプッシュ通知に有利。&#10;     SQS = 処理の平滑化／バックエンド保護。DLQ = 失敗した注文を可視化・後追い処理可能。AppSync vs API Gateway: 複数クライアントへのプッシュが必要なら AppSync。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#0D47A1;" vertex="1" parent="1">
+  <mxGeometry x="40" y="485" width="920" height="80" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

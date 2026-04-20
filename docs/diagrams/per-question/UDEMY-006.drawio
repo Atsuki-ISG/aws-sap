@@ -1,0 +1,83 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d305" name="DX + Transit VIF + DX GW + Multi-Region TGW">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-006 / num=305: DX + Transit VIF + DX Gateway + マルチリージョン TGW" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="dc" value="本社 / 主要店舗ネットワーク" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#7D7D7D;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="20" y="70" width="220" height="180" as="geometry" /></mxCell>
+        <mxCell id="dc_srv" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.corporate_data_center_2;" vertex="1" parent="1">
+      <mxGeometry x="80" y="100" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="dc_srv_l" value="オンプレ DC" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="50" y="160" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="dc_srv_l2" value="店舗ネットワーク" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="50" y="178" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="290" y="130" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="dx_l" value="Direct Connect" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="260" y="198" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx_l2" value="(1Gbps / 10Gbps)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="260" y="216" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="dxgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="420" y="130" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="dxgw_l" value="Direct Connect GW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="390" y="198" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="dxgw_l2" value="(Transit VIF)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="390" y="216" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="r1" value="Region: us-east-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#147EBA;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="560" y="70" width="200" height="210" as="geometry" /></mxCell>
+        <mxCell id="tgw1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="620" y="120" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="tgw1_l" value="Transit Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="590" y="188" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="r1v1" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="580" y="220" width="70" height="50" as="geometry" /></mxCell>
+        <mxCell id="r1v2" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="680" y="220" width="70" height="50" as="geometry" /></mxCell>
+        <mxCell id="r2" value="Region: eu-west-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#147EBA;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="780" y="70" width="200" height="210" as="geometry" /></mxCell>
+        <mxCell id="tgw2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="840" y="120" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="tgw2_l" value="Transit Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="810" y="188" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="r2v1" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="800" y="220" width="70" height="50" as="geometry" /></mxCell>
+        <mxCell id="r2v2" value="VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="900" y="220" width="70" height="50" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dc_srv" target="dx">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" value="Transit VIF" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dx" target="dxgw">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dxgw" target="tgw1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dxgw" target="tgw2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw1" target="r1v1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw1" target="r1v2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw2" target="r2v1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw2" target="r2v2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e9" value="Inter-Region Peering" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw1" target="tgw2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="ポイント: 1 本の DX + Transit VIF から DX Gateway 経由で 最大 3 リージョンまでの TGW に接続できる。推移ルーティングで全 VPC が相互通信可能。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#FFFBE6;strokeColor=#D4AC0D;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="310" width="960" height="50" as="geometry" /></mxCell>
+        <mxCell id="n2" value="◎ 正解 B: Direct Connect + Transit VIF + DX Gateway → 各リージョン TGW 接続。推移ルーティング ○、コスト最適、安定帯域。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="370" width="470" height="110" as="geometry" /></mxCell>
+        <mxCell id="n3" value="✕ 誤答: ・サイト間 VPN のみ (帯域不安定 / DX が要件)
+・各リージョンに個別 VPN (管理負荷 / 推移なし)
+・Inter-Region VPC Peering (N×N 爆発 / オンプレ接続別建て)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#FDEBE9;strokeColor=#DD344C;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="510" y="370" width="470" height="110" as="geometry" /></mxCell>
+        <mxCell id="n4" value="Transit VIF vs Private VIF vs Public VIF:
+ ・Private VIF = 単一 VPC の VGW に直結 (シンプル・小規模)
+ ・Transit VIF = DX GW + TGW アタッチ (複数 VPC / 複数リージョン)
+ ・Public VIF = AWS パブリック IP 空間 (S3/DynamoDB 等への直接アクセス)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#FFFBE6;strokeColor=#D4AC0D;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="492" width="960" height="90" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

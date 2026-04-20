@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-039">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="630" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-039: 620アカウントを既存組織 → 新組織「イノベーションラボ」に移動" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="old" value="既存組織: R&amp;D" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#666666;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="360" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="old_mgmt" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="160" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="old_mgmt_l" value="旧管理アカウント" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="110" y="165" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="old_mem" value="メンバーアカウント 620 個&#xa;(研究者アカウント)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oa0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="70" y="260" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="150" y="260" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="230" y="260" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="310" y="260" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="70" y="320" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="150" y="320" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa6" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="230" y="320" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="310" y="320" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa8" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="70" y="380" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa9" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="150" y="380" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="oa10" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="230" y="380" width="35" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="new" value="新組織: イノベーションラボ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="80" width="340" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="new_mgmt" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="750" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="new_mgmt_l" value="新管理アカウント" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="690" y="165" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="new_desc" value="アカウント移動先&#xa;(受け入れ側)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="640" y="200" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mig" value="各アカウント移動" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=4;fontSize=10;fontColor=#FF9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="280" as="sourcePoint" />
+            <mxPoint x="600" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="step" value="移動手順 (各 620 アカウントに対して実行)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="920" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="step_t" value="① 旧組織の管理アカウントから 各メンバーアカウントを「組織から削除 (RemoveAccountFromOrganization)」&#xa;   ※ 前提: そのメンバーが Standalone 要件を満たす (Support Plan, IAM Role for Billing 等)&#xa;② 新組織の管理アカウントから 各メンバーに「招待 (InviteAccountToOrganization)」 → メンバー側で承諾&#xa;   → 新組織の配下に移動完了。アカウント設定は維持される (620 件とも同じ手順の繰り返し)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="520" width="900" height="90" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

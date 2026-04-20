@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q604] Lambda 共通ライブラリ共有: ECR コンテナイメージ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="before" value="❌ 現行: 複数 Lambda 関数で共通ライブラリ重複" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#DD344C;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="60" width="470" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw0_180_110" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="180" y="110" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw0_180_110" value="API Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="160" y="168" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL1_60_230" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="60" y="230" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL1_60_230" value="Lambda 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="40" y="288" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL2_180_230" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="180" y="230" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL2_180_230" value="Lambda 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="160" y="288" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL3_300_230" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="300" y="230" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL3_300_230" value="Lambda 3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="280" y="288" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL4_60_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="60" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL4_60_360" value="Lambda 4" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="40" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL5_180_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="180" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL5_180_360" value="Lambda 5" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="160" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lL6_300_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="300" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lL6_300_360" value="Lambda 6" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="280" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="bn" value="問題:&#10;• 各関数に共通ライブラリをコピーデプロイ&#10;• Layer だと 250MB 制限 ／ 最大5レイヤー&#10;• カスタムランタイムの再利用が煩雑&#10;• デプロイパッケージが重い" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#DD344C;" vertex="1" parent="1">
+  <mxGeometry x="40" y="440" width="430" height="120" as="geometry"/>
+</mxCell>
+
+<mxCell id="after" value="✓ Lambda コンテナイメージ (ECR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="510" y="60" width="470" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="docker_680_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="680" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_docker_680_100" value="Docker Image
+(共有ライブラリ+&#10;カスタムランタイム+&#10;関数コード)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="660" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ecr_680_240" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" vertex="1" parent="1">
+  <mxGeometry x="680" y="240" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ecr_680_240" value="ECR" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="660" y="298" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="lf_680_380" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="680" y="380" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lf_680_380" value="Lambda
+(Image Package)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="660" y="438" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="push" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="705" y="155" as="sourcePoint"/>
+    <mxPoint x="705" y="240" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="deploy" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="705" y="295" as="sourcePoint"/>
+    <mxPoint x="705" y="380" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="an" value="✓ 10 GB までの大きなイメージをサポート&#10;✓ 共通依存を Docker レイヤーで共有&#10;✓ カスタムランタイム (OS依存のバイナリ等) も一つのイメージに&#10;✓ ECR スキャン／IAM でアクセス制御" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+  <mxGeometry x="530" y="470" width="430" height="95" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

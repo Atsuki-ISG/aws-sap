@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-007">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-007: 管理アカウント IAMユーザ → メンバーアカウントのクロスアカウントロール (最小特権)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" value="Management Account (管理アカウント)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="300" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt_iam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="140" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt_iam_l" value="IAM ユーザ / グループ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="110" y="185" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt_iam_p" value="IAM ポリシー:&#xa;  Action: sts:AssumeRole&#xa;  Resource:&#xa;    arn:aws:iam::LMS-acct:role/MaintRole&#xa;    arn:aws:iam::Admin-acct:role/MaintRole" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="215" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt_note" value="・請求は管理アカウントに集約&#xa;・ユーザ ID を一元管理&#xa;・長期クレデンシャル不要&#xa;  (STS が短期トークン発行)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="55" y="320" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sts" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sts;" vertex="1" parent="1">
+          <mxGeometry x="430" y="175" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sts_l" value="AWS STS&#xa;sts:AssumeRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="400" y="230" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lms" value="Member Account: LMS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="340" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="lms_role" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="650" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lms_role_l" value="MaintRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="645" y="165" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lms_trust" value="信頼ポリシー:&#xa;  Principal: Management-acct&#xa;  Action: sts:AssumeRole&#xa;&#xa;許可ポリシー (最小特権):&#xa;  ec2:StopInstances&#xa;  ec2:StartInstances&#xa;  rds:StopDBInstance など" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="720" y="100" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="adm" value="Member Account: 管理システム" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="250" width="340" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="adm_role" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="650" y="290" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="adm_role_l" value="MaintRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="645" y="345" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="adm_trust" value="信頼ポリシー:&#xa;  Principal: Management-acct&#xa;  Action: sts:AssumeRole&#xa;&#xa;許可ポリシー (最小特権):&#xa;  メンテナンス操作のみ許可&#xa;  ※ AdministratorAccess は NG" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="720" y="280" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="① AssumeRole" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1" source="mgmt_iam" target="sts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="② 一時クレデンシャル" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="sts" target="lms_role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="sts" target="adm_role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 ベストプラクティス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="920" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="・管理アカウントの IAM ユーザ/グループに「AssumeRole の権限」だけを付与&#xa;・メンバーアカウントには IAM ロール (信頼ポリシー=管理アカウント) を作り、必要最小限のアクションのみ許可&#xa;・AdministratorAccess は付けない。メンテナンス用アクションのみに絞る&#xa;・ × 管理アカウントで直接リソース操作 (メンバーと別アカウントなので不可) / × 各メンバーに長期 IAM ユーザ (IDが分散)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="475" width="880" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

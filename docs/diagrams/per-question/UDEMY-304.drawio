@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-304 / DynamoDB Global Tables (複数Region一貫した読み書き)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="Region A (北米)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="310" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="app1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="app1_l" value="アプリ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="188" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="120" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb1_l" value="DynamoDB&#10;Global Table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="318" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="app1" target="ddb1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_l" value="読み書き(ローカル)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#3B48CC;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="n1" value="・各Region読み書き可&#10;・ローカル低レイテンシ&#10;・RPO 数秒／RTO ≒ 0" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="370" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="Region B (EU)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="70" width="310" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="app2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="app2_l" value="アプリ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="425" y="188" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="450" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb2_l" value="DynamoDB&#10;Global Table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="318" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="app2" target="ddb2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_l" value="読み書き" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#3B48CC;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="n2" value="・結果整合性&#10;・衝突: Last Writer Wins&#10;・Streams 有効必須" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="370" y="370" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="Region C (AP)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="680" y="70" width="300" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="app3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="780" y="130" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="app3_l" value="アプリ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="755" y="188" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="780" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb3_l" value="DynamoDB&#10;Global Table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="318" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="app3" target="ddb3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_l" value="読み書き" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#3B48CC;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a3">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="n3" value="・テーブル作成後にRegion追加可&#10;・全Region同一スキーマ/GSI" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="700" y="370" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="r12" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="ddb1" target="ddb2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r23" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="ddb2" target="ddb3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r13" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="ddb1" target="ddb3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cmp" value="💡 DynamoDB Global Tables — マルチRegion Active-Active の定石&#10;・ACID/関係モデル必要なら Aurora Global DB／KV+全Region書込なら DynamoDB GT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="520" width="960" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

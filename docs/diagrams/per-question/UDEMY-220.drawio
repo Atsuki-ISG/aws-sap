@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-220">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-220: Org 作成 + AD Connector + Identity Center + 権限セット (AD グループ紐付け)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="onprem" value="オンプレミス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ad" value="Active Directory&#xa;(既存 従業員)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="105" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="grp" value="AD グループ:&#xa;  • IT-Admins&#xa;  • Developers&#xa;  • ReadOnly-Users" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="160" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="aws_mgmt" value="AWS 管理アカウント (新規作成)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="320" y="70" width="340" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="340" y="100" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="320" y="155" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="org_d" value="すべての機能&#xa;有効化" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="320" y="175" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="adc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="470" y="100" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="adc_l" value="AD Connector" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="450" y="155" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="adc_d" value="IDソースとして&#xa;指定" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="440" y="175" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ic" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;" vertex="1" parent="1">
+          <mxGeometry x="590" y="100" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_l" value="IAM Identity Center" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="555" y="155" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ps" value="Permission Sets (権限セット)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="340" y="220" width="320" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ps_d" value="• AdminAccess → AD グループ「IT-Admins」&#xa;&#xa;• PowerUserAccess → AD グループ「Developers」&#xa;&#xa;• ReadOnlyAccess → AD グループ「ReadOnly-Users」&#xa;&#xa;→ AD グループ ≡ 権限セット を IDaS で設定&#xa;    追加のIAM ユーザは一切作らない" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="355" y="250" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="acc" value="AWS アカウント (組織の本体)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="700" y="70" width="260" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="cons" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="780" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cons_l" value="Management Console" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="760" y="165" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="acc_d" value="IT 担当者は:&#xa;  ① AWS SSO ポータル へアクセス&#xa;  ② AD 資格情報 でログイン&#xa;  ③ 自分のAD グループに対応する&#xa;     権限セットで コンソール セッション開始&#xa;&#xa;→ IAM ユーザ や 長期アクセスキー は不要&#xa;→ パスワード変更は AD 側で 一元管理&#xa;→ MFA も Identity Center で強制可" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="720" y="200" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="LDAP" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ad" target="adc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2" value="" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1" source="adc" target="ic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3" value="SSO" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="cons">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 重要: 単一アカウントでも「Organizations 有効化」が必要な理由" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="920" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ IAM Identity Center は Organizations の全機能モード が 前提&#xa;  → 単一アカウントであっても まず Organizations で 組織を作成 / 全機能を有効化&#xa;✓ AD Connector 選定理由: AWS 側にユーザDB複製なし → 運用コスト最小 (完全なマネージド AD 不要)&#xa;✗ IAM フェデレーション (SAML) 個別設定 = アカウントごとに IdP 設定が必要で 運用負荷増&#xa;✗ AWS Managed Microsoft AD = AWS 側に 新しいAD を作成 → 既存AD との二重管理" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="460" width="900" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

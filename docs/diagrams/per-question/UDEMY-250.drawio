@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-250">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-250: クロスアカウント S3 + KMS Grant (QuickSight が 営業S3を参照)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sales" value="営業アカウント (S3所有)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="450" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_l" value="S3 (営業データ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="165" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_d" value="ペタバイト規模&#xa;SSE-KMS 暗号化" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="185" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kms" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.key_management_service;" vertex="1" parent="1">
+          <mxGeometry x="240" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kms_l" value="KMS CMK" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="220" y="165" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="kms_d" value="カスタマー管理&#xa;キー (CMK)&#xa;暗号化キー" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="210" y="185" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bp" value="S3 バケットポリシー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="420" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bp_t" value="{&quot;Effect&quot;: &quot;Allow&quot;,&#xa; &quot;Principal&quot;:&#xa;   &quot;arn:aws:iam::MarketingAcct:role/QS-Role&quot;,&#xa; &quot;Action&quot;: [&quot;s3:GetObject&quot;, &quot;s3:ListBucket&quot;],&#xa; &quot;Resource&quot;: [&quot;arn:aws:s3:::sales/*&quot;]}" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="75" y="280" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kp" value="KMS キーポリシー (Grant 必須!)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="370" width="420" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="kp_t" value="{&quot;Effect&quot;: &quot;Allow&quot;,&#xa; &quot;Principal&quot;:&#xa;   &quot;arn:aws:iam::MarketingAcct:role/QS-Role&quot;,&#xa; &quot;Action&quot;: [&quot;kms:Decrypt&quot;,&#xa;            &quot;kms:GenerateDataKey&quot;]}&#xa;&#xa;⚠ これが無いと KMS 暗号化された S3 を復号できない" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="75" y="400" width="400" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mkt" value="マーケティングアカウント (QuickSight)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="530" y="70" width="430" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="qs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="580" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qs_l" value="QuickSight" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="560" y="165" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="qsrole" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="740" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qsrole_l" value="QS-Role (IAM)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="720" y="165" width="120" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="qspol" value="QS-Role の IAM ポリシー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="550" y="220" width="390" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="qspol_t" value="{&quot;Effect&quot;: &quot;Allow&quot;,&#xa; &quot;Action&quot;: [&#xa;   &quot;s3:GetObject&quot;, &quot;s3:ListBucket&quot;,&#xa;   &quot;kms:Decrypt&quot;&#xa; ],&#xa; &quot;Resource&quot;: [&quot;arn:aws:s3:::sales/*&quot;,&#xa;               &quot;arn:aws:kms:*:SalesAcct:key/*&quot;]}" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="565" y="250" width="370" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qs_d" value="QuickSight 権限追加" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="550" y="390" width="390" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="qs_d_t" value="QuickSight 管理コンソールで&#xa;「マネージャー用の AWS リソース」で&#xa;対象 S3 バケットへのアクセスを有効化&#xa;&#xa;QuickSight → QS-Role → クロスアカウント →&#xa;営業アカウントの S3 + KMS で復号 → 分析" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="565" y="420" width="370" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="Cross-Account Access" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=3;fontSize=10;fontColor=#FF9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="300" as="sourcePoint" />
+            <mxPoint x="550" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

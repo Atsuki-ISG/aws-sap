@@ -1,0 +1,77 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d479" name="TGW RAM + StackSet Automation">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-180 / num=479: TGW RAM 共有 + StackSet で 100 アカウント自動化" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="mgmt" value="管理アカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="30" y="80" width="300" height="420" as="geometry" /></mxCell>
+        <mxCell id="tgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="120" y="130" width="70" height="70" as="geometry" /></mxCell>
+        <mxCell id="tgw_l" value="Transit Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="80" y="205" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="ram" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.resource_access_manager;" vertex="1" parent="1">
+      <mxGeometry x="120" y="260" width="70" height="70" as="geometry" /></mxCell>
+        <mxCell id="ram_l" value="AWS RAM" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="80" y="335" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="ram_l2" value="TGW 共有" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="80" y="353" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="ssets" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudformation;" vertex="1" parent="1">
+      <mxGeometry x="120" y="400" width="70" height="70" as="geometry" /></mxCell>
+        <mxCell id="ssets_l" value="CloudFormation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="80" y="475" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="ssets_l2" value="StackSet" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="80" y="490" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="memb" value="Organizations メンバーアカウント (x 100)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="380" y="80" width="600" height="420" as="geometry" /></mxCell>
+        <mxCell id="a1v" value="Acc1 VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="410" y="130" width="160" height="140" as="geometry" /></mxCell>
+        <mxCell id="a1tga" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="440" y="200" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="a1tga_l" value="TGW Attach" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="410" y="260" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="a2v" value="Acc2 VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="600" y="130" width="160" height="140" as="geometry" /></mxCell>
+        <mxCell id="a2tga" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="630" y="200" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2tga_l" value="TGW Attach" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="600" y="260" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="aNv" value="AccN VPC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="790" y="130" width="160" height="140" as="geometry" /></mxCell>
+        <mxCell id="aNtga" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" vertex="1" parent="1">
+      <mxGeometry x="820" y="200" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="aNtga_l" value="TGW Attach" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="790" y="260" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="dots" value="..." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="410" y="310" width="540" height="18" as="geometry" /></mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudformation;" vertex="1" parent="1">
+      <mxGeometry x="500" y="360" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="org_l" value="StackSet 自動展開" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="470" y="428" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="org_l2" value="(新アカウント作成→VPC+Attach 作成)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="470" y="446" width="200" height="18" as="geometry" /></mxCell>
+        <mxCell id="r1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#3B48CC;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="tgw" target="ram">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r2" value="Share TGW" style="endArrow=classic;startArrow=none;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ram" target="a1tga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r3" style="endArrow=classic;startArrow=none;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ram" target="a2tga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r4" style="endArrow=classic;startArrow=none;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ram" target="aNtga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r5" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ssets" target="org">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r6" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="org" target="a1tga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r7" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="org" target="a2tga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r8" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="org" target="aNtga">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 CA: 管理アカウントで TGW を RAM 共有 + StackSet を全メンバーに展開 → 新アカウント追加時に VPC+TGW Attach を自動作成。
+SCP や手動アタッチ不要で線形スケール。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="520" width="960" height="65" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

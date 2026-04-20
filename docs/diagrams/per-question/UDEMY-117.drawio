@@ -1,0 +1,95 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q416] API Gateway 認証: IAM (SigV4) + X-Ray 分析" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="client" value="API クライアント
+(他AWSアカウント)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="100" width="180" height="300" as="geometry"/>
+</mxCell>
+
+<mxCell id="iam_80_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+  <mxGeometry x="80" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_iam_80_150" value="IAM User/Role
+(execute-api:Invoke)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="sig" value="① IAM 認証情報&#10;② AWS SigV4 で&#10;   リクエスト署名&#10;③ Authorization&#10;   ヘッダー付与&#10;④ API GW へ送信" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="55" y="260" width="150" height="120" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw_340_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="340" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw_340_200" value="API Gateway
+認証: AWS_IAM" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="320" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigwn" value="IAM 検証&#10;+ X-Ray トレース" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="310" y="280" width="130" height="40" as="geometry"/>
+</mxCell>
+
+<mxCell id="lam_550_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="550" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_lam_550_200" value="Lambda
+バックエンド" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="530" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="xray_750_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.x_ray;" vertex="1" parent="1">
+  <mxGeometry x="750" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_xray_750_200" value="X-Ray
+サービスマップ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="730" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="SigV4 署名済" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="220" y="225" as="sourcePoint"/>
+    <mxPoint x="340" y="225" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="390" y="225" as="sourcePoint"/>
+    <mxPoint x="550" y="225" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="trace" style="endArrow=classic;html=1;rounded=0;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#E7157B;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="365" y="250" as="sourcePoint"/>
+    <mxPoint x="775" y="250" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a4" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#E7157B;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="575" y="250" as="sourcePoint"/>
+    <mxPoint x="775" y="250" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="cmp" value="📊 認証方式の比較" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#666666;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="440" width="920" height="140" as="geometry"/>
+</mxCell>
+
+<mxCell id="cmpn" value="• AWS_IAM 認証: 他AWSサービス/他アカウントからのマシン間呼び出しに最適。SigV4 で署名。CloudTrail にも記録。&#10;• Cognito User Pool 認証: エンドユーザー（モバイル/Web） → JWT 発行型&#10;• Lambda Authorizer: カスタムロジック（OAuth/SAML 等）&#10;• API Key: 使用量プランのみ（認証目的では使わない）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="475" width="900" height="100" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

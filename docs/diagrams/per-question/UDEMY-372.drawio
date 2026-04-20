@@ -1,0 +1,138 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q671] ECS ゼロダウンタイム: Blue/Green + Service Auto Scaling" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="cd_80_100" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager;" vertex="1" parent="1">
+  <mxGeometry x="80" y="100" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_cd_80_100" value="CodeDeploy
+(Blue/Green)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="158" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="alb_250_150" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.application_load_balancer;" vertex="1" parent="1">
+  <mxGeometry x="250" y="150" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_alb_250_150" value="ALB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="230" y="208" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="albn" value="2つの TG を管理&#10;トラフィック切替" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="220" y="210" width="120" height="40" as="geometry"/>
+</mxCell>
+
+<mxCell id="blue" value="Blue (旧バージョン)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#3B48CC;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="400" y="90" width="240" height="140" as="geometry"/>
+</mxCell>
+
+<mxCell id="b1_430_130" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="430" y="130" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_b1_430_130" value="Task" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="410" y="188" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="b2_520_130" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="520" y="130" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_b2_520_130" value="Task" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="500" y="188" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="green" value="Green (新バージョン)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="700" y="90" width="240" height="140" as="geometry"/>
+</mxCell>
+
+<mxCell id="g1_730_130" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="730" y="130" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_g1_730_130" value="Task" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="710" y="188" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="g2_820_130" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="820" y="130" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_g2_820_130" value="Task" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="800" y="188" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="deploy" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="130" y="130" as="sourcePoint"/>
+    <mxPoint x="250" y="170" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="100%" style="endArrow=classic;html=1;rounded=0;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="300" y="170" as="sourcePoint"/>
+    <mxPoint x="400" y="170" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="切替後 100%" style="endArrow=classic;html=1;rounded=0;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="300" y="180" as="sourcePoint"/>
+    <mxPoint x="700" y="160" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="sas" value="📈 サービス Auto Scaling (Target Tracking / Step)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#666666;strokeWidth=1;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="40" y="310" width="920" height="250" as="geometry"/>
+</mxCell>
+
+<mxCell id="cw_80_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+  <mxGeometry x="80" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_cw_80_360" value="CloudWatch" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="60" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="sas_i_240_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+  <mxGeometry x="240" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_sas_i_240_360" value="Application
+Auto Scaling" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="220" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="ecs_420_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+  <mxGeometry x="420" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ecs_420_360" value="ECS Service" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="400" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="s1" value="CPU/Mem メトリクス" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="130" y="385" as="sourcePoint"/>
+    <mxPoint x="240" y="385" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="s2" value="desired count 調整" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="290" y="385" as="sourcePoint"/>
+    <mxPoint x="420" y="385" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="sasn" value="ターゲット追跡 (例: CPU 50%):&#10;→ ECS が Task 数を自動増減&#10;&#10;ブルー/グリーン + Auto Scaling の利点:&#10;  ✓ ゼロダウンタイム (トラフィックは Blue が保持)&#10;  ✓ 問題時に即ロールバック可能&#10;  ✓ スパイク時は新Task自動追加&#10;  ✓ CodeDeploy フック検証ステップ可" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="600" y="350" width="360" height="180" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

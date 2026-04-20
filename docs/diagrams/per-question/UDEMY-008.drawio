@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-008 / 正解D: Elastic DR (サーバ) + DataSync→EFS (NFS)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="op" value="オンプレミス DC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#666666;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#666666;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="420" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="srv" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="srv_l" value="Linuxサーバー群&#10;(数百台)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="178" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="nfs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="220" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="nfs_l" value="NFS 共有" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="195" y="178" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_agent" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_agent_l" value="DRS Agent" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="35" y="298" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_agent" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="220" y="240" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_agent_l" value="DataSync&#10;Agent" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="195" y="298" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="op_note" value="【要件】&#10;・RTO 20分／RPO 10分&#10;・AWSネイティブでフェイルオーバー＋フェイルバック&#10;・共通NFS共有をLinuxサーバー群がマウント" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="380" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" value="AWS Region (DR先)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="60" width="500" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_svc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="drs_svc_l" value="Elastic DR&#10;(継続ブロックレプリ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="178" width="160" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_dr" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="700" y="120" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_dr_l" value="DR EC2 起動&#10;(Launch時のみ課金)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="645" y="178" width="160" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="efs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="520" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="efs_l" value="EFS ファイルシステム" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="318" width="160" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_svc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="700" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_svc_l" value="DataSync&#10;(10分毎同期)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="655" y="318" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="aws_note" value="【DR発動時】&#10;・Elastic DR で EC2 を数分で起動 → RTO 20分達成&#10;・EFS 上の最新 NFS データをマウント&#10;・復旧後は Elastic DR でフェイルバック可能" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="500" y="360" width="460" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=3;" edge="1" parent="1" source="drs_agent" target="drs_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_l" value="サーバーブロックレプリ(継続)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#DD344C;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a2" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=3;" edge="1" parent="1" source="ds_agent" target="ds_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_l" value="NFSデータ同期(10分毎)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#7AA116;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a3" style="endArrow=classic;html=1;strokeColor=#DD344C;strokeWidth=2;dashed=1;" edge="1" parent="1" source="drs_svc" target="ec2_dr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_l" value="障害時に起動" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#DD344C;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a3">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a4" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;dashed=1;" edge="1" parent="1" source="ds_svc" target="efs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4_l" value="書込み" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#7AA116;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a4">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a5" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="ec2_dr" target="efs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5_l" value="NFSマウント" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a5">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="✅ 正解D: Elastic DR(サーバ継続レプリ) + DataSync→EFS(NFSデータ定期同期) の組み合わせ&#10;❌ A: Storage Gateway+6時間バックアップ → RPO10分を満たせない／フェイルバックがネイティブでない&#10;❌ B: 障害時にCodePipelineでデプロイ → 起動に時間がかかりRTO20分を超過&#10;❌ C: rsyncは手動運用／マルチサイトActive-Activeは過剰でコスト高" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="490" width="960" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

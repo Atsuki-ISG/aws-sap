@@ -1,0 +1,129 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-161">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-161: インフラハブアカウントの VPC サブネットを RAM で各スポークアカウントに共有" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" value="Management Account (組織全体で信頼されたアクセスを有効化)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="920" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="80" y="75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="65" y="120" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt_d" value="① RAM で 組織との信頼アクセス を有効化 → 招待不要でOU/アカウントに共有可能" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="230" y="80" width="720" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="hub" value="インフラハブアカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="380" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.vpc;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc_l" value="集約 VPC" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="45" y="245" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="sn0" value="Subnet AZ1  (10.0.0.0/24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sn1" value="Subnet AZ2  (10.0.1.0/24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="340" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sn2" value="Subnet AZ1  (10.0.2.0/24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="400" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sn3" value="Subnet AZ2  (10.0.3.0/24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="460" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ram" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.resource_access_manager;" vertex="1" parent="1">
+          <mxGeometry x="290" y="190" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ram_l" value="RAM リソース共有" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="260" y="245" width="120" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_sp0" value="" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#8C4FFF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="215" as="sourcePoint" />
+            <mxPoint x="580" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ar_sp1" value="" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#8C4FFF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="215" as="sourcePoint" />
+            <mxPoint x="580" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ar_sp2" value="" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#8C4FFF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="215" as="sourcePoint" />
+            <mxPoint x="580" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sp_box" value="スポークアカウント群 (アプリ運用)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="160" width="400" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="spa0" value="スポーク アカウント 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="190" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ec20" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="600" y="205" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="670" y="205" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lam0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="740" y="205" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="spa0_d" value="共有されたサブネット&#xa;内でリソース作成&#xa;(ネット管理不要)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="800" y="215" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="spa1" value="スポーク アカウント 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="280" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ec21" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="600" y="295" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="670" y="295" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lam1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="740" y="295" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="spa1_d" value="共有されたサブネット&#xa;内でリソース作成&#xa;(ネット管理不要)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="800" y="305" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="spa2" value="スポーク アカウント 3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="370" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ec22" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="600" y="385" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="670" y="385" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lam2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="740" y="385" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="spa2_d" value="共有されたサブネット&#xa;内でリソース作成&#xa;(ネット管理不要)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="800" y="395" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="・スポークアカウントは サブネット内で EC2/ECS/Lambda を作成できる&#xa;・VPC/Subnet 自体の 管理権限は付与されない → 中央でネット管理&#xa;・同一VPCに見えるのでレイテンシ最小" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="560" y="475" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 VPC Sharing (Shared VPC) の利点" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="560" width="920" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ ハブアカウントが Subnet を RAM で共有 → スポーク側は 自アカウントのように Subnet を参照できる&#xa;✓ Subnet / VPC 自体は ハブ側が所有 = ネットワーク管理を 中央に集約&#xa;✓ VPC ピアリングも Transit Gateway も不要 (同一 VPC 内扱い) → データ転送料も削減&#xa;✗ スポーク側で CIDR を作る → 管理分散 / ✗ 全員 PrivateLink → 用途がそもそも違う" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="590" width="900" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

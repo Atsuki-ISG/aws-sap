@@ -1,0 +1,74 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d466" name="DX Redundancy with DX Gateway">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-167 / num=466: DX 冗長化 — 2 本の DX + DX Gateway" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="dc" value="オンプレミスネットワーク" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#7D7D7D;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="30" y="80" width="220" height="300" as="geometry" /></mxCell>
+        <mxCell id="dc_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.corporate_data_center_2;" vertex="1" parent="1">
+      <mxGeometry x="100" y="120" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="dc_s_l" value="オンプレサーバ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="70" y="188" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="cgw1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.customer_gateway;" vertex="1" parent="1">
+      <mxGeometry x="60" y="250" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="cgw1_l" value="Router (Loc1)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="30" y="310" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="cgw2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.customer_gateway;" vertex="1" parent="1">
+      <mxGeometry x="170" y="250" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="cgw2_l" value="Router (Loc2)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="140" y="310" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="310" y="130" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="dx1_l" value="DX 接続 A" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="270" y="198" width="140" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx1_l2" value="(ロケ 1 / 1Gbps)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="270" y="216" width="140" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="310" y="260" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="dx2_l" value="DX 接続 B" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="270" y="328" width="140" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx2_l2" value="(ロケ 2 / 1Gbps)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="270" y="346" width="140" height="18" as="geometry" /></mxCell>
+        <mxCell id="dxgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#6B1B9A;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="470" y="190" width="70" height="70" as="geometry" /></mxCell>
+        <mxCell id="dxgw_l" value="DX Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="430" y="265" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="dxgw_l2" value="(Private VIF x2)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="430" y="283" width="150" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpc" value="VPC (単一 / 会社リソース)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="620" y="90" width="340" height="330" as="geometry" /></mxCell>
+        <mxCell id="vgw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.vpn_gateway;" vertex="1" parent="1">
+      <mxGeometry x="680" y="140" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="vgw_l" value="VGW" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="650" y="208" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="ec" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="820" y="140" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="ec_l" value="EC2 ワークロード" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="790" y="208" width="130" height="18" as="geometry" /></mxCell>
+        <mxCell id="rds" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+      <mxGeometry x="820" y="280" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="rds_l" value="RDS" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="790" y="348" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="cgw1" target="dx1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="cgw2" target="dx2">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="Private VIF 1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dx1" target="dxgw">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="Private VIF 2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#E7157B;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dx2" target="dxgw">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="endArrow=classic;startArrow=none;html=1;strokeColor=#6B1B9A;strokeWidth=3;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dxgw" target="vgw">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 A: 既存 PVIF を削除 → DX Gateway を導入 → 2 本目 DX を敷設 → 各 DX に PVIF を作り DX Gateway へアタッチ → DX Gateway を VPC の VGW に接続。
+・2 本目 DX は別ロケ / 別キャリアで地理冗長
+・BGP で経路フェイルオーバー自動 (Active/Active or Active/Passive)
+・片方障害時も継続通信
+・DX Gateway があることで将来 TGW へ拡張容易 (Transit VIF)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="440" width="960" height="140" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

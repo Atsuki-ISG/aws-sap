@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-179">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="590" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-179: dept タグ → AWS Cost and Usage Report (CUR) による 部門別集計" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" value="Management Account (Organizations)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="920" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="135" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="tag_act" value="① Billing コンソールで「ユーザ定義タグ」 dept をアクティベート&#xa;   (タグ作成から 最大24時間 でコスト配分タグとして利用可能に)&#xa;② CUR (Cost and Usage Report) を 管理アカウントの S3 に出力するよう設定" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="230" y="75" width="710" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="mem" value="メンバーアカウント (事業部X)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="440" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="215" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_1_l" value="EC2 (セキュリティツール)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="270" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="tag_1" value="Tag: dept=compliance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="60" y="290" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="220" y="215" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ec2_2_l" value="EC2 (業務アプリ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="210" y="270" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="tag_2" value="Tag: dept=business" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="210" y="290" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;" vertex="1" parent="1">
+          <mxGeometry x="370" y="215" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rds_l" value="RDS (compliance)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="360" y="270" width="80" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="tag_3" value="Tag: dept=compliance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="360" y="290" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="report" value="管理アカウント: CUR 出力先" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="520" y="180" width="440" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="560" y="215" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_l" value="S3 (CUR parquet)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="540" y="270" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ath" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="700" y="215" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ath_l" value="Athena / QuickSight" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="680" y="270" width="120" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_q" value="クエリ例:&#xa;SELECT resource_tags_user_dept, SUM(unblended_cost)&#xa;FROM cur&#xa;WHERE year='2026' AND month='04'&#xa;GROUP BY 1" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="540" y="300" width="400" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="タグ付きコストが CUR に反映" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#FF9900;" edge="1" parent="1" source="mem" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 タグ別コスト精度を最大化する方法" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="920" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ CUR = 最も詳細なビリングデータ (1時間粒度 / リソース粒度 / タグ列)&#xa;  → 特定タグを持つリソースのコストだけを正確に抽出可能&#xa;✓ タグは 管理アカウントで「ユーザ定義タグ」として アクティベート が必須&#xa;✓ S3 + Athena + QuickSight で 可視化 / 事業部への配賦レポート&#xa;✗ Cost Explorer のみ = 日次粒度で 1年超の長期分析がしにくい&#xa;✗ Resource Groups / 手動リストは 正確な コスト集計にならない" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="450" width="900" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

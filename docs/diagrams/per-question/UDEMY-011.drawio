@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-011 / 正解C: IoT Core + Kinesis Firehose + Lambda + S3 (HA)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sensors" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sensors_l" value="土壌センサー ×15,000 (MQTT)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="98" width="250" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="aws" value="AWS (リージョンスコープ、マルチAZ)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="130" width="960" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="iot" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="iot_l" value="AWS IoT Core&#10;(マネージドMQTT)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="258" width="170" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="fh" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="260" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fh_l" value="Kinesis Data&#10;Firehose" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="258" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="lam" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+          <mxGeometry x="420" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_l" value="Lambda&#10;(処理/変換)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="258" width="130" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="580" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_l" value="S3 (CSV)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="555" y="258" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="cw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="720" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cw_l" value="CloudWatch&#10;Logs/Metrics" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="675" y="258" width="140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="sensors" target="iot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_l" value="MQTT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a2" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;" edge="1" parent="1" source="iot" target="fh">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_l" value="IoT Rule" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="a2">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a3" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="fh" target="lam">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;" edge="1" parent="1" source="lam" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" value="【なぜこの構成か】&#10;・RabbitMQ サーバー単一障害 → マネージドMQTTで冗長化必須 → IoT Core&#10;・15,000デバイスのスケーラビリティ → IoT Core は水平スケール&#10;・リアルタイム CSV 書出 → Firehose で S3 バッファリング/バッチ書込&#10;・複雑変換 → Lambda で柔軟&#10;&#10;❌ A: RabbitMQ on EC2 は自前運用でスケーリングと可用性が弱い&#10;❌ B: Amazon MQ は既存ブローカー互換のみ／15000デバイスに最適化されていない&#10;❌ D: AWS IoT Core→EC2→RabbitMQは冗長で無意味" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="330" width="920" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

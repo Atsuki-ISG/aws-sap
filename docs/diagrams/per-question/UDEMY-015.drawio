@@ -1,0 +1,78 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="iot-firehose-analytics" name="UDEMY-015">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="UDEMY-015 / IoT 車両: IoT Core → Firehose → S3 + Kinesis Data Analytics (異常検知)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="20" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_52" value="MQTT 受信を Firehose で S3 に永続化、同時に Analytics で SQL リアルタイム異常検知" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="52" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="iot" value="Vehicle MQTT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="40" y="140" width="110" height="50" as="geometry" />
+</mxCell>
+<mxCell id="iotcore" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.iot_core;" vertex="1" parent="1">
+  <mxGeometry x="190" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="iotcore_l" value="IoT Core
+(Rules Engine)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="165" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="firehose" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.kinesis_data_firehose;" vertex="1" parent="1">
+  <mxGeometry x="340" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="firehose_l" value="Firehose" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="315" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="490" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3_l" value="S3
+(Archive)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="465" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="kda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.kinesis_data_analytics;" vertex="1" parent="1">
+  <mxGeometry x="340" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="kda_l" value="Kinesis Data
+Analytics" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="315" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sns" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sns;" vertex="1" parent="1">
+  <mxGeometry x="490" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sns_l" value="SNS
+(Anomaly Alert)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="465" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="MQTT/TLS" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="iot" target="iotcore">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="Rule Action" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="iotcore" target="firehose">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="buffered 60s" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="firehose" target="s3">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a4" value="Rule Action" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1" source="iotcore" target="kda">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a5" value="閾値超過" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="kda" target="sns">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ 正解: IoT Core Rules で Firehose (S3 アーカイブ) と Kinesis Data Analytics (異常検知) に同時振り分け" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="370" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ EC2 で MQTT 受信: 認証・スケーリング・TLS 管理を自前実装 → 運用負荷大
+❌ Lambda 直接呼び出し: 秒間数万件超えでスロットリング発生しやすい" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="430" width="960" height="60" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 IoT Rule SQL: SELECT ... FROM topic WHERE ... で条件ルーティング可。複数アクションで「アーカイブ+分析」を両立" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="510" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

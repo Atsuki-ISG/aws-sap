@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="eb-schedule-lambda-ec2" name="UDEMY-268">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="UDEMY-268 / EventBridge スケジュール → Lambda が EC2 停止/起動 (夜間・週末コスト削減)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="20" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_52" value="タグで対象を絞り、cron 式でスケジュール管理 — ASG 不要の軽量パターン" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="52" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="eb1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+  <mxGeometry x="80" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="eb1_l" value="EventBridge Rule
+(平日 20:00 停止)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="55" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="eb2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+  <mxGeometry x="80" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="eb2_l" value="EventBridge Rule
+(平日 8:00 起動)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="55" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="l1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="280" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="l1_l" value="Stop Lambda
+(tag=env:dev)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="255" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="l2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="280" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="l2_l" value="Start Lambda
+(tag=env:dev)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="255" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="ec2_1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="480" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ec2_1_l" value="EC2 Dev Instance
+(StopInstances)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="455" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="ec2_2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="480" y="280" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="ec2_2_l" value="EC2 Dev Instance
+(StartInstances)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="455" y="338" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="cost" value="💰 月 60% コスト削減
+(平日夜 + 週末 48h)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="680" y="200" width="200" height="80" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="cron(0 20 ? * MON-FRI *)" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="eb1" target="l1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="l1" target="ec2_1">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="cron(0 8 ? * MON-FRI *)" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="eb2" target="l2">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a4" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="l2" target="ec2_2">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ EventBridge Scheduler / Rule = サーバーレス cron。Lambda が AWS SDK で Stop/Start API を呼ぶのが最小構成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="380" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ Systems Manager Maintenance Window: リソースの補修向け、停止/起動の定期運用には EventBridge が軽量
+❌ CloudFormation + Lambda 直書き: スケジュール定義がコードに埋没して変更しづらい" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="440" width="960" height="60" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 Instance Scheduler (AWS Solutions) を使えばタグ "Schedule=office-hours" だけで完結。EB + Lambda の管理コードが不要" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="520" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

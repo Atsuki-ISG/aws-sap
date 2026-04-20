@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d" name="diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="UDEMY-333 / 正解C: IoT Core ドメイン + Route 53 ヘルスチェック Failover + DynamoDB GT" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="8" width="1000" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="sensor" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sensor_l" value="工場センサー群 (MQTT)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="-25" y="88" width="180" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r53" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" vertex="1" parent="1">
+          <mxGeometry x="340" y="30" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r53_l" value="Route 53 Failover (カスタムドメイン)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="205" y="88" width="320" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="Region 1 (Primary)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#3B48CC;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3B48CC;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="120" width="460" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="iot1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="iot1_l" value="IoT Core&#10;ドメイン構成" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="238" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="220" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb1_l" value="DynamoDB&#10;Global Table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="238" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="hc1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="380" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hc1_l" value="HealthCheck" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="355" y="238" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" value="【Primary】&#10;・IoT Core にカスタムドメイン割当&#10;・MQTT メッセージ受信&#10;・IoT Ruleで DynamoDB に書込&#10;・DynamoDB は Global Tables 有効" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="430" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="Region 2 (Failover)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#7AA116;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#7AA116;dashed=0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="460" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="iot2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudendure_disaster_recovery;" vertex="1" parent="1">
+          <mxGeometry x="560" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="iot2_l" value="IoT Core&#10;ドメイン構成" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="238" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+          <mxGeometry x="720" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ddb2_l" value="DynamoDB&#10;Global Table" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="238" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="hc2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="880" y="180" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hc2_l" value="HealthCheck" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="855" y="238" width="100" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="【Failover】&#10;・同じカスタムドメイン&#10;・Route 53 ヘルスチェック異常時&#10;　Failoverレコードで切替&#10;・DynamoDB Global Tables で&#10;　データ即時利用可" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#7AA116;" vertex="1" parent="1">
+          <mxGeometry x="540" y="290" width="430" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;" edge="1" parent="1" source="sensor" target="r53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1_l" value="MQTT" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#232F3E;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="s1">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="r1a" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;" edge="1" parent="1" source="r53" target="iot1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r1a_l" value="Primary" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="r1a">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="r1b" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;" edge="1" parent="1" source="r53" target="iot2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r1b_l" value="Failover" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="r1b">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="w1" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="iot1" target="ddb1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w2" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;" edge="1" parent="1" source="iot2" target="ddb2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=3;" edge="1" parent="1" source="ddb1" target="ddb2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rep_l" value="Global Tables 双方向" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="rep">
+          <mxGeometry x="-0.05" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="cmp" value="❌ A: Aurora &quot;グローバルテーブル&quot;という用語は誤り(Aurora Global DatabaseならOK、ただしDynamoDB要件のまま)&#10;❌ B: MemoryDB Redis はクロスリージョンレプリに正式対応せず、耐久性も弱い&#10;❌ D: レイテンシーはフェイルオーバー用途でない／DynamoDB Streams=リージョン内" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FF9900;strokeWidth=1;fontSize=9;fontColor=#232F3E;verticalAlign=top;align=left;spacingTop=6;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="20" y="530" width="960" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

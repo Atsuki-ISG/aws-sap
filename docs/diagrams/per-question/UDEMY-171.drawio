@@ -1,0 +1,108 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-171">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-171: オンプレAD を そのまま使う SSO (Identity Center + AD Connector)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="onprem" value="オンプレミス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="260" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ad" value="Active Directory&#xa;(ユーザ/グループ の正本)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="100" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="users" value="• 人事データと同期済み&#xa;• MFA も AD 側で設定可" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_grp" value="AD グループ:&#xa;  • aws-admins&#xa;  • aws-dev-readonly&#xa;  • aws-db-ops&#xa;  (各 AWS アカウント/権限に紐付け)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vpn" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.site_to_site_vpn;" vertex="1" parent="1">
+          <mxGeometry x="330" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vpn_l" value="Site-to-Site&#xa;VPN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="310" y="255" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_box" value="Management Account" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="70" width="260" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="adc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="460" y="105" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="adc_l" value="AD Connector" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="445" y="160" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="adc_d" value="(LDAP プロキシ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="445" y="180" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ic" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;" vertex="1" parent="1">
+          <mxGeometry x="580" y="105" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_l" value="IAM Identity Center" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="560" y="160" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_ps" value="Permission Set:&#xa;  • AdministratorAccess&#xa;  • ReadOnlyAccess&#xa;  • DatabaseOperator (custom)&#xa;&#xa;AD グループ → 権限セット → AWS アカウントへ&#xa;割当 (3者マッピング)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="460" y="220" width="220" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="accs" value="組織内 AWS アカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="740" y="70" width="220" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="a0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="820" y="100" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a0_l" value="アカウント1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="790" y="80" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="820" y="175" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_l" value="アカウント2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="790" y="155" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="820" y="250" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_l" value="アカウント3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="790" y="230" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="820" y="325" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_l" value="アカウント4" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="790" y="305" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ad" target="vpn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2" value="LDAP over VPN" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#8C4FFF;" edge="1" parent="1" source="vpn" target="adc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3" value="" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1" source="adc" target="ic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar4" value="SSO" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar5" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar6" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar7" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 AD Connector を選ぶ理由 (試験頻出)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="920" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ AD Connector = 単なる「LDAPプロキシ」 → AWS 側にユーザDBを複製しない (最小運用)&#xa;✓ オンプレAD のパスワード変更/削除 が AWS 側に即時反映 (二重管理が発生しない)&#xa;✓ Identity Center の ID ソースに AD Connector を指定 → AD グループベースで権限セット割当&#xa;✗ AWS Managed Microsoft AD = AWS 側に新しいAD 作成 = 二重管理&#xa;✗ IAM ユーザを各アカウントに作成 = 一元管理不可&#xa;✗ Cognito = アプリ側 のID 基盤 で 管理アクセスには向かない" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="430" width="900" height="120" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

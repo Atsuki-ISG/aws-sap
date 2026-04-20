@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="image-s3-sqs-lambda-lc" name="UDEMY-150">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="title" value="UDEMY-150 / 画像リサイズ: S3 Upload → SQS → Lambda Resize → S3 Standard-IA + LC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="20" width="960" height="30" as="geometry" />
+</mxCell>
+<mxCell id="subtitle_20_52" value="非同期処理でレスポンスを即返し、ストレージクラス遷移でコスト最適化" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+  <mxGeometry x="20" y="52" width="960" height="22" as="geometry" />
+</mxCell>
+<mxCell id="user" value="User Upload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="40" y="140" width="100" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3u" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="180" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3u_l" value="S3 Upload
+(Standard)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="155" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="sqs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sqs;" vertex="1" parent="1">
+  <mxGeometry x="340" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="sqs_l" value="SQS Queue" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="315" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="lambda" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+  <mxGeometry x="500" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="lambda_l" value="Resize Lambda
+(Sharp/ImageMagick)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="475" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="s3ia" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+  <mxGeometry x="660" y="130" width="50" height="50" as="geometry" />
+</mxCell>
+<mxCell id="s3ia_l" value="S3 Standard-IA
+(Resized)" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="635" y="188" width="100" height="28" as="geometry" />
+</mxCell>
+<mxCell id="lc" value="Lifecycle:
+Standard→IA 30日
+→ Glacier 90日
+→ Deep Archive 365日" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=10;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
+  <mxGeometry x="830" y="130" width="150" height="90" as="geometry" />
+</mxCell>
+<mxCell id="a1" value="PUT" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="user" target="s3u">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a2" value="Event Notify" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="s3u" target="sqs">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a3" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="sqs" target="lambda">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a4" value="" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="lambda" target="s3ia">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="a5" value="age" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;dashed=1;" edge="1" parent="1" source="s3ia" target="lc">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="good" value="✅ SQS で非同期化 → Lambda スパイク対応。リサイズ済画像は IA へ (アクセス頻度低)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF5E0;strokeColor=#7AA116;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="290" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="bad" value="❌ 同期 Lambda: 数秒〜数十秒の処理でユーザー待ち。S3→Lambda 直でもバースト弱い
+❌ S3 Intelligent-Tiering: 小サイズ画像は最低保管日数コストが割高" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDECEA;strokeColor=#DD344C;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="350" width="960" height="60" as="geometry" />
+</mxCell>
+<mxCell id="tip" value="💡 ライフサイクル遷移は最短 30 日 (Standard→IA)。128KB 未満オブジェクトは IA 移行非推奨" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="430" width="960" height="40" as="geometry" />
+</mxCell>
+<mxCell id="tip2" value="📌 サイズ別バリエーションが必要なら Lambda@Edge + CloudFront でオンデマンド生成も選択肢" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F2FD;strokeColor=#3B48CC;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+  <mxGeometry x="20" y="490" width="960" height="40" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

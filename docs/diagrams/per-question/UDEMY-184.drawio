@@ -1,0 +1,138 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-184">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="680" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-184: OU別 CUR + QuickSight 可視化 (部門別コスト内訳)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" value="Management Account" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="920" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="80" y="75" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="cur" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.config;" vertex="1" parent="1">
+          <mxGeometry x="230" y="75" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cur_l" value="Cost &amp; Usage Report" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="210" y="130" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="s3c" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="380" y="75" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3c_l" value="S3 (CUR parquet)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="360" y="130" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ath" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="530" y="75" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ath_l" value="Athena" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="510" y="130" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="qs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+          <mxGeometry x="680" y="75" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="qs_l" value="QuickSight" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="660" y="130" width="130" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_cur" value="" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#FF9900;" edge="1" parent="1" source="cur" target="s3c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_s3" value="" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;fontSize=10;fontColor=#FF9900;" edge="1" parent="1" source="s3c" target="ath">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_ath" value="" style="endArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;fontSize=10;fontColor=#E7157B;" edge="1" parent="1" source="ath" target="qs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ou1" value="エンジニア部門OU A (各 OU が自分のコストを参照)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="170" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="oa0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oa0_l" value="ACCT 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="oa1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="150" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oa1_l" value="ACCT 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="140" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="oa2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="240" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oa2_l" value="ACCT 3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="230" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="oa3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="330" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oa3_l" value="ACCT 4" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="320" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ou1_d" value="OU A: 数百アカウント&#xa;各アカウントのコストは CUR に集約" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="285" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ou2" value="エンジニア部門OU B" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="520" y="170" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ob0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="540" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ob0_l" value="ACCT 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="530" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ob1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="630" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ob1_l" value="ACCT 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="620" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ob2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="720" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ob2_l" value="ACCT 3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="710" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ob3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="810" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ob3_l" value="ACCT 4" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="800" y="255" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="ou2_d" value="OU B: 数百アカウント&#xa;各アカウントのコストは CUR に集約" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="540" y="285" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dash" value="QuickSight ダッシュボード (OU別)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F8;strokeColor=#8C4FFF;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="370" width="920" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="dashA" value="【OU A 向け】月次コスト推移 / サービス別内訳" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="405" width="420" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="dashA_d" value="・PAYER_ACCOUNT_ID / LINKED_ACCOUNT フィルタで&#xa;  自OU アカウントだけを抽出&#xa;・TOP サービス別棒グラフ&#xa;・ボーディング向け要約ビュー" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="75" y="435" width="400" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dashB" value="【OU B 向け】同様のダッシュボード" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="405" width="440" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="dashB_d" value="・Row-Level Security (RLS) で 他OU のデータは見せない&#xa;・経理部門は全OU 横断ビュー可能&#xa;・CSV エクスポートで社内レポート化" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="515" y="435" width="420" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 部門別コスト可視化の王道" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="570" width="920" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ CUR → S3 → Athena → QuickSight (標準パイプライン)&#xa;✗ CloudWatch メトリクスだけ = 詳細な個別リソース粒度なし / ✗ 各アカウント個別に CSV ダウンロード = 手作業" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="595" width="900" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

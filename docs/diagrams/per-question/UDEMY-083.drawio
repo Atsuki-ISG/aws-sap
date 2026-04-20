@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-083">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="610" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-083: クロスアカウント AssumeRole (3つの必須要素)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="accA" value="Account A: 開発部門" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="380" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="usrA" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="150" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="usrA_l" value="IAM ユーザ (alice)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="100" y="165" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="polA" value="① IAM ポリシー (アイデンティティベース)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="340" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="polA_t" value="{&#xa;  &quot;Version&quot;: &quot;2012-10-17&quot;,&#xa;  &quot;Statement&quot;: [{&#xa;    &quot;Effect&quot;: &quot;Allow&quot;,&#xa;    &quot;Action&quot;: &quot;sts:AssumeRole&quot;,&#xa;    &quot;Resource&quot;:&#xa;      &quot;arn:aws:iam::BBBB:role/TestRole&quot;&#xa;  }]&#xa;}&#xa;&#xa;alice に付与するポリシー。&#xa;「B の TestRole を引き受けてよい」&#xa;という権限。" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="75" y="245" width="320" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="sts" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sts;" vertex="1" parent="1">
+          <mxGeometry x="500" y="280" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sts_l" value="STS AssumeRole&#xa;(短期クレデンシャル)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="475" y="335" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="accB" value="Account B: テスト環境" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="360" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="roleB" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="770" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="roleB_l" value="IAM ロール TestRole" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="740" y="165" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="trustB" value="② 信頼ポリシー (ロールにアタッチ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="640" y="210" width="340" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="trustB_t" value="{&#xa;  &quot;Principal&quot;: {&quot;AWS&quot;:&#xa;    &quot;arn:aws:iam::AAAA:user/alice&quot;},&#xa;  &quot;Action&quot;: &quot;sts:AssumeRole&quot;,&#xa;  &quot;Condition&quot;: {&quot;StringEquals&quot;: {&#xa;    &quot;sts:ExternalId&quot;: &quot;xyz&quot;}}&#xa;}" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="655" y="240" width="320" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="permB" value="③ 権限ポリシー (ロールにアタッチ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="640" y="355" width="340" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="permB_t" value="{&quot;Effect&quot;: &quot;Allow&quot;,&#xa; &quot;Action&quot;: [&quot;s3:GetObject&quot;],&#xa; &quot;Resource&quot;: &quot;arn:aws:s3:::bucket/*&quot;}&#xa;&#xa;→ 最小特権原則 (必要な操作だけ許可)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="655" y="385" width="320" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="① AssumeRole" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1" source="usrA" target="sts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2" value="② 信頼判定" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="sts" target="roleB">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 3要素すべて必須" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="530" width="940" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ ① A 側の IAM ポリシー (sts:AssumeRole 許可) / ✓ ② B 側の信頼ポリシー (A をプリンシパルに) / ✓ ③ B 側の権限ポリシー (最小特権)&#xa;推奨: 外部ID (ExternalId) / MFA 条件を信頼ポリシーに追加してセキュリティ強化" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="555" width="920" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,144 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q623] EKS 共有ストレージ: EFS + 各AZ Mount Target + AWS Backup" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="vpc" value="VPC (EKS Cluster)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#E9F3E6;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="60" y="100" width="830" height="390" as="geometry"/>
+</mxCell>
+
+<mxCell id="az1" value="AZ-a" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_availability_zone;strokeColor=#147EBA;fillColor=#E7F7FE;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="100" y="150" width="240" height="300" as="geometry"/>
+</mxCell>
+
+<mxCell id="az2" value="AZ-b" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_availability_zone;strokeColor=#147EBA;fillColor=#E7F7FE;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="360" y="150" width="240" height="300" as="geometry"/>
+</mxCell>
+
+<mxCell id="az3" value="AZ-c" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_availability_zone;strokeColor=#147EBA;fillColor=#E7F7FE;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="620" y="150" width="240" height="300" as="geometry"/>
+</mxCell>
+
+<mxCell id="node1_130_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="130" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_node1_130_200" value="Node" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="110" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="pod1_230_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="230" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_pod1_230_200" value="Pod A" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="210" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="mt1_170_350" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_file_system;" vertex="1" parent="1">
+  <mxGeometry x="170" y="350" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_mt1_170_350" value="Mount
+Target" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="150" y="408" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="node2_390_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="390" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_node2_390_200" value="Node" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="370" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="pod2_490_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="490" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_pod2_490_200" value="Pod B" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="470" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="mt2_430_350" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_file_system;" vertex="1" parent="1">
+  <mxGeometry x="430" y="350" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_mt2_430_350" value="Mount
+Target" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="410" y="408" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="node3_650_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="650" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_node3_650_200" value="Node" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="630" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="pod3_750_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fargate;" vertex="1" parent="1">
+  <mxGeometry x="750" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_pod3_750_200" value="Pod C" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="730" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="mt3_690_350" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_file_system;" vertex="1" parent="1">
+  <mxGeometry x="690" y="350" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_mt3_690_350" value="Mount
+Target" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="670" y="408" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="m1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="195" y="260" as="sourcePoint"/>
+    <mxPoint x="195" y="350" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="m2" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="455" y="260" as="sourcePoint"/>
+    <mxPoint x="455" y="350" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="m3" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="715" y="260" as="sourcePoint"/>
+    <mxPoint x="715" y="350" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="bk_910_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.backup;" vertex="1" parent="1">
+  <mxGeometry x="910" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_bk_910_200" value="AWS Backup
+1年保持" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="890" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="b1" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="890" y="370" as="sourcePoint"/>
+    <mxPoint x="910" y="230" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="cmp" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFA726;strokeWidth=1;fontSize=11;fontStyle=0;fontColor=#E65100;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="510" width="960" height="70" as="geometry"/>
+</mxCell>
+
+<mxCell id="cmpn" value="要点: 複数 Pod が同一 FS を同時読み書き → EFS (NFS v4 POSIX / 共有マウント対応)&#10;     EBS は ReadWriteOnce (単一 Pod のみ) ／ S3 は POSIX 非互換 ／ FSx for Lustre は HPC 向け&#10;     各 AZ にマウントターゲット必須 (低レイテンシ＆高可用性)。AWS Backup で自動バックアップ。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#E65100;" vertex="1" parent="1">
+  <mxGeometry x="40" y="520" width="920" height="55" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

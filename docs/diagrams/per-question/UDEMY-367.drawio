@@ -1,0 +1,92 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="diag" name="Diagram">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="[Q666] Private API Gateway: VPCE + Resource Policy sourceVpce" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="20" y="10" width="960" height="30" as="geometry"/>
+</mxCell>
+
+        <mxCell id="cloud" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=#F2F2F2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="20" y="50" width="960" height="510" as="geometry"/>
+</mxCell>
+
+<mxCell id="vpc" value="VPC (多数のマイクロサービス)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=#E9F3E6;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;" vertex="1" parent="1">
+  <mxGeometry x="60" y="100" width="450" height="400" as="geometry"/>
+</mxCell>
+
+<mxCell id="az1" value="AZ-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_availability_zone;strokeColor=#147EBA;fillColor=#E7F7FE;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="100" y="150" width="180" height="160" as="geometry"/>
+</mxCell>
+
+<mxCell id="ms1_130_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="130" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ms1_130_200" value="EC2 μsvc" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="110" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="az2" value="AZ-2" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_availability_zone;strokeColor=#147EBA;fillColor=#E7F7FE;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" vertex="1" parent="1">
+  <mxGeometry x="300" y="150" width="180" height="160" as="geometry"/>
+</mxCell>
+
+<mxCell id="ms2_330_200" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+  <mxGeometry x="330" y="200" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_ms2_330_200" value="EC2 μsvc" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="310" y="258" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="vpce_250_360" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="250" y="360" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_vpce_250_360" value="Interface
+VPC Endpoint" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="230" y="418" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="api" value="API Gateway (Private)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E7157B;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#E7157B;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="560" y="100" width="400" height="400" as="geometry"/>
+</mxCell>
+
+<mxCell id="apigw_720_140" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="720" y="140" width="50" height="50" as="geometry"/>
+</mxCell>
+<mxCell id="lbl_apigw_720_140" value="Private API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="700" y="198" width="90" height="20" as="geometry"/>
+</mxCell>
+
+<mxCell id="rp" value="リソースポリシー (抜粋):&#10;&#10;{ "Effect": "Allow",&#10;  "Principal": "*",&#10;  "Action": "execute-api:Invoke",&#10;  "Resource": "execute-api:/*",&#10;  "Condition": {&#10;    "StringEquals": {&#10;      "aws:sourceVpce":&#10;        "vpce-0abcdef1234"&#10;    } } }&#10;&#10;→ VPC エンドポイント経由のみ許可" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+  <mxGeometry x="580" y="230" width="360" height="260" as="geometry"/>
+</mxCell>
+
+<mxCell id="a1" value="VPCE" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="180" y="250" as="sourcePoint"/>
+    <mxPoint x="280" y="380" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a2" value="VPCE" style="endArrow=classic;html=1;rounded=0;strokeColor=#666666;strokeWidth=2;fontSize=10;fontColor=#666666;dashed=1;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="380" y="250" as="sourcePoint"/>
+    <mxPoint x="280" y="380" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="a3" value="Private 経路" style="endArrow=classic;html=1;rounded=0;strokeColor=#7AA116;strokeWidth=3;fontSize=10;fontColor=#7AA116;dashed=0;" edge="1" parent="1">
+  <mxGeometry relative="1" as="geometry">
+    <mxPoint x="350" y="385" as="sourcePoint"/>
+    <mxPoint x="720" y="170" as="targetPoint"/>
+  </mxGeometry>
+</mxCell>
+
+<mxCell id="note" value="要点: Private API は Interface VPCE 必須 ／ sourceVpce 条件で特定 VPC 限定 ／ エンドポイントポリシーも重ねて最小権限" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFA726;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#E65100;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+  <mxGeometry x="20" y="520" width="960" height="60" as="geometry"/>
+</mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

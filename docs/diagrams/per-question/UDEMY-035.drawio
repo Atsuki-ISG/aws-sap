@@ -1,0 +1,102 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-035">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-035: Organizations + IAM Identity Center + AD フェデレーション (一時クレデンシャル)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="onprem" value="オンプレミス" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ad" value="Microsoft Active Directory&#xa;(ユーザ / グループの正本)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="110" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_flow" value="・既存ユーザを活用&#xa;・フェデレーション認証&#xa;・MFA もオンプレ側で強制可" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="170" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="adc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="320" y="135" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="adc_l" value="AD Connector" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="300" y="190" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_box" value="Management Account" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="70" width="260" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ic" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;" vertex="1" parent="1">
+          <mxGeometry x="545" y="110" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_l" value="IAM Identity Center" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="495" y="165" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ic_desc" value="・権限セット (Permission Set)&#xa;・AD グループ → AWS アカウント/権限セット&#xa;・SAML/OIDC で連携" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="460" y="190" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="org" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="545" y="285" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="org_l" value="AWS Organizations" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="495" y="340" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="org_d" value="アカウント群を一元管理&#xa;(CUR / Consolidated Billing)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="455" y="360" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="accs" value="事業部門別メンバーアカウント" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="760" y="70" width="220" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="a0" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="850" y="110" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a0_l" value="事業部門 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="810" y="155" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="850" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_l" value="事業部門 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="810" y="245" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="850" y="290" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_l" value="事業部門 3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="810" y="335" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="850" y="380" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_l" value="事業部門 4" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="810" y="425" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1" value="LDAP" style="endArrow=classic;html=1;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="ad" target="adc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2" value="" style="endArrow=classic;html=1;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontColor=#3B48CC;" edge="1" parent="1" source="adc" target="ic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3" value="SSO" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar4" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar5" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar6" value="" style="endArrow=classic;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#7AA116;" edge="1" parent="1" source="ic" target="a3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="🔑 要件とマッピング" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9E6;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="360" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="key_t" value="✓ 中央集権的コスト管理 → Organizations&#xa;   (consolidated billing / CUR / Cost Explorer)&#xa;&#xa;✓ アイデンティティ フェデレーション →&#xa;   IAM Identity Center + AD Connector&#xa;&#xa;✓ 短期クレデンシャル → Identity Center が&#xa;   SAML + STS で一時クレデンシャル発行&#xa;   (IAM アクセスキー不要)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="55" y="315" width="340" height="160" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

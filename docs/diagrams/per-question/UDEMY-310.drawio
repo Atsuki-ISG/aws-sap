@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d609" name="NLB Static IP for Allowlist">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="600" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t" value="UDEMY-310 / num=609: NLB 静的 IP でオンプレ FW 許可リストを維持" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="0" y="10" width="1000" height="28" as="geometry" /></mxCell>
+        <mxCell id="dc" value="オンプレミス DC" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;strokeColor=#7D7D7D;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="20" y="80" width="220" height="300" as="geometry" /></mxCell>
+        <mxCell id="dcs" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.corporate_data_center_2;" vertex="1" parent="1">
+      <mxGeometry x="70" y="110" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="dcs_l" value="クライアント" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="40" y="170" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="fw" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.network_firewall;" vertex="1" parent="1">
+      <mxGeometry x="70" y="220" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="fw_l" value="FW (許可リスト)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="40" y="280" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="fw_l2" value="静的 IP x2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="40" y="298" width="120" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpn" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.site_to_site_vpn;" vertex="1" parent="1">
+      <mxGeometry x="280" y="110" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="vpn_l" value="VPN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="255" y="168" width="100" height="18" as="geometry" /></mxCell>
+        <mxCell id="dx" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.direct_connect;" vertex="1" parent="1">
+      <mxGeometry x="280" y="220" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="dx_l" value="DX" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="255" y="278" width="100" height="18" as="geometry" /></mxCell>
+        <mxCell id="vpc" value="VPC (複数 AZ)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;container=1;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#248814;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="420" y="60" width="560" height="440" as="geometry" /></mxCell>
+        <mxCell id="nlb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#6B1B9A;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;" vertex="1" parent="1">
+      <mxGeometry x="480" y="120" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="nlb_l" value="NLB (静的 IP)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="440" y="188" width="140" height="18" as="geometry" /></mxCell>
+        <mxCell id="nlb_l2" value="AZ-a, AZ-b に 1 IP ずつ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="440" y="206" width="170" height="18" as="geometry" /></mxCell>
+        <mxCell id="alb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;" vertex="1" parent="1">
+      <mxGeometry x="680" y="120" width="60" height="60" as="geometry" /></mxCell>
+        <mxCell id="alb_l" value="ALB (L7 ルーティング)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="640" y="188" width="160" height="18" as="geometry" /></mxCell>
+        <mxCell id="az1" value="AZ-a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="480" y="260" width="220" height="200" as="geometry" /></mxCell>
+        <mxCell id="ec1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="560" y="300" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ec1_l" value="EC2 App a" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="530" y="360" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="az2" value="AZ-b" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5EB;strokeColor=#FF9900;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+      <mxGeometry x="720" y="260" width="220" height="200" as="geometry" /></mxCell>
+        <mxCell id="ec2b" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FFFFFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;" vertex="1" parent="1">
+      <mxGeometry x="800" y="300" width="50" height="50" as="geometry" /></mxCell>
+        <mxCell id="ec2b_l" value="EC2 App b" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="770" y="360" width="110" height="18" as="geometry" /></mxCell>
+        <mxCell id="e1" style="endArrow=classic;startArrow=none;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dcs" target="vpn">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="endArrow=classic;startArrow=none;html=1;strokeColor=#7AA116;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="vpn" target="nlb">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="別経路" style="endArrow=classic;startArrow=classic;html=1;strokeColor=#E7157B;strokeWidth=2;dashed=1;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="dx" target="nlb">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="ALB-as-target" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="nlb" target="alb">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="alb" target="ec1">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="endArrow=classic;startArrow=none;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#232F3E;" edge="1" parent="1" source="alb" target="ec2b">
+      <mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="n1" value="◎ 正解 B: NLB を作成 → NLB を各 AZ で静的 IP 割り当て → ALB を NLB の Target Group にアタッチ (ALB-as-target)。
+オンプレ FW は NLB の静的 IP のみ許可リストに入れればよい (ALB の動的 IP を追いかけ不要)。
+クライアントは NLB 接続先 → NLB → ALB → EC2 にトラフィックが流れる。VPN/DX どちらを使っても到達点は同じ。" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;fillColor=#EBF5E8;strokeColor=#7AA116;strokeWidth=1;spacing=6;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="495" width="960" height="90" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

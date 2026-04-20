@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="d1" name="UDEMY-217">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UDEMY-217: RAM で Aurora をクロスアカウント共有 + Lambda は デプロイパッケージ再利用" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="0" y="10" width="1000" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="src" value="Source アカウント (現行)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="420" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_s" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_s_l" value="Lambda 関数" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="145" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="200" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg_l" value="デプロイパッケージ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="180" y="145" width="140" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg_zip" value="(.zip / .jar)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="180" y="165" width="140" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="au" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="340" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="au_l" value="Aurora DB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="320" y="145" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="au_d" value="在庫データ&#xa;+ 自動バックアップ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="310" y="165" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ram_box" value="RAM リソース共有" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0E8F8;strokeColor=#8C4FFF;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="380" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ram" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.resource_access_manager;" vertex="1" parent="1">
+          <mxGeometry x="200" y="250" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ram_l" value="AWS RAM Share" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="170" y="305" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ram_d" value="Aurora クラスターを Target アカウントと共有&#xa;クローン権限 (aurora-clone-permissions) を付与" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="70" y="325" width="360" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="src_flow" value="手順:&#xa;① デプロイパッケージをダウンロード&#xa;② RAM で Aurora クラスターを Target と共有&#xa;   (クローン権限を付与)&#xa;③ Target 側で Aurora クラスターをクローン&#xa;   → 元クラスターのデータをそのまま継承&#xa;④ Target 側でカットオーバー → Source 削除" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="390" width="400" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tgt" value="Target アカウント (新規)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="60" width="460" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_t" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="540" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_t_l" value="Lambda 関数 (新)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="520" y="145" width="100" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="lam_t_d" value="同じ パッケージで&#xa;別アカウントに作成" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="510" y="165" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="au_c" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aurora;" vertex="1" parent="1">
+          <mxGeometry x="680" y="90" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="au_c_l" value="Aurora クローン" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="650" y="145" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="au_c_d" value="コピーオンライト&#xa;高速コピー&#xa;元DB に影響なし" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="640" y="170" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ar_share" value="クローン" style="endArrow=classic;html=1;strokeColor=#8C4FFF;strokeWidth=2;fontSize=10;fontColor=#8C4FFF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="280" as="sourcePoint" />
+            <mxPoint x="680" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tgt_note" value="✓ クローン = コピーオンライト → 実データ複製なしで即時利用可能 → ダウンタイム最小&#xa;&#xa;✗ バックアップ復元 (Snapshot Restore) =&#xa;  復元に時間がかかる / ダウンタイム長い&#xa;&#xa;✗ Target 側で Lambda を新しく書き直す =&#xa;  コード再利用できない&#xa;&#xa;✗ DMS でデータ移行 =&#xa;  変更キャプチャの設定が必要 / 同一エンジン同一リージョン ではオーバーヘッド&#xa;&#xa;✓ RAM + Aurora Clone + 既存パッケージ再デプロイ =&#xa;  最小ダウンタイムで最速アカウント移行" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontStyle=0;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="540" y="250" width="420" height="280" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
