@@ -23,7 +23,7 @@
           <mxGeometry x="100" y="145" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="gw_ec2_l" value="EC2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="85" y="198" width="80" height="20" as="geometry" />
+          <mxGeometry x="85" y="205" width="80" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="gw_rt" value="Route Table&#10;pl-xxx (S3 prefix list)&#10;→ vpce-xxxxxxxx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#248814;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
@@ -34,21 +34,21 @@
           <mxGeometry x="395" y="145" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="gw_ep_l" value="Gateway EP&#10;(無料)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="375" y="198" width="100" height="30" as="geometry" />
+          <mxGeometry x="375" y="205" width="100" height="30" as="geometry" />
         </mxCell>
 
         <mxCell id="gw_s3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
           <mxGeometry x="160" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="gw_s3_l" value="S3" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="145" y="333" width="80" height="20" as="geometry" />
+          <mxGeometry x="145" y="340" width="80" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="gw_ddb" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3334B9;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
           <mxGeometry x="320" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="gw_ddb_l" value="DynamoDB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="295" y="333" width="100" height="20" as="geometry" />
+          <mxGeometry x="295" y="340" width="100" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="gw_note" value="📌 Gateway EP の特徴&#10;・対応サービス: S3 / DynamoDB のみ&#10;・コスト: 完全無料（データ転送費もなし）&#10;・実装: Route Table に prefix list 経由のルート&#10;・スコープ: 同一リージョン内 VPC のみ&#10;・オンプレ (DX/VPN) からは到達不可&#10;・ENI は作らない（論理的なゲート）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#248814;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">
@@ -82,7 +82,7 @@
           <mxGeometry x="600" y="145" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_ec2_l" value="EC2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="585" y="198" width="80" height="20" as="geometry" />
+          <mxGeometry x="585" y="205" width="80" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="if_dns" value="Route 53 Resolver&#10;(VPC内DNS)&#10;Private DNS Name 有効" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=center;" vertex="1" parent="1">
@@ -93,35 +93,35 @@
           <mxGeometry x="900" y="145" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_eni_l" value="Interface EP&#10;(ENI + 私有IP)&#10;PrivateLink基盤" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="875" y="198" width="120" height="36" as="geometry" />
+          <mxGeometry x="875" y="205" width="120" height="36" as="geometry" />
         </mxCell>
 
         <mxCell id="if_svc1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aws_cloud;" vertex="1" parent="1">
           <mxGeometry x="600" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_svc1_l" value="KMS / SSM" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="585" y="333" width="80" height="20" as="geometry" />
+          <mxGeometry x="585" y="340" width="80" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="if_svc2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aws_cloud;" vertex="1" parent="1">
           <mxGeometry x="720" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_svc2_l" value="ECR / Secrets" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="700" y="333" width="100" height="20" as="geometry" />
+          <mxGeometry x="700" y="340" width="100" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="if_svc3" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aws_cloud;" vertex="1" parent="1">
           <mxGeometry x="840" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_svc3_l" value="STS / Logs" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="820" y="333" width="100" height="20" as="geometry" />
+          <mxGeometry x="820" y="340" width="100" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="if_svc4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.aws_cloud;" vertex="1" parent="1">
           <mxGeometry x="960" y="280" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="if_svc4_l" value="API Gateway" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="940" y="333" width="100" height="20" as="geometry" />
+          <mxGeometry x="940" y="340" width="100" height="20" as="geometry" />
         </mxCell>
 
         <mxCell id="if_note" value="📌 Interface EP の特徴&#10;・対応サービス: 多数（KMS/SSM/ECR/Secrets/STS/Logs/API GW など）&#10;・コスト: 時間課金 ($0.01/h × AZ) + データ処理料金 ($0.01/GB)&#10;・実装: ENI を AZ ごとに配置 (高可用化のため複数AZ推奨)&#10;・DNS: Private DNS Name 有効化で本来のFQDN がそのまま使える&#10;・オンプレ (DX/VPN) からも到達可能 → ハイブリッド環境で重要&#10;・PrivateLink を内部で使う" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B48CC;strokeWidth=1;fontSize=10;fontColor=#232F3E;verticalAlign=top;align=left;spacingLeft=8;spacingTop=6;" vertex="1" parent="1">

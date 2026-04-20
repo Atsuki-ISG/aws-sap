@@ -22,14 +22,14 @@
           <mxGeometry x="140" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="cli_mobile_l" value="iOS / Android&#10;(Amplify DataStore)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="100" y="205" width="140" height="30" as="geometry" />
+          <mxGeometry x="100" y="212" width="140" height="30" as="geometry" />
         </mxCell>
 
         <mxCell id="cli_web" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3B48CC;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
           <mxGeometry x="140" y="250" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="cli_web_l" value="Web SPA&#10;(React/Vue)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="100" y="315" width="140" height="30" as="geometry" />
+          <mxGeometry x="100" y="320" width="140" height="30" as="geometry" />
         </mxCell>
 
         <mxCell id="cli_note" value="📌 1回のクエリで&#10;必要な分だけ取得&#10;(Over-fetch回避)&#10;&#10;Subscription で&#10;サーバ更新を購読" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#3B48CC;fontStyle=2;" vertex="1" parent="1">
@@ -45,7 +45,7 @@
           <mxGeometry x="500" y="135" width="70" height="70" as="geometry" />
         </mxCell>
         <mxCell id="appsync_icon_l" value="AppSync" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="475" y="208" width="120" height="20" as="geometry" />
+          <mxGeometry x="475" y="215" width="120" height="20" as="geometry" />
         </mxCell>
 
         <!-- Schema box -->
@@ -106,10 +106,10 @@
           <mxGeometry x="860" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ds_ddb_l" value="DynamoDB&#10;(主データ)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="830" y="205" width="120" height="30" as="geometry" />
+          <mxGeometry x="830" y="212" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ds_ddb_note" value="単純CRUD/&#10;高スループット" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="830" y="240" width="120" height="30" as="geometry" />
+          <mxGeometry x="830" y="248" width="120" height="30" as="geometry" />
         </mxCell>
 
         <!-- Lambda -->
@@ -117,10 +117,10 @@
           <mxGeometry x="990" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ds_lambda_l" value="Lambda&#10;(任意処理)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="960" y="205" width="120" height="30" as="geometry" />
+          <mxGeometry x="960" y="212" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ds_lambda_note" value="複雑ロジック/&#10;外部API呼出" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="960" y="240" width="120" height="30" as="geometry" />
+          <mxGeometry x="960" y="248" width="120" height="30" as="geometry" />
         </mxCell>
 
         <!-- RDS -->
@@ -128,10 +128,10 @@
           <mxGeometry x="1120" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ds_rds_l" value="Aurora Serverless&#10;(Data API)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="1090" y="205" width="120" height="30" as="geometry" />
+          <mxGeometry x="1090" y="212" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ds_rds_note" value="リレーショナル/&#10;トランザクション" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="1090" y="240" width="120" height="30" as="geometry" />
+          <mxGeometry x="1090" y="248" width="120" height="30" as="geometry" />
         </mxCell>
 
         <!-- OpenSearch -->
@@ -139,10 +139,10 @@
           <mxGeometry x="1250" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ds_os_l" value="OpenSearch&#10;(全文検索)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="205" width="120" height="30" as="geometry" />
+          <mxGeometry x="1220" y="212" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ds_os_note" value="検索/集計クエリ" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="240" width="120" height="30" as="geometry" />
+          <mxGeometry x="1220" y="248" width="120" height="30" as="geometry" />
         </mxCell>
 
         <!-- HTTP -->
@@ -150,10 +150,10 @@
           <mxGeometry x="1380" y="140" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ds_http_l" value="HTTP endpoint&#10;(外部REST)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
-          <mxGeometry x="1350" y="205" width="120" height="30" as="geometry" />
+          <mxGeometry x="1350" y="212" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ds_http_note" value="既存マイクロサービス" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="1350" y="240" width="120" height="30" as="geometry" />
+          <mxGeometry x="1350" y="248" width="120" height="30" as="geometry" />
         </mxCell>
 
         <!-- Pipeline Resolver illustration -->
