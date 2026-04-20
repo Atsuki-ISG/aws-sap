@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - コンテナ起動タイプ・基盤選定</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-c { background: var(--purple-bg); border: 2px solid var(--purple); color: var(--purple); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS-based) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* 2x2 matrix */
+.matrix {
+  display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr;
+  gap: 0; margin: 16px 0; font-size: 13px;
+}
+.matrix-corner { background: transparent; }
+.matrix-col-hdr { text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); }
+.matrix-row-hdr { writing-mode: vertical-rl; text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); transform: rotate(180deg); }
+.matrix-cell {
+  border: 1px solid var(--border); padding: 14px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.matrix-cell strong { display: block; font-size: 13px; }
+.matrix-cell small { font-size: 11px; color: var(--text2); }
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Container Platform</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>コンテナの起動タイプ・基盤選定</h1>
+    <p class="sub">AWS SAP-C02 ECS / EKS / Fargate / EC2</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-blue">ECS</span>
+      <span class="tag t-purple">EKS</span>
+      <span class="tag t-green">Fargate</span>
+      <span class="tag t-orange">EC2 起動タイプ</span>
+      <span class="tag t-cyan">Lambda</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">オーケストレーター</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">ECS</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">EKS</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">起動タイプ（コンピュート）</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Fargate</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">EC2</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div style="text-align:center;font-size:12px;color:var(--text2);padding:4px 0;">
+        ECS/EKS x Fargate/EC2 = <strong style="color:var(--cyan);">4つの組み合わせ</strong>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:12px;">
+        <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">ECS + Fargate</div>
+        <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--orange);color:var(--orange);">ECS + EC2</div>
+        <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">EKS + Fargate</div>
+        <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--orange);color:var(--orange);">EKS + EC2</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Decision Flow ===== -->
+<div class="slide" data-slide="2">
+  <h2>コンテナサービス選定の判断フロー</h2>
+  <p>試験では要件キーワードからオーケストレーターと起動タイプの両方を正しく選ぶ必要がある。</p>
+
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">Kubernetes 既存資産・マルチクラウド要件？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-c">EKS</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">GPU / Spot / 特権モード？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-b">EKS + EC2</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-a">EKS + Fargate</div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">AWS ネイティブ / シンプル運用？</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">ECS</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">GPU / Spot / 特権モード？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-b">ECS + EC2</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-a">ECS + Fargate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出キーワード</div>
+    「<strong>Kubernetes manifest</strong>」「<strong>Helm chart</strong>」「<strong>既存K8sワークロード</strong>」→ <strong>EKS</strong><br>
+    「<strong>運用負荷最小</strong>」「<strong>インフラ管理不要</strong>」「<strong>サーバーレスコンテナ</strong>」→ <strong>Fargate</strong><br>
+    「<strong>GPU</strong>」「<strong>Spot Instance</strong>」「<strong>特権コンテナ</strong>」→ <strong>EC2 起動タイプ</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: ECS vs EKS ===== -->
+<div class="slide" data-slide="3">
+  <h2>ECS vs EKS 比較表</h2>
+  <p>「オーケストレーター」の選定。Kubernetes資産の有無が最大の分岐点。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">ECS</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--purple-bg);border:2px solid var(--purple);color:var(--purple);">EKS</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>ECS</th><th>EKS</th></tr>
+    <tr><td>基盤</td><td>AWS独自</td><td>マネージド Kubernetes</td></tr>
+    <tr><td>学習コスト</td><td class="win em">低い（AWS固有）</td><td class="lose">高い（K8sの知識必要）</td></tr>
+    <tr><td>運用負荷</td><td class="win">AWSが全面管理</td><td class="mid">コントロールプレーンはマネージド<br>ノード管理は必要</td></tr>
+    <tr><td>K8s資産の活用</td><td class="lose em">不可</td><td class="win em">Manifest / Helm / Operator</td></tr>
+    <tr><td>エコシステム</td><td class="lose">AWS内で完結</td><td class="win">CNCF / OSS 豊富</td></tr>
+    <tr><td>マルチクラウド</td><td class="lose em">AWS専用</td><td class="win em">EKS Anywhere / 他クラウドK8s</td></tr>
+    <tr><td>IAM統合</td><td class="win">タスクロール（シンプル）</td><td>IRSA（Pod単位で細かい）</td></tr>
+    <tr><td>料金</td><td class="win em">追加料金なし</td><td class="lose">クラスター $0.10/h (~$72/月)</td></tr>
+    <tr><td>ログ/監視</td><td>CloudWatch統合</td><td>CloudWatch + Prometheus / Grafana</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">ECS を選ぶ</h4>
+      <p>K8s資産なし / AWSネイティブ / シンプルな構成 / コスト重視 / チームにK8s経験なし</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">EKS を選ぶ</h4>
+      <p>K8s既存資産 / マルチクラウド / CNCFエコシステム活用 / オンプレK8sからの移行</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「コンテナをAWSで実行」だけでは EKS とは限らない。<strong>K8s資産やマルチクラウド要件がない</strong>場合、ECSが「最も運用負荷が低い」正解になる。<br>
+    「<strong>既存のDockerfile</strong>」はECS/EKS両方で使える。K8s固有資産（Manifest, Helm）かどうかが分岐。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Fargate vs EC2 ===== -->
+<div class="slide" data-slide="4">
+  <h2>Fargate vs EC2 起動タイプ比較表</h2>
+  <p>「コンピュート基盤」の選定。GPU・Spot・特権モードの要件で決まる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">Fargate</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--orange-bg);border:2px solid var(--orange);color:var(--orange);">EC2 起動</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>Fargate</th><th>EC2 起動タイプ</th></tr>
+    <tr><td>インフラ管理</td><td class="win em">不要（サーバーレス）</td><td class="lose">EC2の管理が必要（AMI, パッチ）</td></tr>
+    <tr><td>スケーリング</td><td class="win">タスク単位で自動</td><td>ASG + キャパシティプロバイダー</td></tr>
+    <tr><td>コスト（通常）</td><td class="lose">vCPU/メモリ単価が高い</td><td class="win em">RI / Savings Plans / Spot で大幅割引</td></tr>
+    <tr><td>GPU</td><td class="lose em">非対応</td><td class="win em">対応（P/Gインスタンス）</td></tr>
+    <tr><td>Spot</td><td class="mid">Fargate Spot（最大70%割引）</td><td class="win">EC2 Spot（最大90%割引）</td></tr>
+    <tr><td>特権モード</td><td class="lose em">非対応</td><td class="win em">対応</td></tr>
+    <tr><td>Windows</td><td class="mid">ECS Fargateのみ対応</td><td class="win">ECS/EKS両方対応</td></tr>
+    <tr><td>起動速度</td><td class="lose">コールドスタート遅め</td><td class="win">事前起動済み</td></tr>
+    <tr><td>DaemonSet (EKS)</td><td class="lose em">非対応</td><td class="win">対応</td></tr>
+    <tr><td>EBS直接マウント</td><td class="lose em">非対応（EFSは可）</td><td class="win">対応</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Fargate を選ぶ</h4>
+      <p>運用負荷最小 / インフラ管理不要 / バースト型ワークロード / 小〜中規模</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">EC2 起動タイプを選ぶ</h4>
+      <p>GPU必須 / Spotで大幅コスト削減 / 特権コンテナ / DaemonSet / 大規模定常ワークロード</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「<strong>コスト最適化</strong>」= Fargate とは限らない。大規模定常ワークロードでは<strong>EC2 + RI/Spot</strong> の方が安い。<br>
+    「<strong>機械学習の推論</strong>」→ GPU必要 → Fargateは不可 → <strong>EC2 起動タイプ</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: ECS Deep Dive ===== -->
+<div class="slide" data-slide="5">
+  <h2>ECS の深掘り</h2>
+  <p>ECSの主要コンポーネントとAWSサービス統合。試験ではタスク定義の設定やAuto Scalingが頻出。</p>
+
+  <h3>ECS アーキテクチャ</h3>
+  <div class="net-diagram">
+    <div class="net-hub" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">ECS Cluster</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 60px;"></div>
+    </div>
+    <div class="net-row" style="gap:24px;">
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Service A</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Task 1</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Task 2</div>
+        </div>
+        <div style="font-size:11px;color:var(--green);margin-top:4px;">Desired: 2 / ALB統合</div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">Service B</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;">
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Task 1</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Task 2</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Task 3</div>
+        </div>
+        <div style="font-size:11px;color:var(--orange);margin-top:4px;">Desired: 3 / NLB統合</div>
+      </div>
+    </div>
+    <div class="net-line"></div>
+    <div class="net-row" style="gap:8px;">
+      <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">タスク定義<br><small>コンテナ設定</small></div>
+      <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">タスクロール<br><small>IAM権限</small></div>
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">タスク実行ロール<br><small>ECR Pull等</small></div>
+    </div>
+  </div>
+
+  <h3>主要コンポーネント</h3>
+  <table class="cmp">
+    <tr><th>コンポーネント</th><th>説明</th></tr>
+    <tr><td class="em">タスク定義</td><td>コンテナの設計図。イメージ, CPU/メモリ, ポート, 環境変数, ログ設定</td></tr>
+    <tr><td class="em">タスク</td><td>タスク定義のインスタンス。1つ以上のコンテナが起動</td></tr>
+    <tr><td class="em">サービス</td><td>タスクの維持管理。Desired Count を保ち、LB統合・ローリングデプロイ</td></tr>
+    <tr><td class="em">クラスター</td><td>タスク/サービスの論理グループ。Fargate/EC2混在可能</td></tr>
+  </table>
+
+  <h3>Auto Scaling 3種</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Target Tracking</h4>
+      <p>CPU/メモリ使用率を目標値に維持。<strong>最も推奨</strong>。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--cyan);">
+      <h4 style="color:var(--cyan);">Step Scaling</h4>
+      <p>CloudWatchアラームに連動。段階的にタスク数調整。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">Scheduled Scaling</h4>
+      <p>事前に決めた時間にスケール。予測可能なトラフィックパターン向け。</p>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">サービスディスカバリ</div>
+    ECS Service Connect または AWS Cloud Map で<strong>サービス間通信</strong>を名前解決。<br>
+    マイクロサービス間の通信には ALB + パスルーティング or <strong>Service Connect</strong>（App Mesh後継）が推奨。
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-title">タスクロール vs タスク実行ロール</div>
+    <strong>タスクロール</strong>: コンテナ内アプリが使うIAM権限（S3, DynamoDB等へのアクセス）<br>
+    <strong>タスク実行ロール</strong>: ECSエージェントが使う権限（ECRからのPull, CloudWatch Logsへの書き込み）<br>
+    試験で「アプリケーションがS3に書き込めない」→ <strong>タスクロール</strong>を確認。
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: EKS Deep Dive ===== -->
+<div class="slide" data-slide="6">
+  <h2>EKS の深掘り</h2>
+  <p>EKSの差別化ポイント。マネージドノードグループ、Fargateプロファイル、IRSAが試験頻出。</p>
+
+  <h3>EKS コンピュートオプション</h3>
+  <div class="net-diagram">
+    <div class="net-hub" style="background:var(--purple-bg);border-color:var(--purple);color:var(--purple);">EKS Control Plane<br><small>AWS マネージド</small></div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 30px;"></div>
+      <div class="net-line"></div>
+    </div>
+    <div class="net-row" style="gap:16px;">
+      <div class="net-group" style="border-color:var(--blue);flex:1;">
+        <div class="net-group-title" style="color:var(--blue);">マネージドノードグループ</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;">
+          <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">EC2</div>
+          <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">EC2</div>
+        </div>
+        <div style="font-size:11px;color:var(--blue);margin-top:4px;">AMI管理 + ASG自動</div>
+      </div>
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Fargate プロファイル</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Pod</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Pod</div>
+        </div>
+        <div style="font-size:11px;color:var(--green);margin-top:4px;">namespace/label で振り分け</div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">セルフマネージドノード</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;">
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">EC2</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">EC2</div>
+        </div>
+        <div style="font-size:11px;color:var(--orange);margin-top:4px;">完全カスタム / GPU / Bottlerocket</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>IRSA（IAM Roles for Service Accounts）</h3>
+  <div class="box box-purple">
+    <div class="box-title">Pod 単位の IAM 権限付与</div>
+    Kubernetes Service Account に IAM ロールを紐付け → <strong>Pod 単位で最小権限</strong>を実現。<br>
+    ECSのタスクロールに相当するが、K8sのService Account経由で付与する点が異なる。<br>
+    <strong>OIDC プロバイダー</strong>をクラスターに設定 → IAMロールの信頼ポリシーで参照。
+  </div>
+
+  <h3>EKS コンピュート比較</h3>
+  <table class="cmp">
+    <tr><th>観点</th><th>マネージドノードグループ</th><th>Fargate プロファイル</th><th>セルフマネージド</th></tr>
+    <tr><td>運用負荷</td><td class="win">低（ASG/AMI自動）</td><td class="win em">最低</td><td class="lose">高</td></tr>
+    <tr><td>GPU</td><td class="win">対応</td><td class="lose">非対応</td><td class="win">対応</td></tr>
+    <tr><td>DaemonSet</td><td class="win">対応</td><td class="lose em">非対応</td><td class="win">対応</td></tr>
+    <tr><td>Spot</td><td class="win">対応</td><td class="mid">Fargate Spot</td><td class="win">対応</td></tr>
+    <tr><td>カスタマイズ</td><td class="mid">Launch Template</td><td class="lose">制限あり</td><td class="win em">完全自由</td></tr>
+  </table>
+
+  <div class="box box-blue">
+    <div class="box-title">K8s移行のポイント</div>
+    オンプレK8sからEKSへの移行: <strong>Manifest / Helm Chart はそのまま利用可能</strong>。<br>
+    ストレージ: PV/PVC → <strong>EBS CSI Driver</strong> or <strong>EFS CSI Driver</strong> で互換。<br>
+    ネットワーク: <strong>VPC CNI プラグイン</strong> でPodにVPC内IPを直接割当（Pod密度に注意）。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Container vs Serverless ===== -->
+<div class="slide" data-slide="7">
+  <h2>コンテナ vs サーバーレスの判断軸</h2>
+  <p>Lambda と Fargate はどちらも「サーバーレス」だが、特性が大きく異なる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--cyan-bg);border:2px solid var(--cyan);color:var(--cyan);">Lambda</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">Fargate</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>Lambda</th><th>Fargate</th></tr>
+    <tr><td>実行時間上限</td><td class="lose em">15分</td><td class="win em">制限なし</td></tr>
+    <tr><td>メモリ上限</td><td class="lose">10 GB</td><td class="win">最大 120 GB（ECS）</td></tr>
+    <tr><td>vCPU上限</td><td class="lose">6 vCPU</td><td class="win">最大 16 vCPU（ECS）</td></tr>
+    <tr><td>起動速度</td><td class="win em">ミリ秒〜秒（コールドスタート時）</td><td class="lose">数十秒</td></tr>
+    <tr><td>課金モデル</td><td class="win em">リクエスト数 + 実行時間</td><td>vCPU秒 + メモリ秒</td></tr>
+    <tr><td>ステート</td><td class="lose em">ステートレス</td><td class="win">ステートフル可（EFS/EBS）</td></tr>
+    <tr><td>同時実行</td><td class="mid">1リクエスト/インスタンス</td><td class="win">複数接続/タスク</td></tr>
+    <tr><td>コンテナイメージ</td><td class="mid">対応（10GB上限）</td><td class="win">制限なし</td></tr>
+    <tr><td>VPC統合</td><td class="mid">オプション（ENI必要）</td><td class="win">標準でVPC内</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--cyan);">
+      <h4 style="color:var(--cyan);">Lambda を選ぶ</h4>
+      <p>短時間処理（15分以内）/ イベント駆動 / API Gateway統合 / 低頻度・バースト / コスト最小</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Fargate を選ぶ</h4>
+      <p>長時間処理 / 常時起動 / ステートフル / 大メモリ・CPU / マイクロサービス / Docker移行</p>
+    </div>
+  </div>
+
+  <h3>判断マトリクス</h3>
+  <div class="matrix">
+    <div class="matrix-corner"></div>
+    <div class="matrix-col-hdr">短時間（15分以内）</div>
+    <div class="matrix-col-hdr">長時間（15分超）</div>
+    <div class="matrix-row-hdr">ステートレス</div>
+    <div class="matrix-cell" style="background:var(--cyan-bg);border-color:var(--cyan);">
+      <strong style="color:var(--cyan);">Lambda</strong>
+      <small>最もコスト効率が高い<br>イベント駆動に最適</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--green-bg);border-color:var(--green);">
+      <strong style="color:var(--green);">Fargate</strong>
+      <small>バッチ処理・ETL<br>長時間のデータ処理</small>
+    </div>
+    <div class="matrix-row-hdr">ステートフル</div>
+    <div class="matrix-cell" style="background:var(--bg3);">
+      <strong>Lambda + 外部ストア</strong>
+      <small>DynamoDB / S3 で状態管理<br>やや複雑</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--green-bg);border-color:var(--green);">
+      <strong style="color:var(--green);">Fargate (+ EFS)</strong>
+      <small>永続ストレージ付き<br>常駐型サービス</small>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「<strong>サーバーレスでコスト最適</strong>」→ 常時起動ならFargateはLambdaより<strong>高い</strong>。イベント駆動・低頻度ならLambdaが安い。<br>
+    「<strong>15分超のバッチ</strong>」→ Lambda不可 → Fargate or EC2。Step Functionsで分割はトリック選択肢。
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「コンテナ = EKS」</div>
+    K8s資産がなければ<strong>ECS</strong>が最も運用負荷が低い。EKSはK8s要件がある場合の選択肢。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「Fargate = 常に安い」</div>
+    大規模定常ワークロードでは<strong>EC2 + RI/Savings Plans</strong>の方が安い。Fargateは変動・小規模向け。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「FargateでGPU」</div>
+    FargateはGPU<strong>非対応</strong>。ML推論・トレーニング → EC2起動タイプ（P/Gインスタンス）。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「EKS FargateでDaemonSet」</div>
+    Fargate上ではDaemonSet<strong>非対応</strong>。監視エージェント等にはサイドカーパターンを使う。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「Lambda 15分超をStep Functionsで回避」</div>
+    処理自体が15分超なら<strong>Fargateが正解</strong>。Step Functionsは複数Lambda連携であり、単一処理の延長ではない。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">企業がオンプレのKubernetesクラスターをAWSに移行したい。既存のHelm ChartとManifestを再利用し、一部のワークロードでGPUインスタンスが必要。運用負荷を最小化する構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>ECS + Fargate で全ワークロードを実行</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>EKS + Fargate プロファイルで全ワークロードを実行</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>EKS + マネージドノードグループ（GPU用）+ Fargateプロファイル（非GPU用）</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>ECS + EC2起動タイプ（GPU対応インスタンス）</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: C</strong><br>
+      A: ECSはHelm Chart / K8s Manifestを利用できない。K8s資産の再利用要件に不適。<br>
+      B: Fargate はGPU非対応。GPU要件を満たせない。<br>
+      C: EKSでK8s資産を再利用。GPU用はマネージドノードグループ、非GPU用はFargateで運用負荷を最小化。<br>
+      D: ECSはK8s Manifest/Helm Chartを利用できない。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">Eコマース企業がマイクロサービスをコンテナ化。要件: (1) インフラ管理不要 (2) トラフィックに応じた自動スケーリング (3) 各サービスに最小権限のIAM (4) チームにKubernetes経験なし。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>EKS + Fargate プロファイル + IRSA</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>ECS + Fargate + タスクロール + Application Auto Scaling</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>ECS + EC2起動タイプ + Auto Scaling Group</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>Lambda + API Gateway で全サービスを実装</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: B</strong><br>
+      A: チームにK8s経験がない。EKSは学習コストが高く不適。<br>
+      B: K8s不要でECSが最適。Fargateでインフラ管理不要。タスクロールでサービス単位の最小権限。Application Auto Scalingで自動スケール。<br>
+      C: EC2起動タイプはインフラ管理が必要。要件(1)に反する。<br>
+      D: マイクロサービス全体をLambdaに置き換えるのは非現実的。常時起動やステートフルなサービスに不向き。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

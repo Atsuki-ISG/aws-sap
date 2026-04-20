@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - エンドポイント・DNS・プライベート接続</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Endpoint / DNS</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>エンドポイント・DNS・プライベート接続</h1>
+    <p class="sub">AWS SAP-C02 比較判断マスター</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-green">Gateway Endpoint</span>
+      <span class="tag t-blue">Interface Endpoint</span>
+      <span class="tag t-orange">PrivateLink</span>
+      <span class="tag t-purple">Route 53 Resolver</span>
+      <span class="tag t-cyan">Private Hosted Zone</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">VPC Endpoint</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Gateway EP</div>
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Interface EP</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">サービス間接続</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">PrivateLink</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">DNS解決</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Route 53 Resolver</div>
+            <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Private Hosted Zone</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">ハイブリッドDNS</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Inbound EP</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Outbound EP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: VPC Endpoint Types & Decision ===== -->
+<div class="slide" data-slide="2">
+  <h2>VPC Endpoint の種類と判断フロー</h2>
+  <p>AWSサービスへのプライベートアクセス。インターネットを経由せずに VPC 内からサービスに到達できる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">Gateway<br>Endpoint</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">Interface<br>Endpoint</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Gateway Endpoint</h4>
+      <p><strong>S3</strong> と <strong>DynamoDB</strong> のみ対応<br>ルートテーブルにプレフィックスリスト追加<br>VPC内でのみ利用可能<br><strong>無料</strong></p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Interface Endpoint</h4>
+      <p><strong>100以上</strong>のAWSサービスに対応<br>ENI + プライベートIP をサブネットに配置<br>オンプレからもアクセス可能<br><strong>有料</strong>（時間課金+データ処理）</p>
+    </div>
+  </div>
+
+  <h3>判断フロー</h3>
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">対象サービスは S3 or DynamoDB？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Interface Endpoint</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">オンプレ or 別VPCからアクセス必要？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">No</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-a">Gateway Endpoint<br><small>（無料・シンプル）</small></div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-a" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Interface Endpoint<br><small>（S3用も対応可）</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出ポイント</div>
+    S3にはGateway / Interface <strong>両方</strong>のEndpointが存在する。<br>
+    「オンプレからDX/VPN経由でS3にプライベートアクセス」→ Gateway EPでは不可 → <strong>Interface Endpoint (PrivateLink for S3)</strong> が正解。
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Gateway vs Interface Comparison ===== -->
+<div class="slide" data-slide="3">
+  <h2>Gateway EP vs Interface EP 比較表</h2>
+  <p>「どちらのEndpointを使うか」を即座に判断するための比較。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">Gateway EP</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">Interface EP</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>Gateway Endpoint</th><th>Interface Endpoint</th></tr>
+    <tr><td>対応サービス</td><td class="lose">S3, DynamoDB のみ</td><td class="win em">100以上のサービス</td></tr>
+    <tr><td>コスト</td><td class="win em">無料</td><td class="lose">時間課金 + データ処理</td></tr>
+    <tr><td>実装方式</td><td>ルートテーブルにPL追加</td><td>サブネットにENI配置</td></tr>
+    <tr><td>プライベートIP</td><td class="lose">なし（PL参照）</td><td class="win em">ENIにプライベートIP付与</td></tr>
+    <tr><td>DNS</td><td>パブリックDNSそのまま</td><td class="win">プライベートDNS名で解決</td></tr>
+    <tr><td>オンプレからアクセス</td><td class="lose em">不可</td><td class="win em">DX/VPN経由で可能</td></tr>
+    <tr><td>別VPCからアクセス</td><td class="lose em">不可</td><td class="win">Peering/TGW経由で可能</td></tr>
+    <tr><td>SG設定</td><td>不可（EP ポリシーのみ）</td><td class="win">SGで制御可能</td></tr>
+    <tr><td>AZ配置</td><td>VPC単位（AZ不要）</td><td>AZごとに配置</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Gateway EP を選ぶ</h4>
+      <p>S3/DynamoDBへのVPC内アクセス / コスト最小化 / シンプル構成</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Interface EP を選ぶ</h4>
+      <p>S3/DynamoDB以外 / オンプレからの到達 / 別VPCからの到達 / SG制御が必要</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    Gateway EPはルートテーブルベースなので<strong>同一VPC内でしか使えない</strong>。<br>
+    問題文に「DX経由」「VPN経由」「オンプレから」が出たら → 自動的に <strong>Interface Endpoint</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: PrivateLink ===== -->
+<div class="slide" data-slide="4">
+  <h2>PrivateLink の仕組みと使いどころ</h2>
+  <p>VPC間で特定サービスだけを安全に公開する仕組み。フルルーティングなしで接続可能。</p>
+
+  <h3>PrivateLink アーキテクチャ</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:40px;width:100%;">
+      <div class="net-group" style="flex:1;border-color:var(--orange);">
+        <div class="net-group-title" style="color:var(--orange);">サービスプロバイダー VPC</div>
+        <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);margin-top:6px;">アプリケーション (EC2等)</div>
+        <div class="net-line"></div>
+        <div class="net-hub" style="background:var(--orange-bg);border-color:var(--orange);color:var(--orange);font-size:12px;">NLB / GWLB</div>
+        <div class="net-line"></div>
+        <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Endpoint Service</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+        <div style="font-size:11px;color:var(--text3);font-weight:600;">PrivateLink</div>
+        <div style="width:60px;height:2px;background:var(--orange);"></div>
+        <div style="font-size:10px;color:var(--text3);">IP重複OK</div>
+      </div>
+      <div class="net-group" style="flex:1;border-color:var(--blue);">
+        <div class="net-group-title" style="color:var(--blue);">サービスコンシューマー VPC</div>
+        <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);margin-top:6px;">Interface Endpoint (ENI)</div>
+        <div class="net-line"></div>
+        <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">アプリケーション</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>PrivateLink の特徴</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">NLBベース</h4>
+      <p>プロバイダー側に<strong>NLB (Network Load Balancer)</strong> が必須。GWLBも可。ALBは不可。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">IP重複環境で活用</h4>
+      <p>Peering/TGWと異なり<strong>CIDRが重複していても接続可能</strong>。ENIのプライベートIPで通信。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">一方向アクセス</h4>
+      <p>コンシューマー → プロバイダーへの<strong>一方向のみ</strong>。双方向通信には双方でEndpoint Serviceを構築。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">クロスアカウント対応</h4>
+      <p>別アカウントへのサービス公開が可能。<strong>許可リスト</strong>でアクセス元を制御。</p>
+    </div>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-title">PrivateLink vs VPC Peering / TGW 判断</div>
+    <strong>フルルーティング不要</strong>で特定サービスだけ公開 → <strong>PrivateLink</strong><br>
+    <strong>IP重複</strong>がある環境 → Peering/TGW不可 → <strong>PrivateLink</strong><br>
+    全VPC間の通信が必要 → <strong>TGW</strong>（PrivateLinkはサービス単位）
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    PrivateLinkのプロバイダー側は<strong>ALBではなくNLB</strong>。「ALBの背後にあるアプリをPrivateLinkで公開」→ <strong>NLBを前段に追加</strong>するか、ALBをNLBのターゲットにする。
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Route 53 Resolver ===== -->
+<div class="slide" data-slide="5">
+  <h2>Route 53 Resolver とハイブリッドDNS設計</h2>
+  <p>オンプレミスとAWS間で名前解決を相互に行うための仕組み。</p>
+
+  <h3>Resolver Endpoint の役割</h3>
+  <div class="vs">
+    <div class="vs-item" style="background:var(--purple-bg);border:2px solid var(--purple);color:var(--purple);">Inbound<br>Endpoint</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--cyan-bg);border:2px solid var(--cyan);color:var(--cyan);">Outbound<br>Endpoint</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>Inbound Endpoint</th><th>Outbound Endpoint</th></tr>
+    <tr><td>方向</td><td class="win em">オンプレ → AWS</td><td class="win em">AWS → オンプレ</td></tr>
+    <tr><td>用途</td><td>オンプレDNSがAWSの名前を解決</td><td>AWS VPCがオンプレの名前を解決</td></tr>
+    <tr><td>構成</td><td>ENI (着信用IPアドレス)</td><td>ENI + 転送ルール</td></tr>
+    <tr><td>ルール</td><td>不要</td><td>Resolver Rules (条件付き転送)</td></tr>
+  </table>
+
+  <h3>DNS解決フロー図</h3>
+  <div class="net-diagram">
+    <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:8px;">オンプレ → AWS の名前解決（Inbound）</div>
+    <div class="net-row" style="gap:12px;">
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">オンプレDNS</div>
+      <div style="font-size:11px;color:var(--text3);">条件付き転送</div>
+      <div style="width:40px;height:2px;background:var(--purple);"></div>
+      <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Inbound EP<br><small>10.0.1.100</small></div>
+      <div style="width:40px;height:2px;background:var(--text3);"></div>
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Route 53<br><small>Private HZ</small></div>
+    </div>
+    <div style="height:16px;"></div>
+    <div style="font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:8px;">AWS → オンプレ の名前解決（Outbound）</div>
+    <div class="net-row" style="gap:12px;">
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">VPC内EC2</div>
+      <div style="width:40px;height:2px;background:var(--text3);"></div>
+      <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Outbound EP<br><small>+ 転送ルール</small></div>
+      <div style="font-size:11px;color:var(--text3);">corp.local →</div>
+      <div style="width:40px;height:2px;background:var(--cyan);"></div>
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">オンプレDNS<br><small>192.168.1.53</small></div>
+    </div>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-title">Resolver Rule の共有</div>
+    Resolver Ruleは<strong>AWS RAM</strong>で他アカウントと共有可能。<br>
+    マルチアカウント環境では共有サービスアカウントにResolverを配置し、ルールを組織全体に共有するのがベストプラクティス。
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">覚え方</div>
+    <strong>Inbound</strong> = AWSに<strong>入ってくる</strong>DNS問い合わせ（オンプレ→AWS）<br>
+    <strong>Outbound</strong> = AWSから<strong>出ていく</strong>DNS問い合わせ（AWS→オンプレ）<br>
+    方向は<strong>DNSクエリの向き</strong>で判断。データの流れではない。
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Private Hosted Zone ===== -->
+<div class="slide" data-slide="6">
+  <h2>Private Hosted Zone の設計</h2>
+  <p>VPC内でのみ使えるDNSゾーン。マルチVPC・マルチアカウント環境でのDNS戦略が問われる。</p>
+
+  <h3>Private Hosted Zone の基本</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--cyan);">
+      <h4 style="color:var(--cyan);">VPC関連付け</h4>
+      <p>PHZを使うには<strong>VPCとの関連付け</strong>が必須。関連付けたVPC内のリソースのみ名前解決可能。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">クロスアカウント共有</h4>
+      <p>他アカウントのVPCとの関連付けは<strong>CLI/APIのみ</strong>（コンソール不可）。<code>CreateVPCAssociationAuthorization</code> → <code>AssociateVPCWithHostedZone</code> の2ステップ。</p>
+    </div>
+  </div>
+
+  <h3>クロスアカウント PHZ 共有フロー</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:40px;width:100%;">
+      <div class="net-group" style="flex:1;border-color:var(--cyan);">
+        <div class="net-group-title" style="color:var(--cyan);">アカウントA（PHZ所有者）</div>
+        <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);margin-top:6px;">Private Hosted Zone<br><small>app.internal</small></div>
+        <div style="font-size:11px;color:var(--cyan);margin-top:6px;">1. CreateVPCAssociation<br>Authorization</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+        <div style="width:60px;height:2px;background:var(--text3);"></div>
+        <div style="font-size:10px;color:var(--text3);">関連付け</div>
+      </div>
+      <div class="net-group" style="flex:1;border-color:var(--purple);">
+        <div class="net-group-title" style="color:var(--purple);">アカウントB（利用者）</div>
+        <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);margin-top:6px;">VPC<br><small>10.1.0.0/16</small></div>
+        <div style="font-size:11px;color:var(--purple);margin-top:6px;">2. AssociateVPCWith<br>HostedZone</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Split-View DNS</h3>
+  <div class="box box-blue">
+    <div class="box-title">Split-View DNS（同一ドメイン名で内外を分ける）</div>
+    同じドメイン名（例: api.example.com）に対して：<br>
+    <strong>Public Hosted Zone</strong>：インターネット向け → パブリックIP/CloudFront<br>
+    <strong>Private Hosted Zone</strong>：VPC内向け → プライベートIP/内部ALB<br>
+    VPC内からの問い合わせは<strong>PHZが優先</strong>される（PHZとPHZが同名の場合）。
+  </div>
+
+  <h3>PHZ 設計パターン</h3>
+  <table class="cmp">
+    <tr><th>パターン</th><th>構成</th><th>用途</th></tr>
+    <tr><td>単一PHZ共有</td><td>1 PHZ を全VPCに関連付け</td><td>シンプルな内部DNS</td></tr>
+    <tr><td>環境別PHZ</td><td>dev.internal / prod.internal</td><td>環境分離</td></tr>
+    <tr><td>Overlapping PHZ</td><td>同一VPCに複数PHZ関連付け</td><td>マイクロサービス別管理</td></tr>
+    <tr><td class="em">Split-View</td><td>Public HZ + Private HZ 同一名</td><td>内外で異なる応答</td></tr>
+  </table>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    PHZのクロスアカウント共有は<strong>コンソールではできない</strong>。CLI/SDK必須。<br>
+    「マネジメントコンソールから設定」が選択肢にあったら不正解。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Connection Pattern Matrix ===== -->
+<div class="slide" data-slide="7">
+  <h2>接続パターン別の最適構成</h2>
+  <p>「どこから」「何に」アクセスするかで最適解が変わる。試験で即座に判断するための早見表。</p>
+
+  <h3>パターン早見表</h3>
+  <table class="cmp">
+    <tr><th>接続元</th><th>接続先</th><th>最適構成</th><th>補足</th></tr>
+    <tr>
+      <td>VPC内EC2</td><td>S3 / DynamoDB</td>
+      <td class="win em">Gateway Endpoint</td>
+      <td>無料。最もシンプル</td>
+    </tr>
+    <tr>
+      <td>VPC内EC2</td><td>他AWSサービス</td>
+      <td class="win em">Interface Endpoint</td>
+      <td>ENI経由でプライベートアクセス</td>
+    </tr>
+    <tr>
+      <td>オンプレ</td><td>S3</td>
+      <td class="win em">Interface Endpoint (S3用)</td>
+      <td>Gateway EPはオンプレ不可</td>
+    </tr>
+    <tr>
+      <td>オンプレ</td><td>他AWSサービス</td>
+      <td class="win em">Interface Endpoint + DX/VPN</td>
+      <td>Resolver Inbound EPでDNS解決</td>
+    </tr>
+    <tr>
+      <td>別VPC</td><td>AWSサービス</td>
+      <td class="win em">Interface EP（同VPC内に配置）</td>
+      <td>Peering/TGW経由でENIに到達</td>
+    </tr>
+    <tr>
+      <td>VPC</td><td>別VPCのアプリ</td>
+      <td class="win em">PrivateLink (NLB)</td>
+      <td>IP重複OK。サービス単位公開</td>
+    </tr>
+    <tr>
+      <td>VPC</td><td>3rdパーティSaaS</td>
+      <td class="win em">PrivateLink (Marketplace)</td>
+      <td>SaaS側がEndpoint Serviceを提供</td>
+    </tr>
+  </table>
+
+  <h3>DNS解決パターン早見表</h3>
+  <table class="cmp">
+    <tr><th>要件</th><th>最適構成</th></tr>
+    <tr><td>オンプレ → AWSリソースの名前解決</td><td class="win">Resolver <strong>Inbound</strong> EP + Private HZ</td></tr>
+    <tr><td>AWS → オンプレリソースの名前解決</td><td class="win">Resolver <strong>Outbound</strong> EP + 転送ルール</td></tr>
+    <tr><td>内外で同一ドメインに異なるIP返答</td><td class="win">Split-View DNS（Public + Private HZ）</td></tr>
+    <tr><td>マルチアカウントで内部DNS統一</td><td class="win">PHZ クロスアカウント関連付け</td></tr>
+    <tr><td>マルチアカウントでDNS転送ルール統一</td><td class="win">Resolver Rule を RAM で共有</td></tr>
+  </table>
+
+  <div class="box box-green">
+    <div class="box-title">判断のコツ</div>
+    問題文に「<strong>プライベートに</strong>」「<strong>インターネットを経由せず</strong>」→ <strong>VPC Endpoint / PrivateLink</strong><br>
+    「<strong>特定サービスのみ公開</strong>」「<strong>IP重複</strong>」→ <strong>PrivateLink</strong><br>
+    「<strong>オンプレからAWSの名前解決</strong>」→ <strong>Resolver Inbound</strong><br>
+    「<strong>コスト最小化 + S3アクセス</strong>」→ <strong>Gateway Endpoint</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「Gateway EndpointでオンプレからS3アクセス」</div>
+    Gateway EPはVPC内ルートテーブルベース。オンプレからは到達不可。→ <strong>Interface Endpoint for S3</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「ALBでPrivateLinkを構築」</div>
+    PrivateLinkのプロバイダー側は<strong>NLBまたはGWLBが必須</strong>。ALBは直接使えない。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「TGWでIP重複VPCを接続」</div>
+    TGWはルーティングベース。CIDR重複は不可。→ <strong>PrivateLink</strong>ならIP重複でもOK。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「コンソールからPHZをクロスアカウント共有」</div>
+    CLI/SDK必須。マネジメントコンソールではクロスアカウント関連付けは不可。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「Outbound EPでオンプレからAWSの名前解決」</div>
+    方向が逆。オンプレ→AWSは<strong>Inbound</strong>。Outboundは AWS→オンプレ。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">企業がオンプレDCからDirect Connect経由でS3バケットにプライベートアクセスしたい。インターネットを経由せず、コスト効率の良い構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>S3用Gateway Endpointを作成し、DX経由でVPCのルートテーブルを利用</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>S3用Interface Endpointを作成し、DX経由でENIのプライベートIPにアクセス</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>DXのPublic VIFでS3のパブリックエンドポイントに直接アクセス</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>PrivateLinkでS3を公開するEndpoint Serviceを自前構築</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: B</strong><br>
+      A: Gateway EPはVPC内のルートテーブルベース。オンプレからの通信はルートテーブルを経由しない。<br>
+      B: Interface EP（PrivateLink for S3）はENIにプライベートIPを持つため、DX/VPN経由でオンプレから到達可能。<br>
+      C: Public VIFは技術的に可能だが「インターネットを経由せず」の要件でプライベートアクセスが求められている。<br>
+      D: S3はAWSマネージドサービス。自前でEndpoint Serviceを構築する必要はない。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">マルチアカウント環境（Organizations）で、全アカウントのVPCからオンプレDNSサーバー（corp.local）の名前解決を可能にしたい。最も運用負荷が低い構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>各アカウントのVPCにOutbound Endpointと転送ルールを個別作成</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>各VPCのDHCPオプションセットでオンプレDNSサーバーのIPを直接指定</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>共有サービスアカウントにOutbound Endpointを配置し、転送ルールをRAMで全アカウントに共有</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>Transit Gateway経由で全VPCのDNSトラフィックを共有VPCにルーティング</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: C</strong><br>
+      A: 各アカウントに個別構築は運用負荷が高い。スケールしない。<br>
+      B: DHCPオプションでオンプレDNSを指定するとAWS内部DNSが使えなくなる。Private HZ等が解決できなくなる。<br>
+      C: Resolver Ruleは RAM で共有可能。1箇所でOutbound EP + ルールを管理し、全アカウントに配布。最も運用負荷が低い。<br>
+      D: DNSトラフィックのルーティングだけではResolver統合にならない。構成が複雑で運用負荷が高い。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

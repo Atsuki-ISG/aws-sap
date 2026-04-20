@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - サーバーレス移行・モダナイゼーション</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-c { background: var(--purple-bg); border: 2px solid var(--purple); color: var(--purple); }
+.flow-d { background: var(--cyan-bg); border: 2px solid var(--cyan); color: var(--cyan); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS-based) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* 2x2 matrix */
+.matrix {
+  display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr;
+  gap: 0; margin: 16px 0; font-size: 13px;
+}
+.matrix-corner { background: transparent; }
+.matrix-col-hdr { text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); }
+.matrix-row-hdr { writing-mode: vertical-rl; text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); transform: rotate(180deg); }
+.matrix-cell {
+  border: 1px solid var(--border); padding: 14px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.matrix-cell strong { display: block; font-size: 13px; }
+.matrix-cell small { font-size: 11px; color: var(--text2); }
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+
+/* Strangler fig diagram */
+.strangler-diagram {
+  display: flex; align-items: stretch; gap: 0; margin: 16px 0;
+  background: var(--bg2); border-radius: var(--radius); padding: 16px;
+  border: 1px solid var(--border); overflow-x: auto;
+}
+.strangler-phase {
+  flex: 1; min-width: 140px; text-align: center; padding: 12px 8px;
+  position: relative;
+}
+.strangler-phase:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+  border-left: 10px solid var(--text3);
+}
+.strangler-label { font-size: 11px; font-weight: 700; color: var(--text3); margin-bottom: 8px; }
+.strangler-bar {
+  border-radius: 6px; padding: 6px 4px; font-size: 11px; font-weight: 600;
+  margin: 3px 0;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Serverless Modernization</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>サーバーレス移行・モダナイゼーション</h1>
+    <p class="sub">AWS SAP-C02 判断力マスター</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-orange">Lambda</span>
+      <span class="tag t-blue">Step Functions</span>
+      <span class="tag t-green">EventBridge</span>
+      <span class="tag t-purple">API Gateway</span>
+      <span class="tag t-cyan">DynamoDB</span>
+      <span class="tag t-red">Aurora Serverless</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">移行戦略</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">6R戦略</div>
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Strangler Fig</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">コンピュート</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Lambda</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Fargate</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">オーケストレーション</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Step Functions</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">EventBridge</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">データ層</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">DynamoDB</div>
+            <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Aurora Serverless</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: 6R + Serverless Decision ===== -->
+<div class="slide" data-slide="2">
+  <h2>移行戦略の判断フロー (6R)</h2>
+  <p>AWSの6R移行戦略を理解した上で、「サーバーレス化すべきか」の判断分岐を押さえる。</p>
+
+  <h3>6R 移行戦略の全体像</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:10px;flex-wrap:wrap;">
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Rehost<br><small>Lift & Shift</small></div>
+      <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Replatform<br><small>Lift & Reshape</small></div>
+      <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Refactor<br><small>Re-architect</small></div>
+      <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Repurchase<br><small>SaaS移行</small></div>
+      <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Retire<br><small>廃止</small></div>
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text2);">Retain<br><small>現状維持</small></div>
+    </div>
+  </div>
+
+  <h3>サーバーレス化の判断フロー</h3>
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">アプリを移行する必要がある？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-b">Retain / Retire</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">SaaSで代替可能？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-c">Repurchase</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-q">アーキ変更の余裕は？</div>
+            <div class="flow-branch" style="margin-top:8px;">
+              <div class="flow-branch-item">
+                <div class="flow-label">なし</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-b">Rehost (EC2)</div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">一部</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-d">Replatform<br><small>Fargate / Beanstalk</small></div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">十分</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-a">Refactor<br><small>Lambda / Serverless</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出ポイント</div>
+    試験では「<strong>最小限の変更で</strong>」→ Rehost/Replatform、「<strong>スケーラビリティ向上</strong>」「<strong>運用負荷削減</strong>」→ Refactor (サーバーレス化) が問われる。<br>
+    要件に「時間制約」があれば Rehost → 段階的にサーバーレス化、が現実的な正解。
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Serverless Fitness ===== -->
+<div class="slide" data-slide="3">
+  <h2>サーバーレス化の判断基準</h2>
+  <p>全てのワークロードがサーバーレスに向くわけではない。Lambda の制約を理解した上で判断する。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">向いている</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--red-bg);border:2px solid var(--red);color:var(--red);">向かない</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>サーバーレス向き</th><th>サーバーレス不向き</th></tr>
+    <tr><td>実行時間</td><td class="win">短時間 (秒〜数分)</td><td class="lose">長時間バッチ (数時間)</td></tr>
+    <tr><td>トラフィック</td><td class="win">スパイク / 不定期</td><td class="lose">常時高負荷・安定</td></tr>
+    <tr><td>ステート</td><td class="win">ステートレス</td><td class="lose">ステートフル / セッション保持</td></tr>
+    <tr><td>起動頻度</td><td class="win">イベント駆動</td><td class="lose">常時起動プロセス</td></tr>
+    <tr><td>処理単位</td><td class="win">マイクロサービス向き</td><td class="lose">モノリス / 密結合</td></tr>
+    <tr><td>コスト特性</td><td class="win">低〜中リクエスト数</td><td class="lose">超高頻度 (秒間数万)</td></tr>
+  </table>
+
+  <h3>Lambda の主要制約</h3>
+  <table class="cmp">
+    <tr><th>制約項目</th><th>値</th><th>対処法</th></tr>
+    <tr><td class="em">タイムアウト</td><td class="lose em">最大 15 分</td><td>Step Functions で分割 / Fargate</td></tr>
+    <tr><td class="em">メモリ</td><td>128 MB 〜 10,240 MB</td><td>メモリ = CPU比例で増加</td></tr>
+    <tr><td class="em">同時実行数</td><td>デフォルト 1,000 / リージョン</td><td>予約済み同時実行数の設定</td></tr>
+    <tr><td>ペイロード</td><td>同期 6 MB / 非同期 256 KB</td><td>S3 参照パターン</td></tr>
+    <tr><td>デプロイパッケージ</td><td>ZIP 50 MB / Layer 250 MB</td><td>コンテナイメージ (10 GB)</td></tr>
+    <tr><td>/tmp ストレージ</td><td>512 MB 〜 10,240 MB</td><td>EFS マウントも可能</td></tr>
+  </table>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「15分以上の処理」→ Lambda 不可。<strong>Step Functions + Lambda</strong> で分割するか <strong>Fargate</strong> に切り替え。<br>
+    「常時高トラフィック」→ Lambda より <strong>Fargate</strong> や <strong>EC2</strong> がコスト効率良い場合がある。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Strangler Fig ===== -->
+<div class="slide" data-slide="4">
+  <h2>モノリスからの段階的移行</h2>
+  <p>Strangler Fig パターンで既存モノリスを徐々にサーバーレスに置き換える。ビッグバン移行は試験でも不正解。</p>
+
+  <h3>Strangler Fig パターン</h3>
+  <div class="strangler-diagram">
+    <div class="strangler-phase">
+      <div class="strangler-label">Phase 1</div>
+      <div class="strangler-bar" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);height:80%;">モノリス<br>(100%)</div>
+    </div>
+    <div class="strangler-phase">
+      <div class="strangler-label">Phase 2</div>
+      <div class="strangler-bar" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);">モノリス (70%)</div>
+      <div class="strangler-bar" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Lambda (30%)</div>
+    </div>
+    <div class="strangler-phase">
+      <div class="strangler-label">Phase 3</div>
+      <div class="strangler-bar" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);">モノリス (30%)</div>
+      <div class="strangler-bar" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Lambda (70%)</div>
+    </div>
+    <div class="strangler-phase">
+      <div class="strangler-label">Phase 4</div>
+      <div class="strangler-bar" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);height:80%;">サーバーレス<br>(100%)</div>
+    </div>
+  </div>
+
+  <h3>API Gateway による段階的切り出し</h3>
+  <div class="net-diagram">
+    <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">クライアントからのリクエスト</div>
+    <div class="net-hub" style="background:var(--purple-bg);border-color:var(--purple);color:var(--purple);">API Gateway</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 60px;"></div>
+    </div>
+    <div class="net-row" style="gap:40px;">
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">新規 (Lambda)</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">/users</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">/orders</div>
+        </div>
+        <div style="font-size:11px;color:var(--green);margin-top:4px;">切り出し済み</div>
+      </div>
+      <div class="net-group" style="border-color:var(--red);flex:1;">
+        <div class="net-group-title" style="color:var(--red);">レガシー (EC2)</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);">/legacy/*</div>
+        </div>
+        <div style="font-size:11px;color:var(--red);margin-top:4px;">HTTP 統合で転送</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-green">
+    <div class="box-title">段階的移行のメリット</div>
+    <strong>リスク最小化</strong>: 一部ずつ置き換えるため、障害時のロールバックが容易。<br>
+    <strong>API Gateway のルーティング</strong>: パスベースで新旧を振り分け。クライアント側の変更不要。<br>
+    <strong>試験での頻出</strong>: 「最小限のダウンタイムで移行」→ Strangler Fig + API GW が定番解。
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-title">移行パターンの選択肢</div>
+    <strong>ALB + Lambda ターゲット</strong>: 既存 ALB がある場合、ターゲットグループに Lambda を追加して段階移行。<br>
+    <strong>CloudFront + Lambda@Edge</strong>: エッジでのルーティング判断。グローバル対応時に有効。
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Service Selection ===== -->
+<div class="slide" data-slide="5">
+  <h2>サーバーレスサービスの使い分け</h2>
+  <p>「どのサービスを使うか」の判断が試験の核心。同期/非同期・オーケストレーション/コレオグラフィの軸で整理する。</p>
+
+  <h3>コンピュート & オーケストレーション比較</h3>
+  <table class="cmp">
+    <tr><th>サービス</th><th>用途</th><th>最大実行</th><th>ユースケース</th></tr>
+    <tr>
+      <td class="em" style="color:var(--orange);">Lambda</td>
+      <td>単一関数の実行</td>
+      <td>15 分</td>
+      <td>APIバックエンド / イベント処理 / データ変換</td>
+    </tr>
+    <tr>
+      <td class="em" style="color:var(--blue);">Step Functions</td>
+      <td>ワークフロー制御</td>
+      <td>1 年 (Standard)</td>
+      <td>複数Lambda連携 / 承認フロー / エラーハンドリング</td>
+    </tr>
+    <tr>
+      <td class="em" style="color:var(--green);">EventBridge</td>
+      <td>イベントルーティング</td>
+      <td>N/A (非同期)</td>
+      <td>マイクロサービス間連携 / SaaS統合 / スケジュール</td>
+    </tr>
+    <tr>
+      <td class="em" style="color:var(--cyan);">SQS</td>
+      <td>メッセージキュー</td>
+      <td>14 日保持</td>
+      <td>非同期デカップリング / バッファリング / 負荷平準化</td>
+    </tr>
+    <tr>
+      <td class="em" style="color:var(--red);">SNS</td>
+      <td>Pub/Sub通知</td>
+      <td>N/A</td>
+      <td>ファンアウト / 複数宛先通知 / モバイルプッシュ</td>
+    </tr>
+  </table>
+
+  <h3>同期 vs 非同期の判断</h3>
+  <div class="vs">
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);font-size:14px;">同期処理</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);font-size:14px;">非同期処理</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">同期を選ぶ</h4>
+      <p>即座にレスポンスが必要 / ユーザーが結果を待つ / APIリクエスト-レスポンス / 29秒以内に完了</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">非同期を選ぶ</h4>
+      <p>処理に時間がかかる / 結果をすぐ返す必要なし / 負荷変動が大きい / リトライが必要</p>
+    </div>
+  </div>
+
+  <h3>オーケストレーション vs コレオグラフィ</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">オーケストレーション (Step Functions)</h4>
+      <p>中央制御 / 処理順序が重要 / エラーハンドリング / 可視性が必要 / <strong>複雑なワークフロー</strong></p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">コレオグラフィ (EventBridge)</h4>
+      <p>疎結合 / サービス独立 / イベント駆動 / スケーラブル / <strong>マイクロサービス間連携</strong></p>
+    </div>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-title">Step Functions: Standard vs Express</div>
+    <strong>Standard</strong>: 最大1年 / 実行ごと課金 / ワークフロー履歴あり / 長時間処理向け<br>
+    <strong>Express</strong>: 最大5分 / リクエスト+時間課金 / <strong>高スループット</strong> (IoT, ストリーム) / 安価
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Data Layer ===== -->
+<div class="slide" data-slide="6">
+  <h2>データ層のサーバーレス化</h2>
+  <p>コンピュートだけでなくデータ層もサーバーレス化の判断が問われる。RDS → DynamoDB の安易な移行は不正解になる。</p>
+
+  <h3>データベースの使い分け</h3>
+  <table class="cmp">
+    <tr><th>観点</th><th style="color:var(--cyan);">DynamoDB</th><th style="color:var(--red);">Aurora Serverless v2</th><th>RDS + RDS Proxy</th></tr>
+    <tr><td>データモデル</td><td class="win em">Key-Value / ドキュメント</td><td>リレーショナル</td><td>リレーショナル</td></tr>
+    <tr><td>スケーリング</td><td class="win em">自動 (無制限)</td><td class="win">自動 (ACU単位)</td><td class="lose">手動</td></tr>
+    <tr><td>接続管理</td><td class="win">HTTP API (接続不要)</td><td class="mid">コネクションプール</td><td class="win">Proxy でプール管理</td></tr>
+    <tr><td>トランザクション</td><td class="mid">制限あり (25項目)</td><td class="win em">完全ACID</td><td class="win em">完全ACID</td></tr>
+    <tr><td>複雑なクエリ</td><td class="lose">制限あり (GSI設計必須)</td><td class="win">SQL フル対応</td><td class="win">SQL フル対応</td></tr>
+    <tr><td>コスト (低負荷)</td><td class="win">オンデマンドで最安</td><td class="win">0 ACU まで縮小可</td><td class="lose">常時稼働</td></tr>
+  </table>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「サーバーレス化」=「DynamoDB に移行」ではない。<br>
+    <strong>複雑なJOIN</strong>・<strong>ACID トランザクション</strong>が必要 → <strong>Aurora Serverless v2</strong> が正解。<br>
+    既存 RDS からの移行で <strong>Lambda + RDS</strong> → コネクション枯渇問題 → <strong>RDS Proxy</strong> が必須。
+  </div>
+
+  <h3>データパイプラインのサーバーレス化</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:8px;">
+      <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">データソース</div>
+      <div class="flow-arrow-h">→</div>
+      <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Kinesis Data<br>Firehose</div>
+      <div class="flow-arrow-h">→</div>
+      <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">S3<br>(Data Lake)</div>
+      <div class="flow-arrow-h">→</div>
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Glue<br>(ETL)</div>
+      <div class="flow-arrow-h">→</div>
+      <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Athena<br>(クエリ)</div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">S3 + Athena</h4>
+      <p>アドホック分析 / SQLでS3データ検索 / サーバーレス / スキャン量課金 / <strong>パーティション設計が鍵</strong></p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Glue</h4>
+      <p>サーバーレスETL / Sparkベース / データカタログ / スキーマ検出 / S3間のデータ変換</p>
+    </div>
+    <div class="card" style="border-left-color:var(--cyan);">
+      <h4 style="color:var(--cyan);">DynamoDB Streams</h4>
+      <p>変更データキャプチャ (CDC) / Lambda トリガー / リアルタイムイベント / 24時間保持</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">Kinesis Data Firehose</h4>
+      <p>ストリーミング取込 / S3, Redshift, OpenSearch へ / バッファリング / 変換対応</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Cost & Operations ===== -->
+<div class="slide" data-slide="7">
+  <h2>コスト最適化と運用設計</h2>
+  <p>サーバーレスは「使った分だけ課金」だが、最適化しないとコスト爆発する。運用可観測性も重要。</p>
+
+  <h3>Lambda コスト最適化</h3>
+  <table class="cmp">
+    <tr><th>手法</th><th>効果</th><th>ユースケース</th></tr>
+    <tr>
+      <td class="em">Provisioned Concurrency</td>
+      <td>コールドスタート排除</td>
+      <td>レイテンシ要件が厳しいAPI / 予測可能なトラフィック</td>
+    </tr>
+    <tr>
+      <td class="em">メモリチューニング</td>
+      <td>CPU性能とコストのバランス</td>
+      <td>AWS Lambda Power Tuning で最適値を検証</td>
+    </tr>
+    <tr>
+      <td class="em">Graviton (arm64)</td>
+      <td class="win">最大 20% 安価 + 高性能</td>
+      <td>コスト重視の全ワークロード</td>
+    </tr>
+    <tr>
+      <td class="em">予約済み同時実行数</td>
+      <td>他関数からの影響を防止</td>
+      <td>重要関数のスロットリング防止</td>
+    </tr>
+  </table>
+
+  <div class="box box-orange">
+    <div class="box-title">Provisioned Concurrency の判断</div>
+    <strong>使うべき場面</strong>: SLA で p99 レイテンシ保証が必要 / ユーザー向け同期 API<br>
+    <strong>使うべきでない場面</strong>: 非同期処理 / バッチ処理 / コールドスタートが許容される場面<br>
+    <strong>注意</strong>: 常にコストが発生する。Auto Scaling と組み合わせてピーク時のみ適用が理想。
+  </div>
+
+  <h3>運用・可観測性</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">CloudWatch Metrics</h4>
+      <p>Invocations / Errors / Duration / Throttles / ConcurrentExecutions を監視</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">X-Ray</h4>
+      <p>分散トレーシング / Lambda + API GW + DynamoDB のレイテンシ可視化 / サービスマップ</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Powertools for Lambda</h4>
+      <p>構造化ログ / カスタムメトリクス / トレーシング / ベストプラクティスの標準化</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">CloudWatch Lambda Insights</h4>
+      <p>CPU / メモリ / ネットワーク / コールドスタートの詳細メトリクス / 拡張監視</p>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">運用設計の試験ポイント</div>
+    「Lambda のエラーを検知して通知」→ CloudWatch Alarm + SNS<br>
+    「分散サービス間のボトルネック特定」→ <strong>X-Ray</strong><br>
+    「Lambda の異常なメモリ使用を監視」→ <strong>Lambda Insights</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「全てを Lambda に移行」</div>
+    15分超の処理、常時高負荷のワークロードは Lambda に不向き。Fargate / ECS を検討。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「サーバーレス = DynamoDB に移行」</div>
+    複雑なリレーショナルクエリやACIDトランザクション → Aurora Serverless v2 が正解。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「Lambda + RDS を直接接続」</div>
+    同時実行数に応じてDB接続が爆発 → <strong>RDS Proxy</strong> が必須。これがないと不正解。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「Step Functions Express で長時間処理」</div>
+    Express は最大 5 分。長時間ワークフロー → <strong>Standard</strong> を選択。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「一括でマイクロサービス化」</div>
+    ビッグバン移行はリスク大。Strangler Fig で段階的に切り出すのが正解パターン。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">EC2上のモノリスアプリをサーバーレス化したい。RDB (PostgreSQL) で複雑なJOINクエリを多用。一部APIは応答時間100ms以内のSLAがある。データ層とコンピュート層の最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>Lambda + DynamoDB。DynamoDB の GSI で JOIN を代替する</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>Lambda + RDS PostgreSQL。接続を効率化するため接続プールをコード内で管理</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>Lambda (Provisioned Concurrency) + Aurora Serverless v2 + RDS Proxy</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>Fargate + Aurora Serverless v2。Lambda は使用しない</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: C</strong><br>
+      A: DynamoDB は複雑な JOIN に不向き。GSI でカバーできるのは限定的。<br>
+      B: Lambda のコード内接続プールは実行コンテキスト単位で効果が限定的。RDS Proxy がないと接続数爆発のリスク。<br>
+      C: Aurora Serverless v2 で RDB 要件を満たし、RDS Proxy で接続管理。Provisioned Concurrency で 100ms SLA 対応。<br>
+      D: Fargate は常時起動でコスト増。サーバーレス化の要件に合わない。API の SLA 対応には Lambda + Provisioned Concurrency が最適。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">複数のマイクロサービスで構成されたECサイト。注文確定後に (1) 在庫更新 (2) 決済処理 (3) メール通知 (4) 配送手配 を順次実行する必要がある。決済失敗時は在庫をロールバックする。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>SNS で全サービスにファンアウト通知</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>SQS キューチェーンで順次処理</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>Step Functions (Standard) で Saga パターンを実装。各ステップに補償トランザクションを定義</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>EventBridge でイベント駆動。各サービスが独立してイベントに反応</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: C</strong><br>
+      A: SNS はファンアウト (並列通知)。順次実行やロールバックに不向き。<br>
+      B: SQS チェーンは順次処理可能だが、エラー時のロールバック実装が複雑。可視性も低い。<br>
+      C: Step Functions で Saga パターン。各ステップに補償アクション (在庫ロールバック等) を定義。実行状況の可視化とエラーハンドリングが容易。<br>
+      D: EventBridge はコレオグラフィ型で疎結合。順次実行の保証やロールバック制御には不向き。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

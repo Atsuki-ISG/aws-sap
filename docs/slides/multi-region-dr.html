@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - マルチリージョン・DR設計</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-c { background: var(--purple-bg); border: 2px solid var(--purple); color: var(--purple); }
+.flow-d { background: var(--cyan-bg); border: 2px solid var(--cyan); color: var(--cyan); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+
+/* DR tier bar */
+.dr-tier-bar {
+  display: flex; margin: 16px 0; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border); font-size: 12px; font-weight: 700; text-align: center;
+}
+.dr-tier-bar > div { padding: 10px 8px; flex: 1; }
+
+/* Sync indicator */
+.sync-row {
+  display: flex; align-items: center; gap: 12px; margin: 8px 0; padding: 10px 14px;
+  background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border);
+}
+.sync-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sync-label { font-size: 13px; font-weight: 600; min-width: 100px; }
+.sync-desc { font-size: 12px; color: var(--text2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Multi-Region DR</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>マルチリージョン・DR設計</h1>
+    <p class="sub">AWS SAP-C02 DR戦略と構成パターン</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-blue">DR 4パターン</span>
+      <span class="tag t-green">RTO / RPO</span>
+      <span class="tag t-orange">Route 53</span>
+      <span class="tag t-purple">Aurora Global DB</span>
+      <span class="tag t-cyan">CloudFront</span>
+      <span class="tag t-red">データ整合性</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:40px;">
+        <div class="net-group" style="border-color:var(--green);flex:1;">
+          <div class="net-group-title" style="color:var(--green);">Primary Region (ap-northeast-1)</div>
+          <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">EC2 / ECS</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Aurora</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">S3</div>
+          </div>
+        </div>
+        <div class="net-group" style="border-color:var(--orange);flex:1;">
+          <div class="net-group-title" style="color:var(--orange);">DR Region (us-west-2)</div>
+          <div style="display:flex;gap:8px;margin-top:6px;justify-content:center;">
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Standby</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Replica</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">CRR</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <div class="net-hub" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Route 53 / CloudFront</div>
+      </div>
+      <div style="text-align:center;margin-top:8px;font-size:12px;color:var(--text3);font-weight:600;">グローバルルーティング + フェイルオーバー</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: DR Strategy & Decision Flow ===== -->
+<div class="slide" data-slide="2">
+  <h2>DR戦略の4パターンと判断フロー</h2>
+  <p>RTO/RPO要件に応じて最適なDR戦略を選択する。コスト vs 復旧速度のトレードオフが試験で問われる。</p>
+
+  <div class="dr-tier-bar">
+    <div style="background:var(--bg3);color:var(--text3);">Backup &amp; Restore<br><small>RTO: 24h+</small></div>
+    <div style="background:var(--blue-bg);color:var(--blue);">Pilot Light<br><small>RTO: 1-4h</small></div>
+    <div style="background:var(--orange-bg);color:var(--orange);">Warm Standby<br><small>RTO: 分</small></div>
+    <div style="background:var(--green-bg);color:var(--green);">Multi-Site<br><small>RTO: 即時</small></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin:-8px 0 16px;padding:0 4px;">
+    <span>低コスト / 長RTO</span>
+    <span>高コスト / 短RTO</span>
+  </div>
+
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">RTO要件は？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">24h+ 許容</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box" style="background:var(--bg3);border:2px solid var(--text3);color:var(--text);">Backup & Restore</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">数時間</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Pilot Light</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">数分</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-b">Warm Standby</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">即時 (0)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a" style="background:var(--green-bg);border-color:var(--green);color:var(--green);">Multi-Site Active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--text3);">
+      <h4 style="color:var(--text2);">Backup & Restore</h4>
+      <p>S3にバックアップ保存。障害時にAMI/スナップショットから復元。最低コストだが復旧に時間。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Pilot Light</h4>
+      <p>DBレプリカなどコア部分のみ常時稼働。障害時にEC2/ECSをスケールアウト。中コスト。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">Warm Standby</h4>
+      <p>本番の縮小版を常時稼働。障害時にスケールアップ。素早い復旧。やや高コスト。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Multi-Site Active-Active</h4>
+      <p>全リージョンで本番トラフィック処理。DNS加重でルーティング。最高コスト・即時復旧。</p>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出ポイント</div>
+    Pilot Light と Warm Standby の違い: Pilot Light は<strong>DBのみ稼働</strong>、Warm Standbyは<strong>アプリも縮小稼働</strong>。<br>
+    「最小コストで数時間以内のRTO」→ <strong>Pilot Light</strong>。「分単位のRTO」→ <strong>Warm Standby</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: DR 4-Pattern Comparison ===== -->
+<div class="slide" data-slide="3">
+  <h2>DR 4パターン 比較表</h2>
+  <p>各戦略のRTO、RPO、コスト、複雑さ、ユースケースを一覧で把握する。</p>
+
+  <table class="cmp">
+    <tr>
+      <th>観点</th>
+      <th>Backup &amp; Restore</th>
+      <th>Pilot Light</th>
+      <th>Warm Standby</th>
+      <th>Multi-Site</th>
+    </tr>
+    <tr>
+      <td>RTO</td>
+      <td class="lose">24時間+</td>
+      <td class="mid">1〜4時間</td>
+      <td>数分〜数十分</td>
+      <td class="win em">ほぼゼロ</td>
+    </tr>
+    <tr>
+      <td>RPO</td>
+      <td class="lose">最終バックアップ時点</td>
+      <td class="mid">数分〜数時間</td>
+      <td>数秒〜数分</td>
+      <td class="win em">ほぼゼロ</td>
+    </tr>
+    <tr>
+      <td>コスト</td>
+      <td class="win em">最低</td>
+      <td class="win">低〜中</td>
+      <td class="mid">中〜高</td>
+      <td class="lose em">最高</td>
+    </tr>
+    <tr>
+      <td>複雑さ</td>
+      <td class="win">低い</td>
+      <td>中程度</td>
+      <td class="mid">やや高い</td>
+      <td class="lose">非常に高い</td>
+    </tr>
+    <tr>
+      <td>DR時の稼働リソース</td>
+      <td>なし</td>
+      <td>DBレプリカのみ</td>
+      <td>縮小版アプリ+DB</td>
+      <td class="em">フルスケール</td>
+    </tr>
+    <tr>
+      <td>ユースケース</td>
+      <td>開発・非重要系</td>
+      <td>社内業務システム</td>
+      <td>ECサイト等</td>
+      <td>金融・グローバルSaaS</td>
+    </tr>
+  </table>
+
+  <div class="box box-orange">
+    <div class="box-title">試験での判断キーワード</div>
+    「<strong>コスト最小化</strong>」「<strong>許容RTO: 24時間</strong>」→ Backup &amp; Restore<br>
+    「<strong>コア部分のみ維持</strong>」「<strong>RTO: 数時間</strong>」→ Pilot Light<br>
+    「<strong>最小限のダウンタイム</strong>」「<strong>RTO: 分</strong>」→ Warm Standby<br>
+    「<strong>ダウンタイムなし</strong>」「<strong>Active-Active</strong>」→ Multi-Site
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「Pilot LightでRTO 5分を達成」→ <strong>不可能</strong>。Pilot Lightはインフラ起動に時間がかかる。<br>
+    分単位のRTOが必要なら<strong>Warm Standby以上</strong>が必須。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Database Replication ===== -->
+<div class="slide" data-slide="4">
+  <h2>データベースの冗長化・レプリケーション</h2>
+  <p>DR設計のコアはデータ層。目的（可用性 / 読取分散 / DR）で選択肢が異なる。</p>
+
+  <h3>RDS / Aurora の冗長化オプション</h3>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);font-size:13px;">Multi-AZ</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);font-size:13px;">Read Replica</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--purple-bg);border:2px solid var(--purple);color:var(--purple);font-size:13px;">Aurora Global</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>RDS Multi-AZ</th><th>Read Replica</th><th>Aurora Global DB</th></tr>
+    <tr><td>目的</td><td class="em">高可用性 (HA)</td><td class="em">読取スケール</td><td class="em">クロスリージョンDR</td></tr>
+    <tr><td>レプリケーション</td><td class="win">同期</td><td class="lose">非同期</td><td class="mid">非同期 (1秒以下)</td></tr>
+    <tr><td>フェイルオーバー</td><td class="win">自動 (60-120秒)</td><td>手動昇格</td><td class="win em">手動 (1分以下)</td></tr>
+    <tr><td>リージョン</td><td>同一リージョン</td><td>クロスリージョン可</td><td class="win em">クロスリージョン</td></tr>
+    <tr><td>読取クエリ</td><td class="lose">不可</td><td class="win">可能</td><td class="win">可能</td></tr>
+    <tr><td>RPO</td><td class="win em">0 (同期)</td><td class="lose">レプリケーションラグ</td><td class="win">通常1秒以下</td></tr>
+  </table>
+
+  <h3>DynamoDB Global Tables</h3>
+  <div class="box box-green">
+    <div class="box-title">マルチリージョン Active-Active DB</div>
+    全リージョンで<strong>読み書き可能</strong>（Multi-Master）。レプリケーションは通常<strong>1秒以内</strong>。<br>
+    <strong>結果整合性</strong>のため、同一アイテムの同時書き込みは「Last Writer Wins」。<br>
+    グローバルアプリで各リージョンのレイテンシ最小化に最適。
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">DB選択の判断軸</div>
+    「AZ障害対策のみ」→ <strong>RDS Multi-AZ</strong><br>
+    「リージョン障害 + RPO 1秒以下」→ <strong>Aurora Global Database</strong><br>
+    「リージョン障害 + Active-Active書込み」→ <strong>DynamoDB Global Tables</strong><br>
+    「読取負荷分散」→ <strong>Read Replica</strong>（DRではない）
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Route 53 Failover ===== -->
+<div class="slide" data-slide="5">
+  <h2>Route 53 フェイルオーバー設計</h2>
+  <p>DNSレベルでトラフィックを制御し、リージョン障害時に自動切替を実現する。</p>
+
+  <h3>ルーティングポリシー比較</h3>
+  <table class="cmp">
+    <tr><th>ポリシー</th><th>動作</th><th>DR用途</th></tr>
+    <tr>
+      <td class="em">フェイルオーバー</td>
+      <td>Primary/Secondary。Primary障害時にSecondaryへ</td>
+      <td class="win em">Active-Passive DR</td>
+    </tr>
+    <tr>
+      <td class="em">レイテンシベース</td>
+      <td>ユーザーに最も低レイテンシのリージョンへルーティング</td>
+      <td class="win">Active-Active（ヘルスチェック併用）</td>
+    </tr>
+    <tr>
+      <td class="em">加重 (Weighted)</td>
+      <td>指定した比率でトラフィックを分配</td>
+      <td class="mid">カナリアデプロイ / 段階的切替</td>
+    </tr>
+    <tr>
+      <td>地理的近接性</td>
+      <td>ユーザーの地理的位置に基づくルーティング</td>
+      <td>リージョン固定ルーティング</td>
+    </tr>
+  </table>
+
+  <h3>ヘルスチェック構成</h3>
+  <div class="net-diagram">
+    <div class="net-hub" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Route 53</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 60px;"></div>
+    </div>
+    <div class="net-row" style="gap:40px;">
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Primary (ap-northeast-1)</div>
+        <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);margin-top:6px;">ALB + ヘルスチェック</div>
+        <div style="font-size:11px;color:var(--green);margin-top:4px;">Healthy -> トラフィック受信</div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">Secondary (us-west-2)</div>
+        <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);margin-top:6px;">ALB + ヘルスチェック</div>
+        <div style="font-size:11px;color:var(--orange);margin-top:4px;">Primary障害時 -> 自動切替</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">ヘルスチェックのベストプラクティス</h4>
+      <p>ALBのエンドポイントを監視 / 複合ヘルスチェック（Calculated）で複数条件を統合 / 評価間隔 10秒（高速）推奨</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">CloudWatch Alarm連携</h4>
+      <p>Route 53ヘルスチェック + CloudWatch Alarmで高度な判定。アプリレベルの障害検知が可能</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「フェイルオーバーポリシー」はActive-Passive<strong>専用</strong>。Active-Activeには<strong>レイテンシベース</strong>か<strong>加重ルーティング</strong>を使う。<br>
+    ヘルスチェックなしのレイテンシベースルーティングでは<strong>障害時に自動切替されない</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: CloudFront + S3 + Aurora Multi-Region ===== -->
+<div class="slide" data-slide="6">
+  <h2>CloudFront + S3 + Aurora マルチリージョン構成</h2>
+  <p>静的・動的コンテンツそれぞれの配信経路とフェイルオーバーを設計する。</p>
+
+  <h3>全体構成図</h3>
+  <div class="net-diagram">
+    <div class="net-node" style="background:var(--bg3);border:1px solid var(--text);color:var(--text);font-size:14px;font-weight:700;padding:12px 24px;">ユーザー</div>
+    <div class="net-line"></div>
+    <div class="net-hub" style="background:var(--cyan-bg);border-color:var(--cyan);color:var(--cyan);">CloudFront</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 80px;"></div>
+    </div>
+    <div class="net-row" style="gap:24px;width:100%;">
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Primary Origin</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;flex-wrap:wrap;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">S3 (静的)</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">ALB (動的)</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Aurora Writer</div>
+        </div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">Failover Origin</div>
+        <div style="display:flex;gap:6px;margin-top:6px;justify-content:center;flex-wrap:wrap;">
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">S3 (CRR)</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">ALB (DR)</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Aurora Reader</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>静的コンテンツ (S3)</h3>
+  <div class="box box-green">
+    <div class="box-title">S3 クロスリージョンレプリケーション (CRR)</div>
+    S3バケットを別リージョンに非同期レプリケーション。CloudFrontの<strong>オリジンフェイルオーバー</strong>でPrimary S3障害時にDR側S3へ自動切替。<br>
+    <strong>S3 Transfer Acceleration</strong>でアップロードも高速化可能。
+  </div>
+
+  <h3>動的コンテンツ (ALB + Aurora)</h3>
+  <div class="box box-blue">
+    <div class="box-title">CloudFront Origin Failover</div>
+    CloudFrontの<strong>Origin Group</strong>を設定し、Primary OriginとSecondary Originを定義。<br>
+    5xx/4xxエラー時に自動でSecondary Originへフォールバック。<br>
+    <strong>注意</strong>: Origin FailoverはHTTPエラーコードベース。ネットワークレベルの障害にも対応。
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    CloudFrontのOrigin Failoverは<strong>読取り(GET/HEAD)</strong>のみ。POST/PUTにはフェイルオーバーしない。<br>
+    書込みのDRには<strong>Route 53フェイルオーバー</strong>を別途構成する必要がある。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Data Sync & Consistency ===== -->
+<div class="slide" data-slide="7">
+  <h2>データ同期・整合性の判断軸</h2>
+  <p>マルチリージョン設計では「同期の方式」と「整合性モデル」の理解が不可欠。</p>
+
+  <h3>同期 vs 非同期レプリケーション</h3>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);font-size:14px;">同期<br><small style="font-weight:400;font-size:12px;">RPO = 0</small></div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--orange-bg);border:2px solid var(--orange);color:var(--orange);font-size:14px;">非同期<br><small style="font-weight:400;font-size:12px;">RPO > 0</small></div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>同期レプリケーション</th><th>非同期レプリケーション</th></tr>
+    <tr><td>RPO</td><td class="win em">0 (データロスなし)</td><td class="lose">レプリケーションラグ分</td></tr>
+    <tr><td>レイテンシ影響</td><td class="lose em">書込みレイテンシ増大</td><td class="win">書込みに影響なし</td></tr>
+    <tr><td>クロスリージョン</td><td class="lose">実質不可能（レイテンシ大）</td><td class="win em">標準的に使用</td></tr>
+    <tr><td>AWS例</td><td>RDS Multi-AZ</td><td>Aurora Global DB / S3 CRR / DynamoDB GT</td></tr>
+  </table>
+
+  <h3>結果整合性 vs 強い整合性</h3>
+
+  <div class="sync-row">
+    <div class="sync-dot" style="background:var(--green);"></div>
+    <div class="sync-label" style="color:var(--green);">強い整合性</div>
+    <div class="sync-desc">読取りが常に最新の書込み結果を返す。DynamoDBの<strong>ConsistentRead=true</strong>、S3の<strong>PUT後のGET</strong>（2020年以降）</div>
+  </div>
+  <div class="sync-row">
+    <div class="sync-dot" style="background:var(--orange);"></div>
+    <div class="sync-label" style="color:var(--orange);">結果整合性</div>
+    <div class="sync-desc">一定時間後に全レプリカが最新化。DynamoDB Global Tablesのクロスリージョン、S3 CRR、Aurora Global DBの読取り</div>
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-title">DR設計での判断ポイント</div>
+    <strong>同期レプリケーションはクロスリージョンに不向き</strong>（ネットワークレイテンシ）。<br>
+    クロスリージョンDRでは非同期が前提 → RPO &gt; 0 を受容する設計が必要。<br>
+    <strong>RPO = 0 が必須</strong>なら → 同一リージョン内Multi-AZ構成 + リージョン障害は許容。
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">サービス別の整合性まとめ</div>
+    <strong>Aurora Global DB</strong>: リードレプリカは結果整合性。フェイルオーバー後は強い整合性に復帰。<br>
+    <strong>DynamoDB Global Tables</strong>: クロスリージョンは結果整合性。同一リージョン内は強い整合性を選択可。<br>
+    <strong>S3</strong>: 同一リージョン内は強い整合性（read-after-write）。CRRは結果整合性。
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「Pilot LightでRTO 5分」</div>
+    Pilot LightはDB以外のインフラ起動が必要。分単位のRTOなら<strong>Warm Standby</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「RDS Read ReplicaでマルチリージョンHA」</div>
+    Read Replicaは読取専用。フェイルオーバー自動切替なし。DRには<strong>Aurora Global DB</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「CloudFront Origin FailoverでPOSTをDRへ」</div>
+    Origin Failoverは<strong>GET/HEADのみ</strong>。書込みDRには<strong>Route 53</strong>を使う。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「DynamoDB Global TablesでRPO = 0」</div>
+    Global Tablesは非同期レプリケーション。RPOはゼロではなく<strong>通常1秒以内</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「S3 CRRでリアルタイム同期」</div>
+    CRRは非同期。15分以内に99.99%が複製されるがリアルタイムではない。<strong>S3 Replication Time Control (RTC)</strong>で15分SLA。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">グローバルECサイト。要件: (1) リージョン障害時にRTO 1分以下 (2) RPO 1秒以下 (3) 読取りは各リージョンで低レイテンシ。データベース構成として最適なものは？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>RDS Multi-AZ + クロスリージョンRead Replica</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>Aurora Global Database（各リージョンにリードレプリカ）</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>DynamoDB Global Tables</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>RDS Multi-AZの2リージョン展開 + Route 53フェイルオーバー</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: B</strong><br>
+      A: Read Replicaの昇格は手動で時間がかかる。RTO 1分以下は困難。<br>
+      B: Aurora Global DBはRPO 1秒以下、フェイルオーバー1分以下。各リージョンで読取り可能。<br>
+      C: DynamoDB Global Tablesも候補だが、「ECサイト」で複雑なクエリ → リレーショナルDBが適切。Last Writer Winsの競合リスクあり。<br>
+      D: RDS Multi-AZは同一リージョン内のHA。クロスリージョンDRには別途構成が必要。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">金融機関のWebアプリ。要件: (1) プライマリリージョン障害時にダウンタイムなし (2) 両リージョンで書込み可能 (3) コスト最適化より可用性優先。最適なDR構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>Aurora Global DB + Route 53フェイルオーバー（Active-Passive）</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>RDS Multi-AZ + CloudFront Origin Failover</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>DynamoDB Global Tables + 各リージョンにAPI Gateway/Lambda + Route 53レイテンシベースルーティング</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>Aurora Global DB + Warm Standby構成</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: C</strong><br>
+      A: Active-Passiveでは切替時にダウンタイムが発生。「ダウンタイムなし」を満たさない。<br>
+      B: RDS Multi-AZは同一リージョン内のみ。CloudFront Origin FailoverはGET/HEADのみ。<br>
+      C: DynamoDB Global TablesはActive-Active Multi-Master。両リージョンで書込み可能。サーバーレスで両リージョン完全稼働。<br>
+      D: Warm StandbyはActive-Passive。障害時にスケールアップが必要でダウンタイムが発生。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

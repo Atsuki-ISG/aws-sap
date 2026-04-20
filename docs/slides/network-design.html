@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - ネットワーク分離・接続設計</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (SVG-like with CSS) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* 2x2 matrix */
+.matrix {
+  display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr;
+  gap: 0; margin: 16px 0; font-size: 13px;
+}
+.matrix-corner { background: transparent; }
+.matrix-col-hdr { text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); }
+.matrix-row-hdr { writing-mode: vertical-rl; text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); transform: rotate(180deg); }
+.matrix-cell {
+  border: 1px solid var(--border); padding: 14px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.matrix-cell strong { display: block; font-size: 13px; }
+.matrix-cell small { font-size: 11px; color: var(--text2); }
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Network Design</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>ネットワーク分離・接続設計</h1>
+    <p class="sub">AWS SAP-C02 比較判断マスター</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-blue">VPC Peering</span>
+      <span class="tag t-blue">Transit Gateway</span>
+      <span class="tag t-green">Direct Connect</span>
+      <span class="tag t-green">Site-to-Site VPN</span>
+      <span class="tag t-orange">PrivateLink</span>
+      <span class="tag t-purple">RAM / 共有VPC</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">VPC間接続</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">VPC Peering</div>
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Transit GW</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">オンプレ接続</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">VPN</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Direct Connect</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">サービス接続</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">VPC Endpoint</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">PrivateLink</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">アカウント間共有</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">RAM 共有VPC</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">TGW共有</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Decision Flow ===== -->
+<div class="slide" data-slide="2">
+  <h2>接続方式の判断フロー</h2>
+  <p>要件に応じて最適な接続方式を選ぶための分岐ロジック。試験では「技術的に可能か」ではなく「最適か」が問われる。</p>
+
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">接続先はAWSサービス？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a">VPC Endpoint / PrivateLink</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">接続先はオンプレミス？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-q">高帯域・低レイテンシ？</div>
+            <div class="flow-branch" style="margin-top:8px;">
+              <div class="flow-branch-item">
+                <div class="flow-label">Yes</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-a">Direct Connect</div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">No</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-b">Site-to-Site VPN</div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No (VPC間)</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-q">3つ以上 or 推移的ルーティング？</div>
+            <div class="flow-branch" style="margin-top:8px;">
+              <div class="flow-branch-item">
+                <div class="flow-label">Yes</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-a">Transit Gateway</div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">No</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-b">VPC Peering</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出ポイント</div>
+    VPC Peeringは<strong>推移的ルーティング不可</strong>。A-B, B-C をピアリングしても A-C は通信できない。<br>
+    3つ以上のVPCでフルメッシュ接続 → VPC Peeringでは接続数が n*(n-1)/2 で爆発 → <strong>Transit Gateway</strong> が最適解。
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: VPC Peering vs TGW ===== -->
+<div class="slide" data-slide="3">
+  <h2>VPC Peering vs Transit Gateway</h2>
+  <p>「少数VPCの直結」と「多数VPCのハブ型接続」で最適解が異なる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">VPC Peering</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">Transit GW</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>VPC Peering</th><th>Transit Gateway</th></tr>
+    <tr><td>トポロジ</td><td>1対1（P2P）</td><td>ハブ&スポーク</td></tr>
+    <tr><td>推移的ルーティング</td><td class="lose em">不可</td><td class="win em">可能</td></tr>
+    <tr><td>スケーラビリティ</td><td class="lose">n*(n-1)/2 で爆発</td><td class="win">アタッチメント追加のみ</td></tr>
+    <tr><td>帯域</td><td class="win">制限なし</td><td>50 Gbps/アタッチメント</td></tr>
+    <tr><td>データ転送コスト</td><td class="win">同一AZ内は無料</td><td class="lose">常にデータ処理料金</td></tr>
+    <tr><td>クロスリージョン</td><td>対応</td><td>対応</td></tr>
+    <tr><td>ルートテーブル分離</td><td>N/A</td><td class="win em">複数RTで分離可能</td></tr>
+    <tr><td>SG相互参照</td><td class="win">可能</td><td class="lose">不可</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">VPC Peering を選ぶ</h4>
+      <p>2〜3 VPCの直結 / コスト最小化 / 帯域制限なし / シンプル構成</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">Transit GW を選ぶ</h4>
+      <p>4+ VPC / 推移的ルーティング / VPN・DX統合 / セグメント分離 / マルチアカウント</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「VPC Peeringで全VPC間を接続する」は技術的に可能だが、<strong>10 VPCで45本</strong>のピアリングが必要。<br>
+    「最もスケーラブル」「運用負荷が低い」と問われたら → <strong>TGW</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: VPN vs DX ===== -->
+<div class="slide" data-slide="4">
+  <h2>Site-to-Site VPN vs Direct Connect</h2>
+  <p>「すぐ使いたい」か「安定した高帯域が必要」かで判断が分かれる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--orange-bg);border:2px solid var(--orange);color:var(--orange);">VPN</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--cyan-bg);border:2px solid var(--cyan);color:var(--cyan);">Direct Connect</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>Site-to-Site VPN</th><th>Direct Connect</th></tr>
+    <tr><td>導入速度</td><td class="win em">数分〜数時間</td><td class="lose">数週間〜数ヶ月</td></tr>
+    <tr><td>帯域</td><td class="lose">最大 1.25 Gbps/トンネル</td><td class="win em">1 / 10 / 100 Gbps</td></tr>
+    <tr><td>レイテンシ</td><td class="lose">インターネット経由（変動）</td><td class="win">専用線（安定・低遅延）</td></tr>
+    <tr><td>暗号化</td><td class="win em">IPsec標準</td><td class="lose">デフォルトなし ※</td></tr>
+    <tr><td>コスト</td><td class="win">低コスト</td><td class="lose">ポート料+データ転送+回線費</td></tr>
+    <tr><td>冗長性</td><td>2トンネル自動</td><td>自分で冗長設計（2ロケーション推奨）</td></tr>
+    <tr><td>経路</td><td>インターネット</td><td>AWS専用ネットワーク</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--text3);">※ DXの暗号化 → MACsec (10/100Gbps専用接続のみ) or VPN over DX</p>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">VPN を選ぶ</h4>
+      <p>即時接続 / PoC・暫定利用 / 低帯域で十分 / コスト重視 / <strong>DXのバックアップ経路</strong></p>
+    </div>
+    <div class="card" style="border-left-color:var(--cyan);">
+      <h4 style="color:var(--cyan);">Direct Connect を選ぶ</h4>
+      <p>大容量データ転送 / 安定低レイテンシ / コンプライアンス(非インターネット) / 長期継続</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    DXは<strong>デフォルトで暗号化されない</strong>。「暗号化が必要」な要件 → DX + VPN (VPN over DX) か MACsec が必要。<br>
+    「安全な専用接続」だけでDXを選ぶと暗号化要件を見落とす。
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: TGW Deep Dive ===== -->
+<div class="slide" data-slide="5">
+  <h2>Transit Gateway 深掘り</h2>
+  <p>TGWは単なるハブではなく、ルートテーブル分離によるネットワークセグメンテーションが真価。</p>
+
+  <h3>アタッチメント種別</h3>
+  <div class="tags">
+    <span class="tag t-blue">VPC</span>
+    <span class="tag t-green">VPN</span>
+    <span class="tag t-purple">DX Gateway</span>
+    <span class="tag t-orange">Peering (他TGW)</span>
+    <span class="tag t-red">Connect (SD-WAN等)</span>
+  </div>
+
+  <h3>ルートテーブル分離パターン</h3>
+  <div class="net-diagram">
+    <div class="net-hub" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">Transit Gateway</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 40px;"></div>
+      <div class="net-line"></div>
+    </div>
+    <div class="net-row" style="gap:24px;">
+      <div class="net-group" style="border-color:var(--cyan);flex:1;">
+        <div class="net-group-title" style="color:var(--cyan);">Shared RT</div>
+        <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);margin-top:6px;">Shared VPC<br><small>DNS / Proxy</small></div>
+        <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);margin-top:6px;">On-Prem VPN</div>
+      </div>
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Dev RT</div>
+        <div style="display:flex;gap:6px;margin-top:6px;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Dev 1</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Dev 2</div>
+        </div>
+        <div style="font-size:11px;color:var(--green);margin-top:4px;">→ Shared のみ到達可</div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">Prod RT</div>
+        <div style="display:flex;gap:6px;margin-top:6px;">
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Prod 1</div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Prod 2</div>
+        </div>
+        <div style="font-size:11px;color:var(--orange);margin-top:4px;">→ Shared のみ到達可</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:12px;color:var(--red);font-weight:700;">Dev ← ✕ → Prod 通信不可</div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">ルートテーブル分離の効果</div>
+    Dev → Prod へのアクセスを<strong>ネットワークレベルで遮断</strong>。Shared VPC (DNS, Proxy) には全環境からアクセス可能。<br>
+    Security Groupだけに頼らないセグメンテーション。
+  </div>
+
+  <h3>マルチアカウント共有</h3>
+  <div class="box box-orange">
+    <div class="box-title">AWS RAM で TGW を共有</div>
+    Organizations内の他アカウントと共有 → 各アカウントが自VPCをアタッチ。<br>
+    <strong>ネットワークアカウント</strong>でTGWを集中管理するのがベストプラクティス。
+  </div>
+
+  <div class="box box-purple">
+    <div class="box-title">TGW vs 他サービスの判断</div>
+    「特定サービスだけ公開」→ TGWではなく <strong>PrivateLink</strong><br>
+    「VPC間でIP重複」→ TGWでは解決不可 → <strong>PrivateLink</strong> or NAT<br>
+    「数百VPN集約」→ TGWの <strong>ECMP</strong> で帯域拡張
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: DX + VPN Backup ===== -->
+<div class="slide" data-slide="6">
+  <h2>Direct Connect + VPN バックアップ構成</h2>
+  <p>本番ではDX単体では不十分。冗長性と暗号化の担保が試験で問われる。</p>
+
+  <h3>冗長構成図</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:40px;width:100%;">
+      <div class="net-group" style="flex:1;">
+        <div class="net-group-title">オンプレミス</div>
+        <div style="display:flex;gap:8px;margin-top:8px;justify-content:center;">
+          <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">Router 1</div>
+          <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">Router 2</div>
+        </div>
+      </div>
+      <div class="net-group" style="flex:2;">
+        <div class="net-group-title">AWS</div>
+        <div class="net-hub" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);margin:8px auto;">Transit Gateway</div>
+        <div style="display:flex;gap:12px;margin-top:8px;justify-content:center;flex-wrap:wrap;">
+          <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">DX 接続 1<br><small>ロケーション A</small></div>
+          <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">DX 接続 2<br><small>ロケーション B</small></div>
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">VPN<br><small>バックアップ</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>冗長パターン比較</h3>
+  <table class="cmp">
+    <tr><th>構成</th><th>冗長レベル</th><th>コスト</th><th>用途</th></tr>
+    <tr><td>DX 1本のみ</td><td class="lose">単一障害点</td><td class="win">最小</td><td>開発・非クリティカル</td></tr>
+    <tr><td>DX 1本 + VPN</td><td class="mid">DX障害時は帯域低下</td><td>中</td><td>コスト重視の本番</td></tr>
+    <tr><td>DX 2本 (同一ロケーション)</td><td class="mid">ロケーション障害に弱い</td><td>高</td><td>帯域集約</td></tr>
+    <tr><td class="em">DX 2本 (異なるロケーション) + VPN</td><td class="win em">最高</td><td class="lose">最高</td><td>ミッションクリティカル</td></tr>
+  </table>
+
+  <h3>DX上の暗号化方式</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">MACsec (802.1AE)</h4>
+      <p>L2暗号化 / <strong>10G・100G 専用接続のみ</strong> / Hosted不可 / 1G不可 / 帯域維持</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">VPN over DX</h4>
+      <p>IPsec暗号化 / Public VIF or Transit VIF経由 / <strong>帯域上限 1.25 Gbps/トンネル</strong></p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「DXで暗号化」→ MACsecを選びたいが <strong>Hosted Connection や 1G では不可</strong>。→ VPN over DX が正解。<br>
+    「10G帯域 + 暗号化」→ VPN over DXだと <strong>1.25Gbpsに制限</strong> → MACsec が正解。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Account x Network Isolation ===== -->
+<div class="slide" data-slide="7">
+  <h2>アカウント分離 x ネットワーク分離</h2>
+  <p>マルチアカウント環境で「何をアカウントで分離し、何をネットワークで分離するか」の判断軸。</p>
+
+  <h3>分離の2軸マトリクス</h3>
+  <div class="matrix">
+    <div class="matrix-corner"></div>
+    <div class="matrix-col-hdr">ネットワーク共有</div>
+    <div class="matrix-col-hdr">ネットワーク分離</div>
+    <div class="matrix-row-hdr">アカウント分離</div>
+    <div class="matrix-cell" style="background:var(--cyan-bg);border-color:var(--cyan);">
+      <strong style="color:var(--cyan);">共有VPC + マルチアカウント</strong>
+      <small>RAM でサブネット共有<br>IP管理一元化 / コスト最適</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--blue-bg);border-color:var(--blue);">
+      <strong style="color:var(--blue);">個別VPC + マルチアカウント</strong>
+      <small>TGWで接続<br>最も厳密な分離 / コンプライアンス向け</small>
+    </div>
+    <div class="matrix-row-hdr">単一アカウント</div>
+    <div class="matrix-cell" style="background:var(--bg3);">
+      <strong>単一VPC</strong>
+      <small>サブネットで分離<br>小規模・開発向け</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--bg3);">
+      <strong>複数VPC (単一アカウント)</strong>
+      <small>VPC Peering で接続<br>環境分離のみ</small>
+    </div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>パターン</th><th>共有VPC (RAM)</th><th>個別VPC + TGW</th></tr>
+    <tr><td>IP管理</td><td class="win">一元化</td><td class="lose">アカウントごと</td></tr>
+    <tr><td>VPC数</td><td class="win">少ない</td><td class="lose">アカウント分だけ増加</td></tr>
+    <tr><td>ネットワーク分離</td><td class="lose">弱い (NACL共有)</td><td class="win em">完全分離</td></tr>
+    <tr><td>コスト</td><td class="win">VPC間通信なし</td><td class="lose">TGWデータ処理料金</td></tr>
+    <tr><td>自律性</td><td class="lose">ネットワーク変更は管理者</td><td class="win">各チームが独立管理</td></tr>
+  </table>
+
+  <div class="box box-blue">
+    <div class="box-title">判断のコツ</div>
+    問題文に「<strong>コンプライアンス</strong>」「<strong>規制要件</strong>」「<strong>完全な分離</strong>」→ <strong>個別VPC</strong><br>
+    「<strong>コスト最適化</strong>」「<strong>IP管理の簡素化</strong>」「<strong>運用負荷削減</strong>」→ <strong>共有VPC</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「VPC Peeringで全VPC接続」</div>
+    技術的には可能。でも10 VPCで45本。「最もスケーラブル」→ TGW。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「Direct Connectで暗号化された接続」</div>
+    DXはデフォルト暗号化なし。MACsec か VPN over DX が必要。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「VPN over DXで100 Gbps」</div>
+    VPNトンネル上限は1.25 Gbps。高帯域+暗号化 → MACsec。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「TGWでIPアドレス重複を解決」</div>
+    TGWはルーティングベース。CIDR重複は不可。→ PrivateLink か NAT。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「すぐにDXを構築」</div>
+    DXは物理回線で数週間〜。即時接続 → VPN → 後からDXに移行。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">20アカウント各VPCの全VPC間通信＋オンプレ接続。接続数管理を最小化し、アカウント追加にも対応。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>各VPC間にVPC Peeringを作成 + オンプレにVPN</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>TGWを作成し全VPCとVPN接続をアタッチ。RAMで各アカウントに共有</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>PrivateLinkで各VPC間のサービスを公開</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>全アカウントのVPCをRAMで共有VPCとして統合</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: B</strong><br>
+      A: 20 VPCフルメッシュ = 190本。管理不能。<br>
+      B: TGW 1台で集約。追加はアタッチメントのみ。<br>
+      C: PrivateLinkはサービス単位公開。フルルーティングに不向き。<br>
+      D: 共有VPCは既存VPCの統合ではなくサブネット共有。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">金融機関。要件: (1) 10 Gbps安定帯域 (2) 転送中データ暗号化 (3) DX障害時フェイルオーバー。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>10G DX専用接続を2本（異なるロケーション）に配置</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>10G DX専用接続にMACsec有効化 + バックアップVPN</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>10G DX上にSite-to-Site VPNトンネルで暗号化</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>VPN 8トンネルをECMPで帯域集約</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: B</strong><br>
+      A: 暗号化要件を満たさない。DXはデフォルト暗号化なし。<br>
+      B: MACsecで10G維持+暗号化。VPNバックアップでDX障害対応。<br>
+      C: VPN over DXは1.25Gbps上限。10G帯域を活用できない。<br>
+      D: VPNはインターネット経由。「安定した10G」に不適。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

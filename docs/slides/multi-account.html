@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - マルチアカウント設計（SCP / IAM / リソースポリシー）</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-c { background: var(--purple-bg); border: 2px solid var(--purple); color: var(--purple); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* 2x2 matrix */
+.matrix {
+  display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: auto 1fr 1fr;
+  gap: 0; margin: 16px 0; font-size: 13px;
+}
+.matrix-corner { background: transparent; }
+.matrix-col-hdr { text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); }
+.matrix-row-hdr { writing-mode: vertical-rl; text-align: center; padding: 8px; font-weight: 700; color: var(--cyan); transform: rotate(180deg); }
+.matrix-cell {
+  border: 1px solid var(--border); padding: 14px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.matrix-cell strong { display: block; font-size: 13px; }
+.matrix-cell small { font-size: 11px; color: var(--text2); }
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+
+/* 3-col grid for cards */
+.card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - Multi-Account Design</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>マルチアカウント設計</h1>
+    <p class="sub">SCP / IAM / リソースポリシーの使い分け</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-red">SCP</span>
+      <span class="tag t-blue">IAM ポリシー</span>
+      <span class="tag t-green">リソースポリシー</span>
+      <span class="tag t-purple">Organizations</span>
+      <span class="tag t-orange">Control Tower</span>
+      <span class="tag t-cyan">OU 設計</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">ガードレール (組織レベル)</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);">SCP</div>
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">Control Tower</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">アクセス制御 (アカウントレベル)</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">IAM ポリシー</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">リソースポリシー</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">アカウント構造</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Organizations</div>
+            <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">OU 階層</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">クロスアカウント</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">S3 / KMS / SQS</div>
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">AssumeRole</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Decision Flow ===== -->
+<div class="slide" data-slide="2">
+  <h2>ポリシー選択の判断フロー</h2>
+  <p>要件に応じて SCP / IAM / リソースポリシー を使い分ける。試験では「どのレベルで制御すべきか」が問われる。</p>
+
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">組織全体で禁止したい操作？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a" style="background:var(--red-bg);border-color:var(--red);color:var(--red);">SCP (拒否ポリシー)</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px;text-align:center;">例: 特定リージョン禁止<br>CloudTrail無効化防止</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">クロスアカウントアクセス？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-q">リソース側で許可？</div>
+            <div class="flow-branch" style="margin-top:8px;">
+              <div class="flow-branch-item">
+                <div class="flow-label">Yes</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-a">リソースポリシー</div>
+                <div style="font-size:11px;color:var(--text3);margin-top:4px;">S3 / KMS / SQS / SNS / Lambda</div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">ロール切替</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-c">IAM Role + AssumeRole</div>
+                <div style="font-size:11px;color:var(--text3);margin-top:4px;">信頼ポリシー + 権限ポリシー</div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No (同一アカウント)</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-b" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue);">IAM ポリシー</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;">ユーザー/ロール/グループに付与</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出ポイント</div>
+    SCPは<strong>許可を付与しない</strong>。あくまで「許可の上限」を設定するだけ。実際の許可はIAMポリシーが必要。<br>
+    クロスアカウントアクセスでは、<strong>IAM側とリソース側の両方</strong>で許可が必要（リソースポリシーのみの場合を除く）。
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: SCP vs IAM ===== -->
+<div class="slide" data-slide="3">
+  <h2>SCP vs IAM ポリシー</h2>
+  <p>「組織の境界線」と「アカウント内の権限付与」で役割が根本的に異なる。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--red-bg);border:2px solid var(--red);color:var(--red);">SCP</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">IAM ポリシー</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>SCP</th><th>IAM ポリシー</th></tr>
+    <tr><td>適用範囲</td><td class="win em">OU / アカウント全体</td><td>ユーザー / ロール / グループ</td></tr>
+    <tr><td>機能</td><td class="em">許可の上限を制限</td><td class="em">許可を付与 / 拒否</td></tr>
+    <tr><td>Deny</td><td class="win em">明示的Denyで全員に強制</td><td>そのプリンシパルのみ</td></tr>
+    <tr><td>Allow</td><td class="lose">許可は付与しない</td><td class="win em">許可を付与する</td></tr>
+    <tr><td>継承</td><td class="win">Root → OU → 子OU → アカウント</td><td class="lose">継承なし</td></tr>
+    <tr><td>管理アカウント</td><td class="lose em">適用されない</td><td>通常どおり適用</td></tr>
+    <tr><td>root ユーザー</td><td class="win em">制限可能</td><td class="lose">制限不可</td></tr>
+    <tr><td>主な用途</td><td>ガードレール / 禁止事項</td><td>日常の権限管理</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--red);">
+      <h4 style="color:var(--red);">SCP を使う</h4>
+      <p>リージョン制限 / 特定サービス禁止 / CloudTrail削除防止 / root操作の制限 / <strong>組織全体の最低ライン設定</strong></p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">IAM ポリシーを使う</h4>
+      <p>開発者にEC2起動権限 / S3読み取り / Lambda実行 / <strong>個別ユーザーへの権限付与</strong></p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「SCPでEC2の起動を許可する」→ <strong>不正解</strong>。SCPは許可を付与しない。許可はIAMポリシーで行う。<br>
+    「管理アカウントでSCPによる制限」→ <strong>効かない</strong>。管理アカウントにはSCPが適用されない。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Resource Policy vs IAM ===== -->
+<div class="slide" data-slide="4">
+  <h2>リソースポリシー vs IAM ポリシー</h2>
+  <p>クロスアカウントアクセスの方式選択が試験の頻出テーマ。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);">リソースポリシー</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">IAM ポリシー</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>リソースポリシー</th><th>IAM ポリシー (AssumeRole)</th></tr>
+    <tr><td>アタッチ先</td><td class="em">リソース自体 (S3, KMS等)</td><td class="em">IAM ロール / ユーザー</td></tr>
+    <tr><td>Principal指定</td><td class="win em">他アカウント / サービスを直接指定</td><td>信頼ポリシーで指定</td></tr>
+    <tr><td>クロスアカウント</td><td class="win">リソースポリシーのみで可能な場合あり</td><td>両アカウントで設定が必要</td></tr>
+    <tr><td>権限の範囲</td><td>そのリソースのみ</td><td class="win em">ロールの権限範囲全体</td></tr>
+    <tr><td>一時認証情報</td><td>不要(元の権限で操作)</td><td>AssumeRoleで一時認証を取得</td></tr>
+    <tr><td>対応サービス</td><td class="lose">S3, KMS, SQS, SNS, Lambda, ECR 等に限定</td><td class="win">全サービス</td></tr>
+    <tr><td>監査</td><td>リソース側のログ</td><td class="win">呼び出し元アカウントのCloudTrail</td></tr>
+  </table>
+
+  <h3>クロスアカウントアクセスの2パターン</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">リソースポリシー方式</h4>
+      <p>S3バケットに他アカウントのPrincipalを指定 → 相手は<strong>自分の権限のまま</strong>アクセス可能。ロール切替不要。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">AssumeRole 方式</h4>
+      <p>対象アカウントにIAMロールを作成 → 信頼ポリシーで許可 → 呼び出し元がsts:AssumeRole → <strong>一時認証情報で操作</strong>。</p>
+    </div>
+  </div>
+
+  <div class="box box-orange">
+    <div class="box-title">重要: リソースポリシーの利点</div>
+    リソースポリシー方式では、呼び出し元が<strong>元の権限を保持したまま</strong>アクセスする。AssumeRoleだと元の権限を「放棄」してロールの権限に切り替わる。<br>
+    KMSのクロスアカウント復号は<strong>キーポリシー(リソースポリシー) + IAMポリシーの両方</strong>が必要。
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「DynamoDBに他アカウントからアクセス」→ DynamoDBにはリソースポリシーがない → <strong>AssumeRole一択</strong>。<br>
+    リソースポリシーがないサービスでは、必ずIAMロール経由のクロスアカウントになる。
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Organizations / OU / SCP Design ===== -->
+<div class="slide" data-slide="5">
+  <h2>Organizations / OU / SCP の設計パターン</h2>
+  <p>OU構造とSCP適用の階層設計が、マルチアカウント戦略の土台。</p>
+
+  <h3>推奨OU構造 (AWS ベストプラクティス)</h3>
+  <div class="net-diagram">
+    <div class="net-hub" style="background:var(--purple-bg);border-color:var(--purple);color:var(--purple);">Root</div>
+    <div class="net-line"></div>
+    <div style="display:flex;gap:4px;justify-content:center;">
+      <div class="net-line" style="margin:0 20px;"></div>
+      <div class="net-line" style="margin:0 20px;"></div>
+      <div class="net-line" style="margin:0 20px;"></div>
+      <div class="net-line" style="margin:0 20px;"></div>
+    </div>
+    <div class="net-row" style="gap:12px;">
+      <div class="net-group" style="border-color:var(--red);flex:1;">
+        <div class="net-group-title" style="color:var(--red);">Security OU</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);font-size:11px;">Log Archive</div>
+          <div class="net-node" style="background:var(--red-bg);border:1px solid var(--red);color:var(--red);font-size:11px;">Audit</div>
+        </div>
+      </div>
+      <div class="net-group" style="border-color:var(--cyan);flex:1;">
+        <div class="net-group-title" style="color:var(--cyan);">Infrastructure OU</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);font-size:11px;">Network</div>
+          <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);font-size:11px;">Shared Svc</div>
+        </div>
+      </div>
+      <div class="net-group" style="border-color:var(--green);flex:1;">
+        <div class="net-group-title" style="color:var(--green);">Workloads OU</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);font-size:11px;">Prod</div>
+          <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);font-size:11px;">Dev</div>
+        </div>
+      </div>
+      <div class="net-group" style="border-color:var(--orange);flex:1;">
+        <div class="net-group-title" style="color:var(--orange);">Sandbox OU</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+          <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);font-size:11px;">実験用</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>SCP適用の階層ルール</h3>
+  <table class="cmp">
+    <tr><th>適用レベル</th><th>効果</th><th>例</th></tr>
+    <tr><td class="em">Root</td><td>全アカウントに適用</td><td>全リージョン制限 / GuardDuty無効化防止</td></tr>
+    <tr><td class="em">OU</td><td>OU配下の全アカウント</td><td>Sandbox OUで高額サービス禁止</td></tr>
+    <tr><td class="em">アカウント</td><td>特定アカウントのみ</td><td>特定アカウントで追加制限</td></tr>
+  </table>
+
+  <div class="box box-purple">
+    <div class="box-title">SCP設計の鉄則</div>
+    <strong>1. DenyList戦略</strong>: FullAWSAccessを残し、禁止事項だけDenyで追加 (推奨)<br>
+    <strong>2. AllowList戦略</strong>: FullAWSAccessを外し、許可するサービスのみ列挙 (厳格だが運用コスト大)<br>
+    試験ではDenyList戦略が「最も運用負荷が低い」選択肢として頻出。
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    SCPの継承は「AND条件（交差）」。親OUがDenyしたものは子OUでAllowしても<strong>拒否される</strong>。<br>
+    管理アカウントにはSCPが適用されないため、<strong>管理アカウントでのワークロード実行は非推奨</strong>。
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Control Tower ===== -->
+<div class="slide" data-slide="6">
+  <h2>Control Tower の役割と制約</h2>
+  <p>Control Tower は Organizations 上にベストプラクティスのランディングゾーンを自動構築するサービス。</p>
+
+  <h3>Control Tower が提供するもの</h3>
+  <div class="card-grid-3">
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">Landing Zone</h4>
+      <p>マルチアカウント環境の初期セットアップ。Security OU + Log Archive / Audit アカウントを自動作成。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--red);">
+      <h4 style="color:var(--red);">予防的ガードレール</h4>
+      <p>SCPで実装。操作を<strong>事前に禁止</strong>。<br>例: リージョン制限、CloudTrail無効化禁止。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">検出的ガードレール</h4>
+      <p>AWS Configルールで実装。違反を<strong>検知して通知</strong>。<br>例: S3パブリックアクセス検知、MFA未有効化。</p>
+    </div>
+  </div>
+
+  <h3>ガードレール比較</h3>
+  <table class="cmp">
+    <tr><th>種別</th><th>予防的 (Preventive)</th><th>検出的 (Detective)</th><th>プロアクティブ</th></tr>
+    <tr><td>実装</td><td class="em">SCP</td><td class="em">AWS Config Rules</td><td class="em">CloudFormation Hooks</td></tr>
+    <tr><td>動作</td><td class="win">操作を事前にブロック</td><td>違反を検知・通知</td><td>デプロイ前にチェック</td></tr>
+    <tr><td>強制力</td><td class="win em">強い (実行不可)</td><td class="lose">弱い (通知のみ)</td><td class="mid">中 (デプロイ阻止)</td></tr>
+    <tr><td>ユースケース</td><td>絶対に許可しない操作</td><td>状態の継続監視</td><td>IaCテンプレート検証</td></tr>
+  </table>
+
+  <div class="box box-blue">
+    <div class="box-title">Control Tower vs 手動 Organizations の判断</div>
+    <strong>Control Tower を選ぶ</strong>: ベストプラクティスに沿った構築 / ガードレール一括管理 / Account Factory でアカウント量産<br>
+    <strong>手動 Organizations</strong>: 高度にカスタマイズされたOU構造 / 既存組織への段階的導入 / Control Tower 非対応リージョン
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「検出的ガードレールで操作を禁止」→ <strong>不正解</strong>。検出的は通知のみ。禁止は予防的(SCP)。<br>
+    「Control Tower の予防的ガードレール」=「SCP」であることを理解していないと誤答する。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Account Separation Strategy ===== -->
+<div class="slide" data-slide="7">
+  <h2>アカウント分離 x ポリシー戦略の判断軸</h2>
+  <p>「何の単位でアカウントを分けるか」「どのポリシーで制御するか」を掛け合わせる。</p>
+
+  <h3>アカウント分離の3軸</h3>
+  <div class="matrix">
+    <div class="matrix-corner"></div>
+    <div class="matrix-col-hdr">SCP で制御</div>
+    <div class="matrix-col-hdr">IAM / リソースポリシーで制御</div>
+    <div class="matrix-row-hdr">環境分離</div>
+    <div class="matrix-cell" style="background:var(--red-bg);border-color:var(--red);">
+      <strong style="color:var(--red);">Prod OU に厳格SCP</strong>
+      <small>本番変更をSCPで制限<br>例: 手動リソース作成禁止</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--blue-bg);border-color:var(--blue);">
+      <strong style="color:var(--blue);">環境別 IAM ロール</strong>
+      <small>Dev → ReadOnly<br>Prod → 限定的Write</small>
+    </div>
+    <div class="matrix-row-hdr">チーム分離</div>
+    <div class="matrix-cell" style="background:var(--orange-bg);border-color:var(--orange);">
+      <strong style="color:var(--orange);">チーム OU に SCP</strong>
+      <small>チーム固有の制限<br>例: 特定サービスのみ許可</small>
+    </div>
+    <div class="matrix-cell" style="background:var(--green-bg);border-color:var(--green);">
+      <strong style="color:var(--green);">Permission Boundary</strong>
+      <small>委譲されたIAM管理<br>チームが作るロールの上限設定</small>
+    </div>
+  </div>
+
+  <h3>分離パターンと最適ポリシー</h3>
+  <table class="cmp">
+    <tr><th>分離の目的</th><th>アカウント分離</th><th>ポリシー制御</th><th>代表例</th></tr>
+    <tr><td>本番/開発の隔離</td><td class="em">環境別アカウント</td><td>SCP + IAM</td><td>Prod OU / Dev OU</td></tr>
+    <tr><td>チーム自律性</td><td class="em">チーム別アカウント</td><td>Permission Boundary</td><td>チームがIAM管理可能</td></tr>
+    <tr><td>コンプライアンス</td><td class="em">規制別アカウント</td><td>SCP Deny</td><td>PCI-DSS / HIPAA</td></tr>
+    <tr><td>コスト可視化</td><td class="em">プロジェクト別アカウント</td><td>タグ + IAM</td><td>請求の自動分離</td></tr>
+    <tr><td>セキュリティ</td><td class="em">専用セキュリティアカウント</td><td>リソースポリシー</td><td>ログ集約 S3 バケット</td></tr>
+  </table>
+
+  <div class="box box-green">
+    <div class="box-title">Permission Boundary を選ぶ場面</div>
+    「開発チームに<strong>IAMロール/ユーザーの作成を委譲</strong>したいが、作成されるロールの権限を制限したい」<br>
+    → Permission Boundary でロールの<strong>最大権限</strong>を設定。SCPはアカウント単位、PBはプリンシパル単位。
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">判断のコツ</div>
+    「全アカウントで禁止」→ <strong>SCP</strong><br>
+    「特定ユーザーに権限付与」→ <strong>IAMポリシー</strong><br>
+    「チームに IAM 管理を委譲 + 上限設定」→ <strong>Permission Boundary</strong><br>
+    「他アカウントの S3/KMS にアクセス」→ <strong>リソースポリシー</strong><br>
+    「他アカウントの EC2/DynamoDB を操作」→ <strong>AssumeRole</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「SCPで権限を許可する」</div>
+    SCPは許可を<strong>付与しない</strong>。許可の「上限」を設定するだけ。実際の許可はIAMポリシーが必要。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「管理アカウントをSCPで制限」</div>
+    管理アカウントにはSCPが<strong>適用されない</strong>。管理アカウントでワークロードを動かすべきではない。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「検出的ガードレールで操作をブロック」</div>
+    検出的 = AWS Config = <strong>通知のみ</strong>。ブロックは予防的(SCP)で行う。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「DynamoDBにリソースポリシーを設定」</div>
+    DynamoDB, EC2, RDS等にはリソースポリシーがない。クロスアカウントは<strong>AssumeRole</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「SCPでIAMユーザーの権限を昇格」</div>
+    SCPは制限のみ。子OUで親の制限を<strong>解除することはできない</strong>。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">ある企業は AWS Organizations を使用し、開発チームに各自のアカウントで IAM ロールを自由に作成させたい。ただし、作成されるロールが AdministratorAccess を持つことは防ぎたい。最も適切な方法は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>SCP で iam:CreateRole を制限し、許可するロールのリストを管理する</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">B</span><span>AWS Config ルールで AdministratorAccess が付与されたロールを検知・削除する</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">C</span><span>IAM Permission Boundary を設定し、開発チームが作成するロールに必ず境界を付与する条件を SCP で強制する</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>Control Tower の検出的ガードレールで AdministratorAccess の使用を禁止する</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: C</strong><br>
+      A: CreateRoleを完全制限すると、チームがロールを作れなくなる。<br>
+      B: 検知・削除は事後対応。作成自体は防げず、一時的にAdmin権限が存在する。<br>
+      C: Permission Boundaryで上限を設定し、SCPでPB付与を強制。IAM委譲+制限の最適解。<br>
+      D: 検出的ガードレールは通知のみで禁止はできない。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">アカウントAのLambda関数が、アカウントBのS3バケットからオブジェクトを読み取る必要がある。Organizations内の同一組織。最も運用負荷が低い方法は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>アカウントBにIAMロールを作成し、Lambda関数がAssumeRoleして読み取る</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>アカウントBのS3バケットポリシーでアカウントAのLambda実行ロールのARNを許可する</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>S3バケットをAWS RAMで共有する</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>SCPでアカウントA全体にS3読み取り権限を付与する</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: B</strong><br>
+      A: 技術的に正しいが、AssumeRoleの実装が必要で運用負荷が高い。<br>
+      B: S3バケットポリシー(リソースポリシー)でPrincipal指定のみ。Lambdaのコード変更不要。最もシンプル。<br>
+      C: S3はRAMの共有対象外。RAMはVPCサブネット、TGW、Route 53等が対象。<br>
+      D: SCPは許可を付与しない。アクセス権限の付与にSCPは使えない。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>

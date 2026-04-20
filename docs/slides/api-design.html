@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AWS SAP - API設計のサービス選定</title>
+<style>
+:root {
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+  --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #475569;
+  --green: #22c55e; --green-bg: #052e16;
+  --red: #ef4444; --red-bg: #450a0a;
+  --blue: #3b82f6; --blue-bg: #172554;
+  --yellow: #eab308; --yellow-bg: #422006;
+  --orange: #f97316; --orange-bg: #431407;
+  --purple: #a78bfa; --purple-bg: #2e1065;
+  --cyan: #22d3ee; --cyan-bg: #083344;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; overflow: hidden; height: 100dvh;
+}
+
+/* Layout */
+.wrap { height: 100dvh; display: flex; flex-direction: column; }
+.hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; background: var(--bg2);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.hdr .t { font-size: 13px; font-weight: 700; color: var(--text2); }
+.hdr .ind { font-size: 13px; color: var(--text3); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr button {
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: none;
+  color: var(--text2); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.hdr button:hover { background: var(--bg3); }
+.hdr button:disabled { opacity: 0.3; }
+.prog { height: 3px; background: var(--bg3); flex-shrink: 0; }
+.prog-fill { height: 100%; background: var(--orange); transition: width .3s; }
+.viewport { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.slide { display: none; padding: 24px 20px 48px; max-width: 880px; margin: 0 auto; }
+.slide.active { display: block; }
+
+/* Typography */
+.slide h2 { font-size: 22px; font-weight: 800; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--orange); }
+.slide h3 { font-size: 15px; font-weight: 700; margin: 20px 0 10px; color: var(--cyan); }
+.slide p { font-size: 14px; margin-bottom: 12px; color: var(--text2); }
+.slide ul { font-size: 13px; color: var(--text2); margin: 8px 0 8px 20px; }
+.slide li { margin-bottom: 4px; }
+
+/* Diagram: flow boxes */
+.flow-diagram { display: flex; flex-direction: column; gap: 0; align-items: center; margin: 16px 0; }
+.flow-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  text-align: center; min-width: 100px; position: relative;
+}
+.flow-q { background: var(--blue-bg); border: 2px solid var(--blue); color: var(--blue); border-radius: 50px; padding: 10px 18px; }
+.flow-a { background: var(--green-bg); border: 2px solid var(--green); color: var(--green); }
+.flow-b { background: var(--orange-bg); border: 2px solid var(--orange); color: var(--orange); }
+.flow-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text3); font-size: 11px; padding: 4px 0;
+}
+.flow-arrow::before { content: ''; width: 2px; height: 16px; background: var(--text3); }
+.flow-arrow::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text3); }
+.flow-arrow-h { color: var(--text3); font-size: 18px; padding: 0 4px; }
+.flow-branch { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.flow-branch-item { display: flex; flex-direction: column; align-items: center; }
+.flow-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; font-weight: 600; }
+
+/* Network diagram (CSS) */
+.net-diagram {
+  display: flex; flex-direction: column; gap: 0; align-items: center;
+  background: var(--bg2); border-radius: var(--radius); padding: 20px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.net-row { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.net-node {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; min-width: 80px;
+}
+.net-hub {
+  padding: 14px 24px; border-radius: 50px; font-size: 14px; font-weight: 700;
+  text-align: center; border-width: 3px; border-style: solid;
+}
+.net-line { width: 2px; height: 20px; background: var(--text3); margin: 0 auto; }
+.net-line-h { width: 20px; height: 2px; background: var(--text3); }
+.net-line-dashed { width: 2px; height: 20px; border-left: 2px dashed var(--text3); margin: 0 auto; }
+.net-group {
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 12px;
+  text-align: center;
+}
+.net-group-title { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; }
+
+/* Compare table */
+table.cmp {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  background: var(--bg2); border-radius: var(--radius); overflow: hidden;
+}
+table.cmp th, table.cmp td { padding: 10px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+table.cmp th { background: var(--bg3); font-weight: 700; white-space: nowrap; }
+table.cmp .win { background: rgba(34,197,94,0.15); }
+table.cmp .lose { background: rgba(239,68,68,0.1); }
+table.cmp .mid { background: rgba(234,179,8,0.1); }
+table.cmp .em { font-weight: 700; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+}
+.t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.t-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange); }
+.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+.t-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.t-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan); }
+
+/* Info boxes */
+.box {
+  border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; font-size: 13px; line-height: 1.7;
+}
+.box-title { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+.box-green { background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.box-green .box-title { color: var(--green); }
+.box-blue { background: rgba(59,130,246,0.1); border: 1px solid var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-red { background: rgba(239,68,68,0.1); border: 1px solid var(--red); }
+.box-red .box-title { color: var(--red); }
+.box-orange { background: rgba(249,115,22,0.1); border: 1px solid var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-purple { background: rgba(167,139,250,0.1); border: 1px solid var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; border-left: 4px solid var(--border);
+}
+.card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; margin: 0; }
+
+/* VS badge */
+.vs {
+  display: flex; align-items: center; justify-content: center; gap: 16px; margin: 16px 0;
+}
+.vs-item {
+  flex: 1; text-align: center; padding: 16px; border-radius: var(--radius);
+  font-size: 16px; font-weight: 800;
+}
+.vs-badge {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: var(--text3); flex-shrink: 0;
+}
+
+/* Quiz */
+.quiz { margin: 16px 0; }
+.quiz-q { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.quiz-choice {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius); background: var(--bg2); border: 2px solid var(--border);
+  font-size: 13px; cursor: pointer; transition: all .15s;
+}
+.quiz-choice:hover { border-color: var(--blue); }
+.quiz-choice.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.quiz-choice.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.quiz-choice.dimmed { opacity: 0.5; pointer-events: none; }
+.quiz-choice .ql {
+  min-width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--bg3); flex-shrink: 0;
+}
+.quiz-answer { display: none; padding: 12px 16px; border-radius: var(--radius); font-size: 13px; line-height: 1.7; margin-top: 8px; background: rgba(34,197,94,0.1); border: 1px solid var(--green); }
+.quiz-answer.show { display: block; }
+
+/* Title slide */
+.title-center { text-align: center; padding-top: 8vh; }
+.title-center h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.title-center .sub { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
+
+/* 3-column card */
+.card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:700px) { .card-grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <button id="prevBtn">&lsaquo;</button>
+    <span class="t">AWS SAP - API Design</span>
+    <span class="ind" id="ind">1 / 8</span>
+    <button id="nextBtn">&rsaquo;</button>
+  </div>
+  <div class="prog"><div class="prog-fill" id="progFill"></div></div>
+  <div class="viewport" id="vp">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-slide="1">
+  <div class="title-center">
+    <h1>API設計のサービス選定</h1>
+    <p class="sub">API Gateway vs AppSync -- 要件ベース判断マスター</p>
+    <div class="tags" style="justify-content:center;">
+      <span class="tag t-blue">REST API</span>
+      <span class="tag t-blue">HTTP API</span>
+      <span class="tag t-green">WebSocket API</span>
+      <span class="tag t-orange">AppSync (GraphQL)</span>
+      <span class="tag t-purple">Lambda統合</span>
+      <span class="tag t-cyan">リアルタイム</span>
+    </div>
+
+    <div class="net-diagram" style="margin-top:32px;">
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">API Gateway</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">REST API</div>
+            <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">HTTP API</div>
+            <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">WebSocket</div>
+          </div>
+        </div>
+        <div class="net-group">
+          <div class="net-group-title">AppSync</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div class="net-node" style="background:var(--orange-bg);border:1px solid var(--orange);color:var(--orange);">GraphQL API</div>
+            <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">Subscription</div>
+          </div>
+        </div>
+      </div>
+      <div class="net-line"></div>
+      <div class="net-row" style="gap:32px;">
+        <div class="net-group">
+          <div class="net-group-title">バックエンド統合</div>
+          <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Lambda</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">DynamoDB</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">RDS</div>
+            <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">HTTP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Decision Flow ===== -->
+<div class="slide" data-slide="2">
+  <h2>判断フロー: API Gateway vs AppSync</h2>
+  <p>要件に応じて最適なAPIサービスを選ぶための分岐ロジック。「技術的に可能か」ではなく「最適か」が問われる。</p>
+
+  <div class="flow-diagram">
+    <div class="flow-box flow-q">GraphQLが必要？</div>
+    <div class="flow-branch" style="margin-top:8px;">
+      <div class="flow-branch-item">
+        <div class="flow-label">Yes</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-a">AppSync</div>
+      </div>
+      <div class="flow-branch-item">
+        <div class="flow-label">No</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-box flow-q">リアルタイム双方向通信？</div>
+        <div class="flow-branch" style="margin-top:8px;">
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes (GraphQL Subscription)</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-a">AppSync</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">Yes (WebSocket)</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-b">API GW WebSocket</div>
+          </div>
+          <div class="flow-branch-item">
+            <div class="flow-label">No</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box flow-q">REST/HTTP API?</div>
+            <div class="flow-branch" style="margin-top:8px;">
+              <div class="flow-branch-item">
+                <div class="flow-label">フル機能 (WAF, キャッシュ等)</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-a">REST API</div>
+              </div>
+              <div class="flow-branch-item">
+                <div class="flow-label">低コスト・シンプル</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-b">HTTP API</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">SAP頻出キーワードと判断</div>
+    「<strong>複数データソースを1回のクエリで</strong>」「<strong>オフラインサポート</strong>」「<strong>サブスクリプション</strong>」→ <strong>AppSync</strong><br>
+    「<strong>RESTful</strong>」「<strong>使用量プラン</strong>」「<strong>APIキー課金</strong>」「<strong>WAF統合</strong>」→ <strong>API Gateway REST API</strong><br>
+    「<strong>低レイテンシ・低コスト</strong>」「<strong>JWT認証</strong>」→ <strong>API Gateway HTTP API</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: API Gateway 3 Types ===== -->
+<div class="slide" data-slide="3">
+  <h2>API Gateway の3タイプ比較</h2>
+  <p>API Gateway には REST API / HTTP API / WebSocket API の3種類がある。機能差が試験で頻出。</p>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>REST API</th><th>HTTP API</th><th>WebSocket API</th></tr>
+    <tr><td>プロトコル</td><td>REST</td><td>REST</td><td>WebSocket</td></tr>
+    <tr><td>コスト</td><td class="lose">高い</td><td class="win em">最大71%安い</td><td>接続+メッセージ課金</td></tr>
+    <tr><td>レイテンシ</td><td>標準</td><td class="win em">低レイテンシ</td><td>常時接続</td></tr>
+    <tr><td>キャッシュ</td><td class="win em">対応</td><td class="lose">非対応</td><td>N/A</td></tr>
+    <tr><td>WAF統合</td><td class="win em">対応</td><td class="lose">非対応</td><td class="lose">非対応</td></tr>
+    <tr><td>リクエスト変換</td><td class="win em">VTL マッピング</td><td class="lose">パラメータマッピングのみ</td><td>ルート選択式</td></tr>
+    <tr><td>認証</td><td>IAM / Cognito / Lambda / APIキー</td><td>IAM / JWT / Lambda</td><td>IAM / Lambda</td></tr>
+    <tr><td>使用量プラン</td><td class="win em">対応 (APIキー)</td><td class="lose">非対応</td><td class="lose">非対応</td></tr>
+    <tr><td>リソースポリシー</td><td class="win em">対応</td><td class="lose">非対応</td><td class="lose">非対応</td></tr>
+    <tr><td>プライベートAPI</td><td class="win em">対応</td><td class="lose">非対応</td><td class="lose">非対応</td></tr>
+    <tr><td>サービス統合</td><td class="win em">AWS全般 (直接統合)</td><td>Lambda / HTTP</td><td>Lambda / HTTP</td></tr>
+  </table>
+
+  <div class="card-grid-3">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">REST API を選ぶ</h4>
+      <p>WAF / キャッシュ / 使用量プラン / リクエスト変換 / プライベートAPI / サービス直接統合</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">HTTP API を選ぶ</h4>
+      <p>コスト最優先 / 低レイテンシ / シンプルなプロキシ / JWT認証 (OIDC)</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">WebSocket API を選ぶ</h4>
+      <p>チャット / ゲーム / ダッシュボード / リアルタイム双方向通信</p>
+    </div>
+  </div>
+
+  <div class="box box-red">
+    <div class="box-title">ひっかけ注意</div>
+    「HTTP API」は名前から機能が豊富に見えるが、REST APIの方が<strong>機能が多い</strong>。<br>
+    HTTP APIは「REST APIの軽量版」。WAF・キャッシュ・使用量プランが不要ならHTTP APIでコスト削減。
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: API Gateway vs AppSync ===== -->
+<div class="slide" data-slide="4">
+  <h2>API Gateway vs AppSync 比較表</h2>
+  <p>両サービスの根本的な違いを理解し、要件に基づいて正確に選定する。</p>
+
+  <div class="vs">
+    <div class="vs-item" style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);">API Gateway</div>
+    <div class="vs-badge">VS</div>
+    <div class="vs-item" style="background:var(--orange-bg);border:2px solid var(--orange);color:var(--orange);">AppSync</div>
+  </div>
+
+  <table class="cmp">
+    <tr><th>観点</th><th>API Gateway</th><th>AppSync</th></tr>
+    <tr><td>プロトコル</td><td>REST / HTTP / WebSocket</td><td class="em">GraphQL</td></tr>
+    <tr><td>クエリの柔軟性</td><td class="lose">エンドポイント固定</td><td class="win em">クライアントが取得項目を指定</td></tr>
+    <tr><td>リアルタイム</td><td class="mid">WebSocket API (別構築)</td><td class="win em">Subscription (組み込み)</td></tr>
+    <tr><td>オフライン対応</td><td class="lose">なし</td><td class="win em">Amplify DataStore 連携</td></tr>
+    <tr><td>複数データソース統合</td><td class="lose">Lambda内でロジック実装</td><td class="win em">Resolverで宣言的に統合</td></tr>
+    <tr><td>データソース</td><td>Lambda / HTTP / AWSサービス</td><td>DynamoDB / Lambda / RDS / HTTP / OpenSearch</td></tr>
+    <tr><td>キャッシュ</td><td class="win em">REST APIで対応</td><td class="win">対応</td></tr>
+    <tr><td>WAF</td><td class="win em">REST APIで対応</td><td class="win">対応</td></tr>
+    <tr><td>認証</td><td>IAM / Cognito / Lambda / APIキー</td><td>Cognito / IAM / OIDC / APIキー / Lambda</td></tr>
+    <tr><td>使用量プラン・スロットリング</td><td class="win em">きめ細かい制御</td><td class="lose">基本スロットリングのみ</td></tr>
+    <tr><td>外部API公開</td><td class="win em">使用量プラン + APIキーで課金管理</td><td class="lose">不向き</td></tr>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">API Gateway を選ぶ</h4>
+      <p>RESTful設計 / 外部API公開 / 使用量プランで課金 / 既存マイクロサービス統合 / WAF+キャッシュ</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">AppSync を選ぶ</h4>
+      <p>GraphQL / 複数データソース統合 / リアルタイム (Subscription) / オフライン対応 / モバイルアプリ</p>
+    </div>
+  </div>
+
+  <div class="box box-blue">
+    <div class="box-title">判断の核心</div>
+    「<strong>1回のリクエストで複数テーブルのデータを取得</strong>」→ GraphQL → <strong>AppSync</strong><br>
+    「<strong>外部パートナーにAPIを公開し利用量を制御</strong>」→ 使用量プラン → <strong>API Gateway REST API</strong>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: AppSync Deep Dive ===== -->
+<div class="slide" data-slide="5">
+  <h2>AppSync 深掘り</h2>
+  <p>AppSyncの内部アーキテクチャを理解し、Resolverとデータソースの関係を把握する。</p>
+
+  <h3>アーキテクチャ概要</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:16px;">
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">モバイル</div>
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">Web</div>
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">IoT</div>
+    </div>
+    <div class="net-line"></div>
+    <div class="net-hub" style="background:var(--orange-bg);border-color:var(--orange);color:var(--orange);">AppSync (GraphQL)</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 30px;"></div>
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 30px;"></div>
+    </div>
+    <div class="net-row" style="gap:12px;">
+      <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">DynamoDB<br><small>Resolver</small></div>
+      <div class="net-node" style="background:var(--purple-bg);border:1px solid var(--purple);color:var(--purple);">Lambda<br><small>Resolver</small></div>
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">Aurora / RDS<br><small>Resolver</small></div>
+      <div class="net-node" style="background:var(--cyan-bg);border:1px solid var(--cyan);color:var(--cyan);">HTTP<br><small>Resolver</small></div>
+    </div>
+  </div>
+
+  <h3>Resolver タイプ</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">Unit Resolver</h4>
+      <p>単一のデータソースに対する操作。DynamoDBのGetItem、PutItemなどを直接マッピング。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">Pipeline Resolver</h4>
+      <p>複数のデータソースを<strong>順次呼び出し</strong>。認可チェック後にデータ取得、などの多段処理に対応。</p>
+    </div>
+  </div>
+
+  <h3>リアルタイム: Subscription</h3>
+  <div class="box box-orange">
+    <div class="box-title">Subscription の仕組み</div>
+    クライアントがSubscriptionを登録 → Mutation発生時に<strong>WebSocket経由で自動プッシュ</strong>。<br>
+    API Gateway WebSocketとの違い: AppSyncはGraphQLスキーマベースで<strong>宣言的に定義</strong>。接続管理の自前実装が不要。
+  </div>
+
+  <h3>認証方式</h3>
+  <div class="tags">
+    <span class="tag t-blue">API Key</span>
+    <span class="tag t-green">Cognito User Pools</span>
+    <span class="tag t-orange">IAM</span>
+    <span class="tag t-purple">OIDC</span>
+    <span class="tag t-cyan">Lambda Authorizer</span>
+  </div>
+  <div class="box box-blue">
+    <div class="box-title">複数認証モードの同時利用</div>
+    AppSyncでは<strong>プライマリ認証 + 追加認証</strong>を設定可能。<br>
+    例: Cognito (ユーザー向け) + API Key (パブリック読み取り) を同じAPIで共存。<br>
+    スキーマの各フィールドに <code>@aws_cognito_user_pools</code> 等のディレクティブで制御。
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: API Gateway Advanced ===== -->
+<div class="slide" data-slide="6">
+  <h2>API Gateway の応用パターン</h2>
+  <p>Lambda統合だけでなく、サービス直接統合やカスタムドメインなど試験で問われる応用を押さえる。</p>
+
+  <h3>統合タイプ</h3>
+  <div class="card-grid">
+    <div class="card" style="border-left-color:var(--purple);">
+      <h4 style="color:var(--purple);">Lambda プロキシ統合</h4>
+      <p>最も一般的。リクエスト全体をLambdaに渡す。レスポンス形式はLambda側で制御。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--green);">
+      <h4 style="color:var(--green);">AWSサービス直接統合</h4>
+      <p>Lambdaなしで<strong>DynamoDB / SQS / SNS / Step Functions / Kinesis</strong>を直接呼び出し。<br>コスト削減+低レイテンシ。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--blue);">
+      <h4 style="color:var(--blue);">HTTP統合</h4>
+      <p>バックエンドのHTTPエンドポイント(ALB等)にプロキシ。VPC Link経由でプライベートリソースへ。</p>
+    </div>
+    <div class="card" style="border-left-color:var(--orange);">
+      <h4 style="color:var(--orange);">Mock統合</h4>
+      <p>バックエンド不要で固定レスポンス。開発・テスト用。CORS対応のOPTIONSにも利用。</p>
+    </div>
+  </div>
+
+  <h3>運用・管理機能</h3>
+  <table class="cmp">
+    <tr><th>機能</th><th>説明</th><th>REST API</th><th>HTTP API</th></tr>
+    <tr><td>カスタムドメイン</td><td>独自ドメインでAPI公開。Route 53 + ACM証明書</td><td class="win">対応</td><td class="win">対応</td></tr>
+    <tr><td>使用量プラン</td><td>APIキーごとにリクエスト上限設定。外部公開APIの課金管理</td><td class="win em">対応</td><td class="lose">非対応</td></tr>
+    <tr><td>スロットリング</td><td>レート制限(rps)とバースト制限。ステージ/メソッド単位</td><td class="win em">きめ細かい</td><td class="mid">アカウントレベル</td></tr>
+    <tr><td>ステージ変数</td><td>環境ごとにバックエンドの切替 (dev/prod)</td><td class="win">対応</td><td class="win">$default ステージ</td></tr>
+    <tr><td>Canaryリリース</td><td>トラフィックの一部を新バージョンへ</td><td class="win em">対応</td><td class="lose">非対応</td></tr>
+    <tr><td>VPC Link</td><td>プライベートサブネットのリソースへ接続</td><td class="win">NLB経由</td><td class="win">ALB/NLB/Cloud Map</td></tr>
+  </table>
+
+  <div class="box box-orange">
+    <div class="box-title">サービス直接統合の例: DynamoDB</div>
+    API Gateway → (VTLマッピング) → DynamoDB GetItem<br>
+    Lambda関数が不要 → <strong>コスト削減</strong> + <strong>レイテンシ削減</strong><br>
+    ただし複雑なロジックには向かない。単純なCRUDに最適。
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Requirement Patterns ===== -->
+<div class="slide" data-slide="7">
+  <h2>要件別の最適構成パターン</h2>
+  <p>実際の試験問題で頻出する要件パターンと最適解の対応表。</p>
+
+  <h3>モバイルアプリ</h3>
+  <div class="net-diagram">
+    <div class="net-row" style="gap:12px;">
+      <div class="net-node" style="background:var(--bg3);border:1px solid var(--text3);color:var(--text);">iOS / Android</div>
+    </div>
+    <div class="net-line"></div>
+    <div class="net-hub" style="background:var(--orange-bg);border-color:var(--orange);color:var(--orange);">AppSync + Amplify</div>
+    <div style="display:flex;gap:4px;justify-content:center;margin:8px 0;">
+      <div class="net-line"></div>
+      <div class="net-line" style="margin:0 40px;"></div>
+    </div>
+    <div class="net-row" style="gap:16px;">
+      <div class="net-node" style="background:var(--green-bg);border:1px solid var(--green);color:var(--green);">Cognito<br><small>認証</small></div>
+      <div class="net-node" style="background:var(--blue-bg);border:1px solid var(--blue);color:var(--blue);">DynamoDB<br><small>データ</small></div>
+    </div>
+    <div style="text-align:center;margin-top:8px;font-size:12px;color:var(--cyan);font-weight:700;">オフライン対応 + リアルタイム同期</div>
+  </div>
+
+  <h3>要件 → 最適解マッピング</h3>
+  <table class="cmp">
+    <tr><th>要件キーワード</th><th>最適解</th><th>理由</th></tr>
+    <tr><td>モバイル + オフライン + リアルタイム同期</td><td class="win em">AppSync + Amplify</td><td>DataStore でオフライン対応、Subscription で同期</td></tr>
+    <tr><td>複数テーブルを1回のAPIコールで取得</td><td class="win em">AppSync (GraphQL)</td><td>N+1問題回避、クライアント指定クエリ</td></tr>
+    <tr><td>外部パートナーへのAPI公開 + 利用量制御</td><td class="win em">API GW REST API</td><td>使用量プラン + APIキーで課金管理</td></tr>
+    <tr><td>マイクロサービス間の軽量API</td><td class="win em">API GW HTTP API</td><td>低コスト + 低レイテンシ + シンプル</td></tr>
+    <tr><td>チャット・通知のリアルタイム配信</td><td class="mid">AppSync or WebSocket API</td><td>GraphQL → AppSync / 自由形式 → WebSocket</td></tr>
+    <tr><td>Lambda不要でDynamoDB直接CRUD</td><td class="win em">API GW REST API</td><td>サービス直接統合 (VTLマッピング)</td></tr>
+    <tr><td>VPC内のプライベートAPI</td><td class="win em">API GW REST API</td><td>プライベートAPI + VPC Endpoint</td></tr>
+    <tr><td>WAFによるAPI保護</td><td class="win">API GW REST API / AppSync</td><td>両方WAF対応。HTTP APIは非対応</td></tr>
+  </table>
+
+  <div class="box box-purple">
+    <div class="box-title">組み合わせパターン</div>
+    大規模システムでは<strong>API Gateway + AppSync の共存</strong>もあり得る。<br>
+    例: 外部向けREST API → API Gateway / 内部モバイルアプリ → AppSync<br>
+    試験では「どちらか一方」を問うことが多いが、要件を正確に読み取ることが重要。
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Traps & Quiz ===== -->
+<div class="slide" data-slide="8">
+  <h2>ひっかけパターン & 練習問題</h2>
+
+  <h3>よくあるひっかけ 5選</h3>
+
+  <div class="box box-red">
+    <div class="box-title">1. 「HTTP APIがREST APIより高機能」</div>
+    名前に騙されない。HTTP APIはREST APIの<strong>軽量・低コスト版</strong>。WAF・キャッシュ・使用量プランは<strong>REST APIのみ</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">2. 「API GatewayでGraphQLを提供」</div>
+    API GatewayはREST/HTTPのみ。GraphQLが要件 → <strong>AppSync</strong>。API GatewayのPOSTエンドポイントでGraphQLをプロキシはアンチパターン。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">3. 「AppSyncで外部API公開+課金管理」</div>
+    AppSyncには使用量プランがない。外部API公開+利用量制御 → <strong>API Gateway REST API</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">4. 「WebSocket APIでオフライン対応」</div>
+    WebSocket APIは常時接続が前提。オフライン対応 → <strong>AppSync + Amplify DataStore</strong>。
+  </div>
+  <div class="box box-red">
+    <div class="box-title">5. 「HTTP APIでプライベートAPI」</div>
+    プライベートAPI (VPC Endpoint経由) は<strong>REST APIのみ</strong>。HTTP APIは非対応。
+  </div>
+
+  <h3 style="margin-top:24px;">練習問題 1</h3>
+  <div class="quiz" id="q1">
+    <div class="quiz-q">モバイルアプリ開発チームが、複数のDynamoDBテーブルとRDS Aurora から1回のAPIコールでデータを取得したい。オフライン時もアプリ操作を可能にし、オンライン復帰時に自動同期する。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>API Gateway REST API + Lambda で複数データソースを集約するエンドポイントを構築</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>AppSync + Pipeline Resolver でDynamoDBとAurora に接続。Amplify DataStore でオフライン対応</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>API Gateway WebSocket API でリアルタイム同期 + DynamoDB Streams でデータ連携</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>API Gateway HTTP API + Lambda でGraphQLエンドポイントを実装しAmplify と連携</span></button>
+    </div>
+    <div class="quiz-answer" id="q1a">
+      <strong>正解: B</strong><br>
+      A: 複数データソース統合は可能だが、オフライン対応がない。クエリの柔軟性もREST固定。<br>
+      B: AppSyncのPipeline ResolverでDynamoDB+Auroraを宣言的に統合。Amplify DataStoreでオフライン+自動同期。全要件を満たす。<br>
+      C: WebSocket APIはリアルタイム通信用。オフライン対応や複数データソース統合には不向き。<br>
+      D: API GatewayでGraphQLをプロキシするのはアンチパターン。AppSyncのネイティブ機能を使うべき。
+    </div>
+  </div>
+
+  <h3>練習問題 2</h3>
+  <div class="quiz" id="q2">
+    <div class="quiz-q">SaaS企業が外部パートナーにREST APIを公開する。要件: (1) パートナーごとにリクエスト上限を設定 (2) WAFでAPIを保護 (3) レスポンスキャッシュでバックエンド負荷を軽減 (4) 最小コスト。最適な構成は？</div>
+    <div class="quiz-choices">
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">A</span><span>API Gateway HTTP API + CloudFront (キャッシュ) + WAF をCloudFrontに適用</span></button>
+      <button class="quiz-choice" data-a="c" onclick="chk(this)"><span class="ql">B</span><span>API Gateway REST API + 使用量プラン (APIキー) + API Gateway キャッシュ + WAF統合</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">C</span><span>AppSync + API Key 認証 + キャッシュ有効化 + WAF統合</span></button>
+      <button class="quiz-choice" data-a="w" onclick="chk(this)"><span class="ql">D</span><span>ALB + Lambda + ElastiCache + WAF</span></button>
+    </div>
+    <div class="quiz-answer" id="q2a">
+      <strong>正解: B</strong><br>
+      A: HTTP APIには使用量プランがなく、パートナーごとのリクエスト上限設定ができない。WAFもHTTP APIに直接適用不可。<br>
+      B: REST APIなら使用量プラン(パートナーごとのAPIキー+上限)、WAF統合、レスポンスキャッシュの全てをネイティブで対応。<br>
+      C: AppSyncはGraphQL用。RESTful API公開と使用量プラン(パートナー課金管理)には不向き。<br>
+      D: ALBベースだと使用量プラン相当の機能を自前実装する必要があり、運用負荷が高い。
+    </div>
+  </div>
+</div>
+
+  </div><!-- /viewport -->
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  'use strict';
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const ind = document.getElementById('ind');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  const prog = document.getElementById('progFill');
+  const vp = document.getElementById('vp');
+
+  function go(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    ind.textContent = (cur+1) + ' / ' + total;
+    prev.disabled = cur === 0;
+    next.disabled = cur === total - 1;
+    prog.style.width = ((cur+1)/total*100) + '%';
+    vp.scrollTo(0,0);
+  }
+  prev.onclick = () => go(cur-1);
+  next.onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur+1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur-1);
+  });
+  let sx=0, sy=0;
+  vp.addEventListener('touchstart', e => { sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) { dx>0 ? go(cur-1) : go(cur+1); }
+  }, {passive:true});
+  go(0);
+
+  window.chk = function(el) {
+    const quiz = el.closest('.quiz');
+    if (quiz.dataset.done) return;
+    quiz.dataset.done = '1';
+    const choices = quiz.querySelectorAll('.quiz-choice');
+    choices.forEach(c => {
+      if (c.dataset.a === 'c') c.classList.add('correct');
+      else if (c === el && c.dataset.a !== 'c') c.classList.add('wrong');
+      else c.classList.add('dimmed');
+      c.style.pointerEvents = 'none';
+    });
+    quiz.querySelector('.quiz-answer').classList.add('show');
+  };
+})();
+</script>
+</body>
+</html>
