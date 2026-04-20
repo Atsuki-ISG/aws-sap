@@ -351,11 +351,15 @@ function renderDiagrams() {
       const card = document.createElement('div');
       card.className = 'diagram-card';
       const drawioUrl = `${BASE_URL}diagrams/${item.file}`;
-      const viewerUrl = `https://viewer.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&url=${encodeURIComponent(drawioUrl)}`;
+      // #U ハッシュ形式（URL パラメータ方式より確実）
+      const viewerUrl = `https://viewer.diagrams.net/?lightbox=1&highlight=0000ff&nav=1&layers=1&title=${encodeURIComponent(item.file)}#U${encodeURIComponent(drawioUrl)}`;
       card.innerHTML = `
         <div class="diagram-title">
           <span>📐 ${item.title}</span>
-          <a class="open-link" href="${viewerUrl}" target="_blank">🔍 拡大表示</a>
+          <span>
+            <a class="open-link" href="${viewerUrl}" target="_blank">🔍 拡大</a>
+            <a class="open-link" href="${drawioUrl}" download>⬇️ DL</a>
+          </span>
         </div>
         <iframe class="diagram-frame" src="${viewerUrl}" loading="lazy"></iframe>
       `;
