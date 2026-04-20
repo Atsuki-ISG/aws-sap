@@ -293,8 +293,10 @@ body {
 // ファイルを追加したらここに登録するだけ
 const DIAGRAMS = {
   'multi-account': [
-    { file: 'multi-account.drawio', title: '全体構造（暫定版）' },
-    // 後で追加: multi-account-01-structure.drawio など
+    { file: 'multi-account-01-structure.drawio', title: '① 全体構造（OU階層 + アカウント役割）' },
+    { file: 'multi-account-02-scp.drawio', title: '② SCP の評価モデル（許可/拒否戦略 + 評価式）' },
+    { file: 'multi-account-03-cross-account.drawio', title: '③ クロスアカウント3パターン（AssumeRole / リソースポリシー / RAM）' },
+    { file: 'multi-account-04-control-tower.drawio', title: '④ Control Tower Landing Zone' },
   ],
   'network': [],
   'endpoint-dns': [],

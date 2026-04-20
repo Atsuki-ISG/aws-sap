@@ -1,0 +1,152 @@
+<mxfile host="app.diagrams.net" modified="2026-04-20T18:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="multi-account-ct" name="Control Tower Landing Zone">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="AWS Control Tower — Landing Zone / ガードレール / Account Factory" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ============ Landing Zone Build Flow ============ -->
+        <mxCell id="flow_box" value="① Landing Zone 構築フロー — Control Tower を起動するとランディングゾーンが自動構築される" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="1480" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: Management Account -->
+        <mxCell id="f_mgmt" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="110" y="130" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f_mgmt_l" value="1. 管理アカウント&#10;(新規 or 既存)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="195" width="120" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Step 2: Control Tower launch -->
+        <mxCell id="f_ct" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.control_tower;" vertex="1" parent="1">
+          <mxGeometry x="330" y="130" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f_ct_l" value="2. Control Tower 起動&#10;(数クリックで Landing Zone)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="285" y="195" width="150" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Step 3: OUs created -->
+        <mxCell id="f_ous" value="3. 標準 OU を自動作成&#10;• Security OU (必須)&#10;• Sandbox OU (推奨)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=middle;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="260" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Step 4: Audit/Log accounts auto-created -->
+        <mxCell id="f_audit_box" value="4. Security OU 内に2アカウントを自動払い出し" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#FF9900;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="810" y="120" width="420" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_log" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_storage_service;" vertex="1" parent="1">
+          <mxGeometry x="840" y="150" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="f_log_l" value="Log Archive" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="820" y="205" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_audit" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.guardduty;" vertex="1" parent="1">
+          <mxGeometry x="970" y="150" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="f_audit_l" value="Audit" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="950" y="205" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_audit_note" value="• Org Trail (CloudTrail)&#10;  → Log Archive に集約&#10;• GuardDuty/Config/SecurityHub&#10;  → Audit に委任管理" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="145" width="170" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Step 5: IDC -->
+        <mxCell id="f_idc" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="130" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f_idc_l" value="5. IAM Identity Center&#10;自動有効化 (SSO)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="195" width="150" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows for flow -->
+        <mxCell id="f_arr1" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="f_mgmt" target="f_ct">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f_arr2" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="f_ct" target="f_ous">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f_arr3" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="f_ous" target="f_audit_box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f_arr4" style="endArrow=classic;html=1;strokeColor=#FF9900;strokeWidth=2;" edge="1" parent="1" source="f_audit_box" target="f_idc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ============ Guardrails ============ -->
+        <mxCell id="gr_box" value="② ガードレール — 予防的 (Preventive) と 発見的 (Detective) の2種類" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF1FF;strokeColor=#3B48CC;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="310" width="900" height="270" as="geometry" />
+        </mxCell>
+
+        <!-- Preventive -->
+        <mxCell id="prev_box" value="予防的 (Preventive) = SCP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#DD344C;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#DD344C;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="90" y="355" width="400" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="prev_ic" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;" vertex="1" parent="1">
+          <mxGeometry x="110" y="385" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="prev_text" value="• SCP で危険な操作を事前にブロック&#10;• 例: CloudTrail ログの削除禁止&#10;• 例: 監査ロールの改変禁止&#10;• 例: 特定リージョン外での操作禁止&#10;&#10;→ 違反操作は そもそも実行できない" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="160" y="385" width="320" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- Detective -->
+        <mxCell id="det_box" value="発見的 (Detective) = AWS Config Rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#7AA116;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#7AA116;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="510" y="355" width="430" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="det_ic" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.config;" vertex="1" parent="1">
+          <mxGeometry x="530" y="385" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="det_text" value="• Config Rules で設定の準拠性を継続チェック&#10;• 例: S3 パブリックアクセス有効化を検出&#10;• 例: 暗号化されていない EBS ボリューム検出&#10;• 例: MFA なしのルートユーザ検出&#10;&#10;→ 違反は検出してダッシュボードに通知&#10;   (自動修復は別途構成が必要)" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="580" y="385" width="350" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- Guardrail levels -->
+        <mxCell id="lvl_title" value="ガードレールの3レベル" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="980" y="315" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lvl_must" value="必須 (Mandatory)&#10;Landing Zone で常に有効。無効化できない。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DD344C;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#FFFFFF;verticalAlign=top;spacingTop=5;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="345" width="560" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lvl_strong" value="強く推奨 (Strongly Recommended)&#10;AWS ベストプラクティス。個別に有効化/無効化可能。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9900;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#FFFFFF;verticalAlign=top;spacingTop=5;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="415" width="560" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lvl_elect" value="選択的 (Elective)&#10;特定のガバナンスシナリオに対応。必要時のみ有効化。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7AA116;strokeColor=#232F3E;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#FFFFFF;verticalAlign=top;spacingTop=5;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="485" width="560" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ============ Account Factory ============ -->
+        <mxCell id="af_box" value="③ Account Factory — Service Catalog ベースのアカウント自動払い出し" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F8E8;strokeColor=#7AA116;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="600" width="900" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="af_text" value="• Service Catalog の Product として「アカウント払い出し」を提供&#10;• アカウント名 / Email / OU 配置 / IDC グループ / VPC 設定 をパラメータ化&#10;• 依頼者が Service Catalog 経由で自己申請 → 自動で標準構成アカウント生成&#10;• ベースラインとして VPC / IAM / CloudTrail / Config が自動セットアップ&#10;&#10;CfCT (Customizations for Control Tower):&#10;  • 追加のカスタム SCP / CloudFormation StackSet / Config Rule を CI/CD で配信&#10;  • GitHub + CodePipeline で GitOps 的にガバナンスを管理" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="635" width="870" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ============ Existing Organizations Migration ============ -->
+        <mxCell id="mig_box" value="④ 既存 Organizations への適用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEF;strokeColor=#DD344C;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="980" y="600" width="560" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="mig_text" value="ランディングゾーン取り込み手順:&#10;  1. 既存管理アカウントで Control Tower を起動&#10;  2. 既存 OU / アカウントをそのまま Landing Zone に統合&#10;  3. 既存アカウントを「Enroll」して Account Factory 配下へ&#10;     → ベースライン (Config / CloudTrail / IAM ロール) が上書き適用&#10;&#10;⚠ 注意:&#10;  • 既存アカウントに競合する IAM ロール名があると失敗&#10;  • 管理アカウントは Landing Zone に enroll できない" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="635" width="530" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ============ Exam Pattern ============ -->
+        <mxCell id="exam_box" value="🎯 試験頻出: 「マルチアカウント + 標準化 + 自動払い出し」→ Control Tower" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEFD5;strokeColor=#FF9900;strokeWidth=3;fontSize=13;fontStyle=1;fontColor=#232F3E;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="780" width="1480" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="exam_text" value="• 「新規でマルチアカウント環境を構築したい + ベストプラクティス準拠」→ Control Tower (Organizations 単独では不十分)&#10;• 「アカウントを大量に自動払い出したい、かつ標準構成を強制」→ Account Factory + CfCT&#10;• 「ログの中央集約 + セキュリティサービスの委任管理」→ Landing Zone の標準構成で達成済み&#10;• 「既存 Organizations を活かしたい」→ Landing Zone に enroll (全部作り直しではない)&#10;• Organizations だけ vs Control Tower → Control Tower は「Organizations + ガードレール + Account Factory + IDC + 標準アカウント」をバンドル" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="80" y="810" width="1460" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
