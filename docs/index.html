@@ -138,11 +138,20 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .bookmark-btn.active { color: var(--yellow); }
 
 .q-body { padding: 16px; padding-bottom: calc(32px + var(--safe-bottom)); }
+.q-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+.q-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; background: var(--blue-bg);
+  color: var(--blue); border: 1px solid var(--blue);
+}
+.q-source-udemy { background: #a435f020; color: #a435f0; border-color: #a435f0; }
+.q-source-cloudtech { background: #e8730020; color: #e87300; border-color: #e87300; }
 .q-text {
   background: var(--bg2); border-radius: var(--radius);
   padding: 16px; margin-bottom: 16px;
   font-size: 14px; line-height: 1.75;
   border: 1px solid var(--border);
+  white-space: pre-line;
 }
 
 .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
@@ -270,6 +279,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <button class="filter-tab" data-filter="wrong">不正解</button>
       <button class="filter-tab" data-filter="bookmarked">ブックマーク</button>
     </div>
+    <div class="filter-tabs" id="tagTabs">
+      <button class="filter-tab active" data-tag="all">全テーマ</button>
+      <button class="filter-tab" data-tag="network">NW設計</button>
+      <button class="filter-tab" data-tag="multi-account">マルチAC</button>
+      <button class="filter-tab" data-tag="endpoint-dns">EP・DNS</button>
+      <button class="filter-tab" data-tag="multi-region-dr">DR設計</button>
+      <button class="filter-tab" data-tag="api-design">API設計</button>
+      <button class="filter-tab" data-tag="serverless">サーバーレス</button>
+      <button class="filter-tab" data-tag="container">コンテナ</button>
+    </div>
     <div class="range-tabs" id="rangeTabs"></div>
     <div class="grid" id="grid"></div>
     <button class="clear-all-btn" id="btnClearAll">全解答をクリア</button>
@@ -286,6 +305,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     <button class="bookmark-btn" id="btnBookmark" aria-label="ブックマーク">☆</button>
   </div>
   <div class="q-body">
+    <div class="q-tags" id="qTags"></div>
     <div class="q-text" id="qText"></div>
     <div class="multi-hint" id="multiHint" style="display:none"></div>
     <div class="choices" id="choices"></div>
@@ -311,6 +331,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   let state = { answers: {}, bookmarks: {} };
   let currentQ = null;
   let currentFilter = 'all';
+  let currentTag = 'all';
   let currentRange = 0;
   const RANGE_SIZE = 50;
   let filteredIds = [];
@@ -341,13 +362,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     document.getElementById('homeScreen').classList.remove('hidden');
     document.getElementById('questionScreen').classList.add('hidden');
 
-    // Stats
-    const total = questions.length;
+    // Stats (filtered by tag)
+    const tagFiltered = currentTag === 'all' ? questions : questions.filter(q => q.tags && q.tags.includes(currentTag));
+    const total = tagFiltered.length;
     let correct = 0, wrong = 0;
-    for (const id in state.answers) {
-      if (state.answers[id].correct) correct++;
-      else wrong++;
-    }
+    tagFiltered.forEach(q => {
+      const a = state.answers[q.id];
+      if (a) { if (a.correct) correct++; else wrong++; }
+    });
     document.getElementById('statTotal').textContent = total;
     document.getElementById('statCorrect').textContent = correct;
     document.getElementById('statWrong').textContent = wrong;
@@ -362,13 +384,32 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     filteredIds = questions.filter(q => {
       const a = state.answers[q.id];
       const b = state.bookmarks[q.id];
+      let passFilter = true;
       switch(currentFilter) {
-        case 'unanswered': return !a;
-        case 'wrong': return a && !a.correct;
-        case 'bookmarked': return b;
-        default: return true;
+        case 'unanswered': passFilter = !a; break;
+        case 'wrong': passFilter = a && !a.correct; break;
+        case 'bookmarked': passFilter = b; break;
       }
+      let passTag = true;
+      if (currentTag !== 'all') {
+        passTag = q.tags && q.tags.includes(currentTag);
+      }
+      return passFilter && passTag;
     }).map(q => q.id);
+
+    // Update stats for current tag
+    const tagFiltered = currentTag === 'all' ? questions : questions.filter(q => q.tags && q.tags.includes(currentTag));
+    const total = tagFiltered.length;
+    let correct = 0, wrong = 0;
+    tagFiltered.forEach(q => {
+      const a = state.answers[q.id];
+      if (a) { if (a.correct) correct++; else wrong++; }
+    });
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statCorrect').textContent = correct;
+    document.getElementById('statWrong').textContent = wrong;
+    const answered = correct + wrong;
+    document.getElementById('statRate').textContent = answered ? Math.round(correct/answered*100)+'%' : '-%';
 
     renderRangeTabs();
     renderGrid();
@@ -437,6 +478,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     };
   });
 
+  // Tag tabs
+  document.querySelectorAll('#tagTabs .filter-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('#tagTabs .filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentTag = tab.dataset.tag;
+      currentRange = 0;
+      applyFilter();
+    };
+  });
+
   // ===== Question Screen =====
   function showQuestion(id) {
     const q = questions.find(x => x.id === id);
@@ -449,6 +501,19 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
     document.getElementById('qTitle').textContent = q.id;
     document.getElementById('qText').textContent = q.question;
+
+    // Tags
+    const tagLabels = {'network':'NW設計','multi-account':'マルチAC','endpoint-dns':'EP・DNS','multi-region-dr':'DR設計','api-design':'API設計','serverless':'サーバーレス','container':'コンテナ'};
+    const tagsEl = document.getElementById('qTags');
+    tagsEl.innerHTML = '';
+    // Source badge
+    if (q.source) {
+      const src = document.createElement('span');
+      src.className = 'q-tag q-source-' + q.source;
+      src.textContent = q.source === 'udemy' ? '📘 Udemy' : '☁️ CloudTech';
+      tagsEl.appendChild(src);
+    }
+    if (q.tags) { q.tags.forEach(t => { const s = document.createElement('span'); s.className = 'q-tag'; s.textContent = tagLabels[t] || t; tagsEl.appendChild(s); }); }
 
     // Bookmark
     updateBookmarkBtn();
